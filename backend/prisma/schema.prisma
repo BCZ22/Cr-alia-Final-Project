@@ -1,0 +1,1272 @@
+// =============================================================================
+// SCHEMA PRISMA MVP - SAAS DE CRÉATION ET ANALYSE DE CONTENU
+// =============================================================================
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// =============================================================================
+// MODÈLES CORE
+// =============================================================================
+
+model User {
+  id                String   @id @default(cuid())
+  name              String?
+  email             String?   @unique
+  emailVerified     DateTime?
+  image             String?
+  credits           Int      @default(10)
+  
+  passwordHash      String? // Kept for credentials provider
+  firstName         String?
+  lastName          String?
+  avatar            String?
+  isActive          Boolean  @default(true)
+  isVerified        Boolean  @default(false)
+  role              UserRole @default(USER)
+  apiKey            String?  @unique
+  apiKeyExpiresAt   DateTime?
+  lastLoginAt       DateTime?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  // Relations existantes
+  projects          Project[]
+  assets            Asset[]
+  jobs              Job[]
+  socialAccounts    SocialAccount[]
+  analytics         AnalyticsMetric[]
+  subscriptions     Subscription[]
+  usage             Usage[]
+  assetEdits        AssetEdit[]
+  assetExports      AssetExport[]
+  socialPosts       SocialPost[]
+  videoExports      VideoExport[]
+
+  // Nouvelles relations
+  faceProcessingJobs FaceProcessingJob[]
+  aiArtGenerations   AIArtGeneration[]
+  videoProjects      VideoProject[]
+  projectCollaborations ProjectCollaborator[]
+  projectComments     ProjectComment[]
+  projectActivities   ProjectActivity[]
+  templates           Template[]
+  presets             Preset[]
+  analyticsReports    AnalyticsReport[]
+  notifications       Notification[]
+  scheduledTasks      ScheduledTask[]
+  projectInvites      ProjectCollaborator[] @relation("ProjectInviter")
+  history             History[]
+  accounts            Account[]
+  sessions            Session[]
+
+  @@index([email])
+  @@index([apiKey])
+  @@index([createdAt])
+  @@map("users")
+}
+
+model History {
+  id          String   @id @default(cuid())
+  userId      String
+  prompt      String?
+  imageUrl    String?
+  createdAt   DateTime @default(now())
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("history")
+}
+
+// =============================================================================
+// MODÈLES NEXT-AUTH
+// =============================================================================
+
+model Account {
+  id                 String  @id @default(cuid())
+  userId             String
+  type               String
+  provider           String
+  providerAccountId  String
+  refresh_token      String? @db.Text
+  access_token       String? @db.Text
+  expires_at         Int?
+  token_type         String?
+  scope              String?
+  id_token           String? @db.Text
+  session_state      String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@index([userId])
+  @@map("accounts")
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("sessions")
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@map("verification_tokens")
+}
+
+enum UserRole {
+  USER
+  PRO
+  ENTERPRISE
+  ADMIN
+}
+
+model Project {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  type        ProjectType @default(CREATIVE)
+  isActive    Boolean  @default(true)
+  metadata    Json?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations existantes
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  assets      Asset[]
+  jobs        Job[]
+
+  // Nouvelles relations
+  aiArtGenerations AIArtGeneration[]
+  collaborators    ProjectCollaborator[]
+  comments         ProjectComment[]
+  activities       ProjectActivity[]
+
+  @@index([userId])
+  @@index([type])
+  @@index([createdAt])
+  @@map("projects")
+}
+
+enum ProjectType {
+  CREATIVE
+  SOCIAL_MEDIA
+  VIDEO_EDITING
+  PHOTO_EDITING
+  AI_ART
+  ANALYTICS
+}
+
+// =============================================================================
+// MODÈLES MÉDIA ET ASSETS
+// =============================================================================
+
+model Asset {
+  id              String   @id @default(cuid())
+  name            String
+  originalName    String
+  type            AssetType
+  mimeType        String
+  filePath        String
+  fileSize        BigInt
+  width           Int?
+  height          Int?
+  duration        Float?
+  fps             Float?
+  format          String
+  status          AssetStatus @default(UPLOADING)
+  metadata        Json?
+  tags            String[]
+  isPublic        Boolean  @default(false)
+  storageBucket   String   @default("assets")
+  storageKey      String
+  etag            String?
+  checksum        String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  // Relations existantes
+  userId          String
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  projectId       String?
+  project         Project? @relation(fields: [projectId], references: [id])
+  thumbnails      Thumbnail[]
+  edits           AssetEdit[]
+  exports         AssetExport[]
+  jobs            Job[]
+
+  // Nouvelles relations
+  faceProcessingJobs FaceProcessingJob[]
+  videoClips         VideoClip[]
+
+  @@index([userId])
+  @@index([projectId])
+  @@index([type])
+  @@index([status])
+  @@index([createdAt])
+  @@map("assets")
+}
+
+enum AssetType {
+  IMAGE
+  VIDEO
+  AUDIO
+  DOCUMENT
+  OTHER
+}
+
+enum AssetStatus {
+  UPLOADING
+  PROCESSING
+  READY
+  FAILED
+  ARCHIVED
+}
+
+model Thumbnail {
+  id              String   @id @default(cuid())
+  width           Int
+  height          Int
+  format          String
+  filePath        String
+  fileSize        BigInt
+  quality         Int?
+  createdAt       DateTime @default(now())
+
+  // Relations
+  assetId         String
+  asset           Asset    @relation(fields: [assetId], references: [id], onDelete: Cascade)
+
+  @@index([assetId])
+  @@map("thumbnails")
+}
+
+model AssetEdit {
+  id              String   @id @default(cuid())
+  type            EditType
+  parameters      Json     // Paramètres de l'édition
+  intensity       Float    @default(1.0)
+  isReversible    Boolean  @default(true)
+  metadata        Json?
+  createdAt       DateTime @default(now())
+
+  // Relations
+  assetId         String
+  asset           Asset    @relation(fields: [assetId], references: [id], onDelete: Cascade)
+  userId          String
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([assetId])
+  @@index([userId])
+  @@index([type])
+  @@map("asset_edits")
+}
+
+enum EditType {
+  // Photo editing
+  CROP
+  RESIZE
+  ROTATE
+  FLIP
+  BRIGHTNESS
+  CONTRAST
+  SATURATION
+  HUE
+  VIBRANCE
+  CLARITY
+  SHARPNESS
+  NOISE_REDUCTION
+  EXPOSURE
+  HIGHLIGHTS
+  SHADOWS
+  COLOR_BALANCE
+  COLOR_GRADING
+  FILTER
+  LUT
+  BACKGROUND_REMOVAL
+  FACE_DETECTION
+  FACE_BEAUTIFY
+  FACE_SWAP
+  OBJECT_REMOVAL
+  HEALING_BRUSH
+  CLONE_STAMP
+  GRADIENT
+  RADIAL_FILTER
+  BRUSH
+  SELECTIVE_EDIT
+  PERSPECTIVE_CORRECTION
+  LENS_CORRECTION
+  HORIZON_STRAIGHTEN
+  UPSCALE
+  DENOISE
+  STYLE_TRANSFER
+  ARTISTIC_FILTER
+  TEXTURE
+  DEHAZE
+  VIGNETTE
+  GRAIN
+  BLUR
+  SHARPEN
+  
+  // Video editing
+  TRIM
+  SPLIT
+  JOIN
+  SPEED_CHANGE
+  STABILIZATION
+  COLOR_CORRECTION
+  AUDIO_ADJUSTMENT
+  SUBTITLE_ADD
+  TRANSITION
+  EFFECT
+  MOTION_TRACKING
+  
+  // AI operations
+  AI_GENERATE
+  AI_UPSCALE
+  AI_ENHANCE
+  AI_STYLE_TRANSFER
+  AI_BACKGROUND_REMOVE
+  AI_OBJECT_REMOVE
+  AI_FACE_ENHANCE
+  AI_TEXT_TO_IMAGE
+  AI_IMAGE_TO_IMAGE
+}
+
+model AssetExport {
+  id              String   @id @default(cuid())
+  name            String
+  format          String
+  quality         String
+  width           Int?
+  height          Int?
+  filePath        String?
+  fileSize        BigInt?
+  status          ExportStatus @default(PENDING)
+  progress        Int      @default(0)
+  error           String?
+  metadata        Json?
+  startedAt       DateTime?
+  completedAt     DateTime?
+  createdAt       DateTime @default(now())
+
+  // Relations
+  assetId         String
+  asset           Asset    @relation(fields: [assetId], references: [id], onDelete: Cascade)
+  userId          String
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([assetId])
+  @@index([userId])
+  @@index([status])
+  @@index([createdAt])
+  @@map("asset_exports")
+}
+
+enum ExportStatus {
+  PENDING
+  PROCESSING
+  COMPLETED
+  FAILED
+  CANCELLED
+}
+
+// =============================================================================
+// MODÈLES JOBS ET TRAITEMENT
+// =============================================================================
+
+model Job {
+  id              String   @id @default(cuid())
+  type            JobType
+  status          JobStatus @default(PENDING)
+  priority        JobPriority @default(NORMAL)
+  progress        Int      @default(0)
+  message         String?
+  stage           String?
+  input           Json
+  output          Json?
+  error           String?
+  retryCount      Int      @default(0)
+  maxRetries      Int      @default(3)
+  startedAt       DateTime?
+  completedAt     DateTime?
+  duration        Int?
+  metadata        Json?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  // Relations
+  userId          String
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  projectId       String?
+  project         Project? @relation(fields: [projectId], references: [id])
+  assetId         String?
+  asset           Asset?   @relation(fields: [assetId], references: [id])
+
+  @@index([userId])
+  @@index([projectId])
+  @@index([assetId])
+  @@index([status])
+  @@index([type])
+  @@index([createdAt])
+  @@map("jobs")
+}
+
+enum JobType {
+  ASSET_PROCESSING
+  THUMBNAIL_GENERATION
+  EDIT_APPLICATION
+  EXPORT_GENERATION
+  AI_INFERENCE
+  BACKGROUND_REMOVAL
+  FACE_DETECTION
+  STYLE_TRANSFER
+  UPSCALE
+  VIDEO_TRANSCODE
+  AUDIO_PROCESSING
+  METADATA_EXTRACTION
+  BATCH_PROCESSING
+}
+
+enum JobStatus {
+  PENDING
+  QUEUED
+  PROCESSING
+  COMPLETED
+  FAILED
+  CANCELLED
+  STALLED
+  DELAYED
+}
+
+enum JobPriority {
+  LOW
+  NORMAL
+  HIGH
+  URGENT
+}
+
+// =============================================================================
+// MODÈLES INTÉGRATION SOCIALE
+// =============================================================================
+
+model SocialAccount {
+  id              String   @id @default(cuid())
+  platform        SocialPlatform
+  accountType     SocialAccountType
+  username        String
+  displayName     String
+  profilePicture  String?
+  status          SocialAccountStatus @default(CONNECTED)
+  permissions     String   // JSON string des permissions
+  metadata        String?  // JSON string des métadonnées
+  accessToken     String   // Token chiffré
+  refreshToken    String?  // Refresh token chiffré
+  connectedAt     DateTime @default(now())
+  lastSyncAt      DateTime?
+  isActive        Boolean  @default(true)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  // Relations
+  userId          String
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  posts           SocialPost[]
+
+  @@index([userId])
+  @@index([platform])
+  @@index([status])
+  @@index([isActive])
+  @@index([connectedAt])
+  @@map("social_accounts")
+}
+
+enum SocialPlatform {
+  INSTAGRAM
+  YOUTUBE
+  TIKTOK
+  FACEBOOK
+  TWITTER
+  LINKEDIN
+  PINTEREST
+  SNAPCHAT
+}
+
+enum SocialAccountType {
+  PERSONAL
+  BUSINESS
+  CREATOR
+  AGENCY
+}
+
+enum SocialAccountStatus {
+  CONNECTED
+  EXPIRED
+  REVOKED
+  PENDING
+  ERROR
+}
+
+model SocialPost {
+  id              String   @id @default(cuid())
+  platform        SocialPlatform
+  platformPostId  String?
+  content         String
+  mediaUrls       String[] // URLs des médias
+  hashtags        String[]
+  mentions        String[]
+  location        String?
+  status          SocialPostStatus @default(DRAFT)
+  scheduledAt     DateTime?
+  publishedAt     DateTime?
+  metadata        Json?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  // Relations
+  userId          String
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  socialAccountId String
+  socialAccount   SocialAccount @relation(fields: [socialAccountId], references: [id], onDelete: Cascade)
+  analytics       SocialPostAnalytics[]
+
+  @@index([userId])
+  @@index([socialAccountId])
+  @@index([platform])
+  @@index([status])
+  @@index([scheduledAt])
+  @@index([publishedAt])
+  @@map("social_posts")
+}
+
+enum SocialPostStatus {
+  DRAFT
+  SCHEDULED
+  PUBLISHED
+  FAILED
+  DELETED
+}
+
+model SocialPostAnalytics {
+  id              String   @id @default(cuid())
+  date            DateTime
+  impressions     Int      @default(0)
+  reach           Int      @default(0)
+  engagement      Int      @default(0)
+  likes           Int      @default(0)
+  comments        Int      @default(0)
+  shares          Int      @default(0)
+  saves           Int      @default(0)
+  clicks          Int      @default(0)
+  views           Int      @default(0)
+  watchTime       Float    @default(0)
+  retention       Float    @default(0)
+  ctr             Float    @default(0)
+  createdAt       DateTime @default(now())
+
+  // Relations
+  socialPostId    String
+  socialPost      SocialPost @relation(fields: [socialPostId], references: [id], onDelete: Cascade)
+
+  @@index([socialPostId])
+  @@index([date])
+  @@map("social_post_analytics")
+}
+
+// =============================================================================
+// MODÈLES ANALYTICS
+// =============================================================================
+
+model AnalyticsMetric {
+  id              String   @id @default(cuid())
+  name            String
+  type            AnalyticsMetricType
+  value           Float
+  unit            String?
+  platform        SocialPlatform?
+  date            DateTime
+  metadata        Json?
+  createdAt       DateTime @default(now())
+
+  // Relations
+  userId          String
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([type])
+  @@index([platform])
+  @@index([date])
+  @@map("analytics_metrics")
+}
+
+enum AnalyticsMetricType {
+  IMPRESSIONS
+  REACH
+  ENGAGEMENT
+  LIKES
+  COMMENTS
+  SHARES
+  SAVES
+  CLICKS
+  VIEWS
+  WATCH_TIME
+  RETENTION
+  CTR
+  CONVERSION
+  REVENUE
+  FOLLOWERS
+  FOLLOWING
+  POSTS
+  STORIES
+  REELS
+  LIVE_VIEWS
+}
+
+// =============================================================================
+// MODÈLES ABONNEMENTS ET UTILISATION
+// =============================================================================
+
+model Subscription {
+  id              String   @id @default(cuid())
+  plan            String
+  status          SubscriptionStatus @default(ACTIVE)
+  startDate       DateTime
+  endDate         DateTime?
+  maxAssets       Int?
+  maxStorage      BigInt?
+  maxProcessing   Int?
+  features        String[]
+  metadata        Json?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  // Relations
+  userId          String
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([status])
+  @@map("subscriptions")
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  CANCELLED
+  EXPIRED
+  SUSPENDED
+}
+
+model Usage {
+  id              String   @id @default(cuid())
+  date            DateTime
+  assetsProcessed Int      @default(0)
+  storageUsed     BigInt  @default(0)
+  processingTime  Int      @default(0)
+  aiRequests      Int      @default(0)
+  socialPosts     Int      @default(0)
+  metadata        Json?
+  createdAt       DateTime @default(now())
+
+  // Relations
+  userId          String
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([date])
+  @@map("usage")
+}
+
+// =============================================================================
+// MODÈLES AVANCÉS - FACE EDITING & AI ART
+// =============================================================================
+
+model FaceProcessingJob {
+  id              String   @id @default(cuid())
+  type            FaceProcessingType
+  status          JobStatus @default(PENDING)
+  progress        Int      @default(0)
+  parameters      Json     // Paramètres de traitement facial
+  result          Json?    // Résultats du traitement
+  error           String?
+  consentGiven    Boolean  @default(false)
+  watermarkAdded  Boolean  @default(false)
+  metadata        Json?
+  createdAt       DateTime @default(now())
+  completedAt     DateTime?
+
+  // Relations
+  assetId         String
+  asset           Asset    @relation(fields: [assetId], references: [id], onDelete: Cascade)
+  userId          String
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([assetId])
+  @@index([userId])
+  @@index([type])
+  @@index([status])
+  @@map("face_processing_jobs")
+}
+
+enum FaceProcessingType {
+  FACE_DETECTION
+  FACE_LANDMARKS
+  FACE_BEAUTIFY
+  FACE_SWAP
+  AGE_PROGRESSION
+  GENDER_SWAP
+  MAKEUP_APPLICATION
+  HAIR_COLOR_CHANGE
+  EXPRESSION_CHANGE
+  FACE_MORPHING
+  PORTRAIT_BOKEH
+  FACE_RELIGHTING
+}
+
+model AIArtGeneration {
+  id              String   @id @default(cuid())
+  type            AIArtType
+  prompt          String
+  negativePrompt  String?
+  model           String
+  parameters      Json     // Seed, steps, cfg_scale, etc.
+  status          JobStatus @default(PENDING)
+  progress        Int      @default(0)
+  result          Json?    // URLs des images générées
+  error           String?
+  metadata        Json?
+  createdAt       DateTime @default(now())
+  completedAt     DateTime?
+
+  // Relations
+  userId          String
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  projectId       String?
+  project         Project? @relation(fields: [projectId], references: [id])
+
+  @@index([userId])
+  @@index([projectId])
+  @@index([type])
+  @@index([status])
+  @@map("ai_art_generations")
+}
+
+enum AIArtType {
+  TEXT_TO_IMAGE
+  IMAGE_TO_IMAGE
+  INPAINTING
+  OUTPAINTING
+  STYLE_TRANSFER
+  UPSCALE
+  ENHANCE
+  AVATAR_GENERATION
+  BATCH_GENERATION
+}
+
+// =============================================================================
+// MODÈLES VIDÉO EDITING AVANCÉS
+// =============================================================================
+
+model VideoProject {
+  id              String   @id @default(cuid())
+  name            String
+  description     String?
+  duration        Float    @default(0)
+  fps             Int      @default(30)
+  resolution      String   @default("1920x1080")
+  aspectRatio     String   @default("16:9")
+  status          VideoProjectStatus @default(DRAFT)
+  timeline        Json?    // Structure de la timeline
+  metadata        Json?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  // Relations
+  userId          String
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tracks          VideoTrack[]
+  exports         VideoExport[]
+
+  @@index([userId])
+  @@index([status])
+  @@map("video_projects")
+}
+
+enum VideoProjectStatus {
+  DRAFT
+  EDITING
+  RENDERING
+  COMPLETED
+  ARCHIVED
+}
+
+model VideoTrack {
+  id              String   @id @default(cuid())
+  type            VideoTrackType
+  name            String
+  index           Int
+  muted           Boolean  @default(false)
+  locked          Boolean  @default(false)
+  volume          Float    @default(1.0)
+  opacity         Float    @default(1.0)
+  effects         Json?    // Effets appliqués à la piste
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  // Relations
+  videoProjectId  String
+  videoProject    VideoProject @relation(fields: [videoProjectId], references: [id], onDelete: Cascade)
+  clips           VideoClip[]
+
+  @@index([videoProjectId])
+  @@index([type])
+  @@map("video_tracks")
+}
+
+enum VideoTrackType {
+  VIDEO
+  AUDIO
+  TEXT
+  IMAGE
+  EFFECT
+}
+
+model VideoClip {
+  id              String   @id @default(cuid())
+  name            String
+  startTime       Float    @default(0)
+  endTime         Float
+  trimStart       Float    @default(0)
+  trimEnd         Float    @default(0)
+  speed           Float    @default(1.0)
+  volume          Float    @default(1.0)
+  opacity         Float    @default(1.0)
+  effects         Json?    // Effets appliqués au clip
+  transitions     Json?    // Transitions
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  // Relations
+  assetId         String?
+  asset           Asset?   @relation(fields: [assetId], references: [id])
+  trackId         String
+  track           VideoTrack @relation(fields: [trackId], references: [id], onDelete: Cascade)
+
+  @@index([assetId])
+  @@index([trackId])
+  @@map("video_clips")
+}
+
+model VideoExport {
+  id              String   @id @default(cuid())
+  name            String
+  format          String   @default("mp4")
+  codec           String   @default("h264")
+  resolution      String   @default("1920x1080")
+  bitrate         Int?
+  quality         String   @default("high")
+  status          ExportStatus @default(PENDING)
+  progress        Int      @default(0)
+  filePath        String?
+  fileSize        BigInt?
+  duration        Float?
+  error           String?
+  metadata        Json?
+  startedAt       DateTime?
+  completedAt     DateTime?
+  createdAt       DateTime @default(now())
+
+  // Relations
+  videoProjectId  String
+  videoProject    VideoProject @relation(fields: [videoProjectId], references: [id], onDelete: Cascade)
+  userId          String
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([videoProjectId])
+  @@index([userId])
+  @@index([status])
+  @@map("video_exports")
+}
+
+// =============================================================================
+// MODÈLES COLLABORATION & WORKSPACE
+// =============================================================================
+
+model ProjectCollaborator {
+  id              String   @id @default(cuid())
+  role            CollaboratorRole
+  permissions     String[] // Permissions spécifiques
+  invitedAt       DateTime @default(now())
+  joinedAt        DateTime?
+  lastActiveAt    DateTime?
+  isActive        Boolean  @default(true)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  // Relations
+  projectId       String
+  project         Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  userId          String
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  invitedBy       String
+  inviter         User     @relation("ProjectInviter", fields: [invitedBy], references: [id])
+
+  @@unique([projectId, userId])
+  @@index([projectId])
+  @@index([userId])
+  @@map("project_collaborators")
+}
+
+enum CollaboratorRole {
+  OWNER
+  ADMIN
+  EDITOR
+  ANALYST
+  VIEWER
+}
+
+model ProjectComment {
+  id              String   @id @default(cuid())
+  content         String
+  type            CommentType @default(GENERAL)
+  position        Json?    // Position dans le timeline/projet
+  isResolved      Boolean  @default(false)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  // Relations
+  projectId       String
+  project         Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  userId          String
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  parentCommentId String?
+  parentComment   ProjectComment? @relation("CommentReplies", fields: [parentCommentId], references: [id])
+  replies         ProjectComment[] @relation("CommentReplies")
+
+  @@index([projectId])
+  @@index([userId])
+  @@index([parentCommentId])
+  @@map("project_comments")
+}
+
+enum CommentType {
+  GENERAL
+  FEEDBACK
+  APPROVAL
+  REVISION_REQUEST
+  SUGGESTION
+  QUESTION
+}
+
+model ProjectActivity {
+  id              String   @id @default(cuid())
+  action          ActivityAction
+  description     String
+  metadata        Json?
+  createdAt       DateTime @default(now())
+
+  // Relations
+  projectId       String
+  project         Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  userId          String
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([projectId])
+  @@index([userId])
+  @@index([createdAt])
+  @@map("project_activities")
+}
+
+enum ActivityAction {
+  CREATED
+  UPDATED
+  DELETED
+  SHARED
+  COMMENTED
+  APPROVED
+  REJECTED
+  EXPORTED
+  PUBLISHED
+  ARCHIVED
+  RESTORED
+}
+
+// =============================================================================
+// MODÈLES TEMPLATES & PRESETS
+// =============================================================================
+
+model Template {
+  id              String   @id @default(cuid())
+  name            String
+  description     String?
+  type            TemplateType
+  category        String
+  tags            String[]
+  thumbnail       String?
+  preview         String?
+  data            Json     // Données du template
+  isPublic        Boolean  @default(false)
+  isPremium       Boolean  @default(false)
+  usageCount      Int      @default(0)
+  rating          Float    @default(0)
+  downloads       Int      @default(0)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  // Relations
+  userId          String
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([type])
+  @@index([category])
+  @@index([isPublic])
+  @@index([isPremium])
+  @@map("templates")
+}
+
+enum TemplateType {
+  PHOTO_EDIT
+  VIDEO_EDIT
+  SOCIAL_POST
+  CAROUSEL
+  STORY
+  REEL
+  PRESENTATION
+  BRAND_KIT
+  FILTER_PRESET
+  LUT_PRESET
+  TRANSITION_PRESET
+}
+
+model Preset {
+  id              String   @id @default(cuid())
+  name            String
+  description     String?
+  type            PresetType
+  parameters      Json     // Paramètres du preset
+  thumbnail       String?
+  isPublic        Boolean  @default(false)
+  usageCount      Int      @default(0)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  // Relations
+  userId          String
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([type])
+  @@index([isPublic])
+  @@map("presets")
+}
+
+enum PresetType {
+  PHOTO_FILTER
+  VIDEO_FILTER
+  COLOR_GRADING
+  AUDIO_EFFECT
+  TRANSITION
+  TEXT_STYLE
+  ANIMATION
+  EXPORT_SETTING
+}
+
+// =============================================================================
+// MODÈLES ANALYTICS AVANCÉS
+// =============================================================================
+
+model AnalyticsReport {
+  id              String   @id @default(cuid())
+  name            String
+  type            ReportType
+  period          ReportPeriod
+  status          ReportStatus @default(PENDING)
+  data            Json?    // Données du rapport
+  insights        Json?    // Insights générés
+  recommendations Json?    // Recommandations
+  filePath        String?  // Chemin du fichier exporté
+  scheduledAt     DateTime?
+  generatedAt     DateTime?
+  createdAt       DateTime @default(now())
+
+  // Relations
+  userId          String
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([type])
+  @@index([status])
+  @@map("analytics_reports")
+}
+
+enum ReportType {
+  PERFORMANCE
+  ENGAGEMENT
+  CONTENT_ANALYSIS
+  COMPETITOR_ANALYSIS
+  TREND_ANALYSIS
+  AUDIENCE_INSIGHTS
+  REVENUE_ANALYSIS
+  CUSTOM
+}
+
+enum ReportPeriod {
+  DAILY
+  WEEKLY
+  MONTHLY
+  QUARTERLY
+  YEARLY
+  CUSTOM
+}
+
+enum ReportStatus {
+  PENDING
+  GENERATING
+  COMPLETED
+  FAILED
+  SCHEDULED
+}
+
+model TrendAnalysis {
+  id              String   @id @default(cuid())
+  platform        SocialPlatform
+  hashtag         String?
+  keyword         String?
+  trendScore      Float
+  volume          Int
+  sentiment       SentimentType
+  category        String
+  metadata        Json?
+  detectedAt      DateTime @default(now())
+
+  @@index([platform])
+  @@index([hashtag])
+  @@index([keyword])
+  @@index([trendScore])
+  @@index([detectedAt])
+  @@map("trend_analysis")
+}
+
+enum SentimentType {
+  POSITIVE
+  NEGATIVE
+  NEUTRAL
+  MIXED
+}
+
+// =============================================================================
+// MODÈLE FAQ
+// =============================================================================
+
+model FAQ {
+  id        String   @id @default(cuid())
+  slug      String   @unique
+  question  String
+  answer    String
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("faqs")
+}
+
+// =============================================================================
+// MODÈLES NOTIFICATIONS & SCHEDULING
+// =============================================================================
+
+model Notification {
+  id              String   @id @default(cuid())
+  type            NotificationType
+  title           String
+  message         String
+  data            Json?
+  isRead          Boolean  @default(false)
+  priority        NotificationPriority @default(NORMAL)
+  scheduledAt     DateTime?
+  sentAt          DateTime?
+  createdAt       DateTime @default(now())
+
+  // Relations
+  userId          String
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([isRead])
+  @@index([type])
+  @@map("notifications")
+}
+
+enum NotificationType {
+  JOB_COMPLETED
+  JOB_FAILED
+  COLLABORATION_INVITE
+  COMMENT_ADDED
+  APPROVAL_NEEDED
+  EXPORT_READY
+  SCHEDULED_POST
+  TREND_ALERT
+  QUOTA_EXCEEDED
+  SECURITY_ALERT
+}
+
+enum NotificationPriority {
+  LOW
+  NORMAL
+  HIGH
+  URGENT
+}
+
+model ScheduledTask {
+  id              String   @id @default(cuid())
+  type            ScheduledTaskType
+  name            String
+  description     String?
+  cronExpression  String?
+  isActive        Boolean  @default(true)
+  lastRunAt       DateTime?
+  nextRunAt       DateTime?
+  parameters      Json?
+  result          Json?
+  error           String?
+  runCount        Int      @default(0)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  // Relations
+  userId          String?
+  user            User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([type])
+  @@index([isActive])
+  @@index([nextRunAt])
+  @@map("scheduled_tasks")
+}
+
+enum ScheduledTaskType {
+  SOCIAL_POST
+  ANALYTICS_REPORT
+  BACKUP
+  CLEANUP
+  SYNC_SOCIAL_DATA
+  GENERATE_THUMBNAILS
+  PROCESS_QUEUE
+  SEND_NOTIFICATIONS
+}
+
+// =============================================================================
+// RELATIONS MANQUANTES - Ajout aux modèles existants
+// =============================================================================

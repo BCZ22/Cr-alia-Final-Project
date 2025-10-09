@@ -1,0 +1,276 @@
+# Créalia - Plateforme de création de contenu viral avec l'IA
+
+Créalia est une plateforme complète pour créer du contenu viral sur les réseaux sociaux en utilisant l'intelligence artificielle. Transformez vos idées en Reels viraux, analysez vos performances et générez des concepts créatifs illimités.
+
+## 🚀 Fonctionnalités
+
+### Fonctionnalités critiques (100% fonctionnelles)
+- ✅ **Authentification complète** : Inscription, connexion, mot de passe oublié, sessions JWT
+- ✅ **Pages principales** : Créalia AI, Créalia Studio, Créalia Analytics
+- ✅ **Pricing & Checkout** : Intégration Stripe (sandbox) avec zones payantes protégées
+- ✅ **Pages légales** : Politique de confidentialité, Conditions d'utilisation
+- ✅ **Gestion du profil utilisateur** : Avatar, nom d'affichage, préférences
+- ✅ **Rôles & permissions** : Admin et utilisateur standard
+
+### Fonctionnalités secondaires
+- ✅ **Tableau Analytics** : Données simulées avec graphiques interactifs
+- ✅ **Studio** : CRUD des projets, upload de fichiers, prévisualisation
+- ✅ **Intégration API AI** : Client wrapper avec mode mock pour le développement
+- ✅ **Notifications UI** : Système de toast et gestion des erreurs
+- ✅ **Internationalisation** : Support FR/EN de base
+
+### Qualité & Tests
+- ✅ **Tests unitaires** : Jest pour la logique critique
+- ✅ **Tests E2E** : Playwright pour les flows essentiels
+- ✅ **CI/CD** : GitHub Actions pour lint/build/test
+- ✅ **Documentation** : README complet + .env.example + guide de setup
+
+## 🛠️ Technologies utilisées
+
+- **Frontend** : Next.js 14, React 18, TypeScript
+- **UI** : Tailwind CSS, shadcn/ui, Radix UI
+- **Authentification** : JWT avec HttpOnly cookies
+- **API** : Next.js API Routes
+- **Tests** : Jest (unit), Playwright (E2E)
+- **CI/CD** : GitHub Actions
+- **Paiements** : Stripe (sandbox)
+
+## 📦 Installation
+
+### Prérequis
+- Node.js 18+ 
+- npm, yarn ou pnpm
+
+### 1. Cloner le repository
+```bash
+git clone <repository-url>
+cd crealia
+```
+
+### 2. Installer les dépendances
+```bash
+npm install --legacy-peer-deps
+# ou
+yarn install
+# ou
+pnpm install
+```
+
+### 3. Configuration de l'environnement
+```bash
+cp env.example .env.local
+```
+
+Modifiez `.env.local` avec vos configurations :
+```env
+# Mode mock pour le développement (recommandé)
+NEXT_PUBLIC_MOCK_AI=true
+MOCK=true
+
+# JWT (obligatoire)
+JWT_SECRET=your-super-secret-jwt-key
+JWT_EXPIRES_IN=7d
+
+# Stripe (optionnel pour le développement)
+STRIPE_PUBLISHABLE_KEY=pk_test_your-key
+STRIPE_SECRET_KEY=sk_test_your-key
+
+# Base de données (optionnel, utilise des mocks par défaut)
+DATABASE_URL=postgresql://username:password@localhost:5432/crealia
+```
+
+### 4. Lancer le serveur de développement
+```bash
+npm run dev
+# ou
+yarn dev
+# ou
+pnpm dev
+```
+
+Ouvrez [http://localhost:3000](http://localhost:3000) dans votre navigateur.
+
+## 🧪 Tests
+
+### Tests unitaires
+```bash
+npm run test:unit
+# ou avec couverture
+npm run test:coverage
+```
+
+### Tests E2E
+```bash
+# Installer Playwright
+npx playwright install
+
+# Lancer les tests E2E
+npm run test:e2e
+
+# Interface graphique
+npm run test:e2e:ui
+```
+
+### Tous les tests
+```bash
+npm run test
+```
+
+## 🚀 Déploiement
+
+### Build de production
+```bash
+npm run build
+npm run start
+```
+
+### Variables d'environnement de production
+```env
+NODE_ENV=production
+JWT_SECRET=your-production-secret
+STRIPE_PUBLISHABLE_KEY=pk_live_your-key
+STRIPE_SECRET_KEY=sk_live_your-key
+DATABASE_URL=your-production-database-url
+```
+
+## 📁 Structure du projet
+
+```
+crealia/
+├── app/                    # Pages Next.js (App Router)
+│   ├── api/               # API Routes
+│   ├── dashboard/         # Dashboard principal
+│   ├── login/             # Page de connexion
+│   ├── register/          # Page d'inscription
+│   ├── pricing/           # Page de tarification
+│   └── privacy/           # Pages légales
+├── components/            # Composants React
+│   ├── auth/              # Composants d'authentification
+│   ├── ai/                # Composants IA
+│   ├── studio/            # Composants Studio
+│   ├── analytics/         # Composants Analytics
+│   └── ui/                # Composants UI de base
+├── lib/                   # Logique métier
+│   ├── auth/              # Authentification
+│   ├── api/               # Client API
+│   ├── ai/                # Client IA
+│   ├── studio/            # Client Studio
+│   ├── analytics/         # Client Analytics
+│   └── pricing/           # Client Pricing
+├── tests/                 # Tests E2E
+├── __tests__/             # Tests unitaires
+└── .github/workflows/     # CI/CD
+```
+
+## 🔑 Comptes de test
+
+### Compte administrateur
+- **Email** : admin@crealia.com
+- **Mot de passe** : password
+
+### Compte utilisateur
+- **Email** : user@crealia.com
+- **Mot de passe** : password
+
+## 🎯 Utilisation
+
+### 1. Authentification
+- Créez un compte ou connectez-vous
+- Les comptes de test sont pré-configurés
+
+### 2. Dashboard
+- Vue d'ensemble des métriques
+- Accès rapide aux fonctionnalités principales
+
+### 3. IA Créative
+- Générateur de contenu avec différents modèles
+- Support du streaming en temps réel
+- Export et copie des résultats
+
+### 4. Studio
+- Gestion des projets de contenu
+- Upload de fichiers (images, vidéos)
+- Prévisualisation et édition
+
+### 5. Analytics
+- Métriques de performance
+- Graphiques interactifs
+- Données par plateforme
+
+### 6. Pricing
+- Plans tarifaires
+- Intégration Stripe (sandbox)
+- Gestion des abonnements
+
+## 🔧 Développement
+
+### Mode Mock
+Le projet fonctionne en mode mock par défaut, ce qui permet de :
+- Développer sans clés API
+- Tester toutes les fonctionnalités
+- Avoir des données de test réalistes
+
+### Ajout de nouvelles fonctionnalités
+1. Créer les types dans `lib/[feature]/types.ts`
+2. Implémenter le client dans `lib/[feature]/client.ts`
+3. Créer les composants dans `components/[feature]/`
+4. Ajouter les tests unitaires et E2E
+5. Mettre à jour la documentation
+
+### Conventions de code
+- TypeScript strict
+- Composants fonctionnels avec hooks
+- Gestion d'erreurs centralisée
+- Tests pour toute nouvelle fonctionnalité
+- Documentation des API
+
+## 📝 API Documentation
+
+### Authentification
+- `POST /api/auth/login` - Connexion
+- `POST /api/auth/register` - Inscription
+- `POST /api/auth/logout` - Déconnexion
+- `GET /api/auth/me` - Informations utilisateur
+
+### IA
+- `POST /api/ai/generate` - Génération de contenu
+- `GET /api/ai/history` - Historique des générations
+
+### Studio
+- `GET /api/studio/projects` - Liste des projets
+- `POST /api/studio/projects` - Créer un projet
+- `PUT /api/studio/projects/:id` - Modifier un projet
+- `DELETE /api/studio/projects/:id` - Supprimer un projet
+- `POST /api/studio/upload` - Upload de fichier
+
+### Analytics
+- `GET /api/analytics/overview` - Vue d'ensemble
+- `GET /api/analytics/chart` - Données de graphique
+- `GET /api/analytics/platforms` - Données par plateforme
+
+### Pricing
+- `GET /api/pricing/plans` - Plans tarifaires
+- `POST /api/pricing/checkout/create-session` - Session de checkout
+
+## 🤝 Contribution
+
+1. Fork le projet
+2. Créer une branche feature (`git checkout -b feature/AmazingFeature`)
+3. Commit vos changements (`git commit -m 'Add some AmazingFeature'`)
+4. Push vers la branche (`git push origin feature/AmazingFeature`)
+5. Ouvrir une Pull Request
+
+## 📄 Licence
+
+Ce projet est sous licence MIT. Voir le fichier `LICENSE` pour plus de détails.
+
+## 🆘 Support
+
+Pour toute question ou problème :
+- Créer une issue sur GitHub
+- Consulter la documentation
+- Contacter l'équipe de développement
+
+---
+
+**Créalia** - Transformez vos idées en contenu viral avec l'IA 🚀

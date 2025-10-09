@@ -1,0 +1,98 @@
+// =============================================================================
+// SCHEMA PRISMA SIMPLIFIÉ POUR LES COMPTES SOCIAUX
+// =============================================================================
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// =============================================================================
+// MODÈLE UTILISATEUR SIMPLIFIÉ
+// =============================================================================
+
+model User {
+  id                String   @id @default(cuid())
+  email             String   @unique
+  username          String   @unique
+  passwordHash      String
+  firstName         String?
+  lastName          String?
+  avatar            String?
+  isActive          Boolean  @default(true)
+  isVerified        Boolean  @default(false)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  // Relations pour les comptes sociaux
+  socialAccounts    SocialAccount[]
+  oauthStates       OAuthState[]
+
+  @@index([email])
+  @@index([createdAt])
+  @@map("users")
+}
+
+// =============================================================================
+// MODÈLES POUR LES COMPTES SOCIAUX ET OAUTH2
+// =============================================================================
+
+model SocialAccount {
+  id              String   @id @default(cuid())
+  userId          String
+  platform        String
+  accountType     String
+  username        String
+  displayName     String
+  profilePicture  String?
+  status          String @default("CONNECTED")
+  permissions     String   // JSON string des permissions
+  metadata        String?  // JSON string des métadonnées
+  accessToken     String   // Token chiffré
+  refreshToken    String?  // Refresh token chiffré
+  connectedAt     DateTime @default(now())
+  lastSyncAt      DateTime?
+  isActive        Boolean  @default(true)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  // Relations
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([platform])
+  @@index([status])
+  @@index([isActive])
+  @@index([connectedAt])
+  @@map("social_accounts")
+}
+
+model OAuthState {
+  id              String   @id @default(cuid())
+  state           String   @unique
+  platform        String
+  userId          String
+  accountType     String
+  permissions     String   // JSON string des permissions
+  role            String
+  expiresAt       DateTime
+  createdAt       DateTime @default(now())
+
+  // Relations
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([state])
+  @@index([platform])
+  @@index([userId])
+  @@index([expiresAt])
+  @@map("oauth_states")
+}
+
+// Enums remplacés par des strings pour SQLite
+// SocialPlatform: INSTAGRAM, YOUTUBE, TIKTOK, FACEBOOK, TWITTER, LINKEDIN, PINTEREST, SNAPCHAT
+// SocialAccountType: PERSONAL, BUSINESS, CREATOR, AGENCY
+// SocialAccountStatus: CONNECTED, EXPIRED, REVOKED, PENDING, ERROR

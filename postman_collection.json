@@ -1,0 +1,202 @@
+{
+	"info": {
+		"_postman_id": "a8f5b8e1-5b7a-4b0d-8a6a-7e1e6b3f7e1d",
+		"name": "Crealia API (Static Analysis)",
+		"description": "Postman collection generated from static analysis of the Crealia codebase. Base URL should be set to your local development environment (e.g., http://localhost:3000).",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Social Accounts",
+			"item": [
+				{
+					"name": "Get Social Accounts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/api/social-accounts?userId=demo-user",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"social-accounts"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "demo-user"
+								}
+							]
+						},
+						"description": "Retrieves all social accounts for a given user."
+					},
+					"response": []
+				},
+				{
+					"name": "Disconnect Social Account",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/api/social-accounts?accountId=test-account-id&userId=demo-user",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"social-accounts"
+							],
+							"query": [
+								{
+									"key": "accountId",
+									"value": "test-account-id"
+								},
+								{
+									"key": "userId",
+									"value": "demo-user"
+								}
+							]
+						},
+						"description": "Deletes a social account connection."
+					},
+					"response": []
+				},
+				{
+					"name": "Refresh Token",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"accountId\": \"test-account-id\"\n}"
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/api/social-accounts/refresh",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"social-accounts",
+								"refresh"
+							]
+						},
+						"description": "Refreshes the access token for an expired account."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Social Analytics",
+			"item": [
+				{
+					"name": "Extract Performance Data",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\": \"demo-user\",\n    \"platform\": \"instagram\",\n    \"dateRange\": {\n        \"start\": \"2023-01-01\",\n        \"end\": \"2023-01-31\"\n    }\n}"
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/api/social-analytics/extract",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"social-analytics",
+								"extract"
+							]
+						},
+						"description": "Extracts performance data for a given platform and date range. Note: The frontend is currently not sending the `dateRange` parameter."
+					},
+					"response": []
+				},
+				{
+					"name": "Analyze Content Trends",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\": \"demo-user\",\n    \"platform\": \"instagram\"\n}"
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/api/social-analytics/trends",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"social-analytics",
+								"trends"
+							]
+						},
+						"description": "Analyzes content trends for a given platform."
+					},
+					"response": []
+				},
+				{
+					"name": "Generate Strategic Recommendations",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\": \"demo-user\",\n    \"objective\": \"growth\",\n    \"platform\": \"instagram\"\n}"
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/api/social-analytics/recommendations",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"social-analytics",
+								"recommendations"
+							]
+						},
+						"description": "Generates strategic recommendations based on an objective."
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "BASE_URL",
+			"value": "http://localhost:3000",
+			"type": "string"
+		}
+	]
+}
+

@@ -1,0 +1,339 @@
+{
+  "info": {
+    "name": "Medium API Integration",
+    "description": "Collection complète pour tester l'intégration Medium API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "version": "1.0.0"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3001",
+      "type": "string"
+    },
+    {
+      "key": "authToken",
+      "value": "your_jwt_token_here",
+      "type": "string"
+    },
+    {
+      "key": "userId",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "postId",
+      "value": "your_medium_post_id",
+      "type": "string"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{authToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/health",
+          "host": ["{{baseUrl}}"],
+          "path": ["health"]
+        },
+        "description": "Vérifie la santé de l'API Medium"
+      },
+      "response": []
+    },
+    {
+      "name": "Medium Integration",
+      "item": [
+        {
+          "name": "Connect Medium Account",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"accessToken\": \"your_medium_access_token\",\n  \"mediumUserId\": \"your_medium_user_id\",\n  \"username\": \"your_medium_username\",\n  \"name\": \"Your Full Name\",\n  \"imageUrl\": \"https://example.com/avatar.jpg\",\n  \"url\": \"https://medium.com/@username\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/medium/connect",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "medium", "connect"]
+            },
+            "description": "Connecte un compte Medium à l'utilisateur authentifié"
+          },
+          "response": []
+        },
+        {
+          "name": "Check Integration Status",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/medium/status",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "medium", "status"]
+            },
+            "description": "Vérifie le statut de l'intégration Medium"
+          },
+          "response": []
+        },
+        {
+          "name": "Disconnect Medium Account",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/medium/disconnect",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "medium", "disconnect"]
+            },
+            "description": "Déconnecte le compte Medium de l'utilisateur"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Posts Management",
+      "item": [
+        {
+          "name": "Get User Posts",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/medium/posts",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "medium", "posts"]
+            },
+            "description": "Récupère toutes les publications de l'utilisateur"
+          },
+          "response": []
+        },
+        {
+          "name": "Get User Posts by Status",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/medium/posts?status=public",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "medium", "posts"],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "public"
+                }
+              ]
+            },
+            "description": "Récupère les publications publiques de l'utilisateur"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Specific Post",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/medium/posts/{{postId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "medium", "posts", "{{postId}}"]
+            },
+            "description": "Récupère une publication spécifique par son ID"
+          },
+          "response": []
+        },
+        {
+          "name": "Publish New Post",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Mon Nouvel Article\",\n  \"content\": \"<p>Contenu de l'article en HTML...</p>\",\n  \"contentFormat\": \"html\",\n  \"status\": \"draft\",\n  \"tags\": [\"technology\", \"programming\", \"medium\"],\n  \"canonicalUrl\": \"https://yourdomain.com/article\",\n  \"license\": \"CC BY-NC-SA 4.0\",\n  \"licenseUrl\": \"https://creativecommons.org/licenses/by-nc-sa/4.0/\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/medium/posts",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "medium", "posts"]
+            },
+            "description": "Publie un nouvel article sur Medium"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Post",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Titre Mis à Jour\",\n  \"content\": \"<p>Contenu mis à jour...</p>\",\n  \"tags\": [\"updated\", \"tags\"],\n  \"status\": \"public\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/medium/posts/{{postId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "medium", "posts", "{{postId}}"]
+            },
+            "description": "Met à jour un article existant"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Post",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/medium/posts/{{postId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "medium", "posts", "{{postId}}"]
+            },
+            "description": "Supprime un article"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Statistics",
+      "item": [
+        {
+          "name": "Get User Statistics",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/medium/stats",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "medium", "stats"]
+            },
+            "description": "Récupère les statistiques globales de l'utilisateur"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Post Statistics",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/medium/stats/{{postId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "medium", "stats", "{{postId}}"]
+            },
+            "description": "Récupère les statistiques d'un article spécifique"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Synchronization",
+      "item": [
+        {
+          "name": "Sync Posts from Medium",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/medium/sync",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "medium", "sync"]
+            },
+            "description": "Synchronise les publications depuis Medium"
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "// Log de la requête",
+          "console.log('Request:', pm.request.method, pm.request.url);",
+          "",
+          "// Vérification du token d'authentification",
+          "if (!pm.environment.get('authToken')) {",
+          "    console.warn('Aucun token d\'authentification trouvé');",
+          "}"
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "// Tests automatiques des réponses",
+          "pm.test('Status code is 200 or 201', function () {",
+          "    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+          "});",
+          "",
+          "pm.test('Response has success field', function () {",
+          "    const jsonData = pm.response.json();",
+          "    pm.expect(jsonData).to.have.property('success');",
+          "});",
+          "",
+          "pm.test('Response has timestamp', function () {",
+          "    const jsonData = pm.response.json();",
+          "    pm.expect(jsonData).to.have.property('timestamp');",
+          "});",
+          "",
+          "// Tests spécifiques selon l'endpoint",
+          "if (pm.request.url.path.includes('/posts') && pm.request.method === 'GET') {",
+          "    pm.test('Posts response structure', function () {",
+          "        const jsonData = pm.response.json();",
+          "        if (jsonData.success && jsonData.data.posts) {",
+          "            pm.expect(jsonData.data.posts).to.be.an('array');",
+          "        }",
+          "    });",
+          "}",
+          "",
+          "if (pm.request.url.path.includes('/stats')) {",
+          "    pm.test('Stats response structure', function () {",
+          "        const jsonData = pm.response.json();",
+          "        if (jsonData.success && jsonData.data.stats) {",
+          "            pm.expect(jsonData.data.stats).to.have.property('totalPosts');",
+          "        }",
+          "    });",
+          "}",
+          "",
+          "// Log de la réponse",
+          "console.log('Response:', pm.response.code, pm.response.status);",
+          "console.log('Response time:', pm.response.responseTime, 'ms');"
+        ]
+      }
+    }
+  ]
+} 

@@ -1,0 +1,1827 @@
+
+> my-v0-project@0.1.0 test
+> jest --watchAll=false
+
+● Validation Warning:
+
+  Unknown option "moduleNameMapping" with value {"^@/(.*)$": "<rootDir>/$1"} was found.
+  This is probably a typing mistake. Fixing it will remove this message.
+
+  Configuration Documentation:
+  https://jestjs.io/docs/configuration
+
+● Validation Warning:
+
+  Unknown option "moduleNameMapping" with value {"^@/(.*)$": "<rootDir>/$1"} was found.
+  This is probably a typing mistake. Fixing it will remove this message.
+
+  Configuration Documentation:
+  https://jestjs.io/docs/configuration
+
+FAIL tests/performance/load-testing.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/unit/stores/render.store.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/security/security-testing.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/integration/system-integration.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/unit/stores/text.store.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/unit/stores/effects.store.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/integration/advanced-features.integration.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/unit/stores/collaboration.store.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/unit/services/ai/ai.service.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/unit/workers/ai-processing.worker.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/integration/services-integration.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/unit/stores/player.store.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/unit/services/video/ffmpeg.service.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/video-editor/api.integration.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/video-editor/video-editor.service.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/creati-integration.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/security/video-editor.security.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/unit/services/workflow/workflow.service.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/integration/upload/upload.integration.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/unit/components/AssetCard.test.tsx
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/unit/services/storage/storage.service.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/unit/stores/timeline.store.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/demo-functionality.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/unit/services/websocket.service.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/unit/services/queue/queue.service.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/integration/content-flow.integration.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/unit/stores/timeline-advanced.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/integration/services/ai-storage.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/unit/services/upload/upload.service.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/unit/services/utils/date-utils.service.simple.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/unit/export/canvas-alternative.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/accessibility/video-editor.a11y.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/performance/api-load.test.js
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/integration/workflow/workflow-complete.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/integration/services/ffmpeg-ai.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/unit/components/UploadZone.test.tsx
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/unit/services/utils/crypto.service.simple.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/unit/services/utils/file-utils.service.simple.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/integration/services/storage-ffmpeg.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL components/ui/__tests__/SearchBar.test.tsx
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/performance/carousel-export.test.js
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/unit/services/ai/ai.service.simple.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL components/ui/__tests__/Sidebar.test.tsx
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/unit/services/utils/validator.service.simple.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/unit/services/database/database.service.simple.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL e2e/sidebar-navigation.spec.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/performance/video-editor.load.test.js
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/unit/services/video/ffmpeg.service.simple.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL __tests__/auth.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/unit/services/storage/storage.service.simple.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/unit/services/conflict-resolution.service.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL __tests__/ai-client.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL components/ui/__tests__/CrealiaLogo.test.tsx
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/navbar.spec.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL e2e/search-and-navigate.spec.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/navbar-legal-zoom.spec.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/zoom.spec.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL e2e/navbar-legal-zoom.spec.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/unit/scheduling.queue.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/unit/services/utils/logger.service.simple.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+Summary of all failing tests
+FAIL tests/performance/load-testing.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/unit/stores/render.store.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/security/security-testing.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/integration/system-integration.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/unit/stores/text.store.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/unit/stores/effects.store.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/integration/advanced-features.integration.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/unit/stores/collaboration.store.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/unit/services/ai/ai.service.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/unit/workers/ai-processing.worker.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/integration/services-integration.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/unit/stores/player.store.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/unit/services/video/ffmpeg.service.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/video-editor/api.integration.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/video-editor/video-editor.service.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/creati-integration.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/security/video-editor.security.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/unit/services/workflow/workflow.service.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/integration/upload/upload.integration.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/unit/components/AssetCard.test.tsx
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/unit/services/storage/storage.service.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/unit/stores/timeline.store.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/demo-functionality.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/unit/services/websocket.service.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/unit/services/queue/queue.service.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/integration/content-flow.integration.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/unit/stores/timeline-advanced.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/integration/services/ai-storage.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/unit/services/upload/upload.service.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/unit/services/utils/date-utils.service.simple.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/unit/export/canvas-alternative.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/accessibility/video-editor.a11y.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/performance/api-load.test.js
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/integration/workflow/workflow-complete.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/integration/services/ffmpeg-ai.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/unit/components/UploadZone.test.tsx
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/unit/services/utils/crypto.service.simple.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/unit/services/utils/file-utils.service.simple.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/integration/services/storage-ffmpeg.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL components/ui/__tests__/SearchBar.test.tsx
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/performance/carousel-export.test.js
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/unit/services/ai/ai.service.simple.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL components/ui/__tests__/Sidebar.test.tsx
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/unit/services/utils/validator.service.simple.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/unit/services/database/database.service.simple.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL e2e/sidebar-navigation.spec.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/performance/video-editor.load.test.js
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/unit/services/video/ffmpeg.service.simple.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL __tests__/auth.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/unit/services/storage/storage.service.simple.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/unit/services/conflict-resolution.service.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL __tests__/ai-client.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL components/ui/__tests__/CrealiaLogo.test.tsx
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/navbar.spec.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL e2e/search-and-navigate.spec.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/navbar-legal-zoom.spec.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/zoom.spec.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL e2e/navbar-legal-zoom.spec.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/unit/scheduling.queue.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+FAIL tests/unit/services/utils/logger.service.simple.test.ts
+  ● Test suite failed to run
+
+    Cannot find module '@testing-library/jest-dom' from 'jest.setup.js'
+
+      37 | // Mock environment variables
+      38 | process.env.NEXT_PUBLIC_MOCK_AI = 'true'
+    > 39 | process.env.MOCK = 'true'
+         | ^
+      40 | process.env.JWT_SECRET = 'test-secret'
+      41 | process.env.JWT_EXPIRES_IN = '7d'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (jest.setup.js:39:1)
+
+
+Test Suites: 60 failed, 60 total
+Tests:       0 total
+Snapshots:   0 total
+Time:        1.194 s
+Ran all test suites.

@@ -1,0 +1,52 @@
+import { NextResponse } from 'next/server'
+import type { NextRequest } from 'next/server'
+import { jwtVerify } from 'jose';
+
+const JWT_SECRET = process.env.JWT_SECRET;
+
+export async function middleware(req: NextRequest) {
+  const { pathname } = req.nextUrl;
+
+  // Les routes d'authentification et les assets publics sont exclus de la protection
+  if (pathname.startsWith('/api/auth') || pathname.startsWith('/_next/') || pathname.startsWith('/static/')) {
+    return NextResponse.next();
+  }
+
+  const token = req.cookies.get('auth_token')?.value;
+
+  if (!token) {
+    const url = req.nextUrl.clone()
+    url.pathname = '/login' // Rediriger vers la page de login si pas de token (pour les pages front)
+    if (pathname.startsWith('/api/')) {
+      // Pour les API, retourner une erreur 401
+      return new NextResponse(
+        JSON.stringify({ success: false, message: 'Authentication failed: no token provided.' }),
+        { status: 401, headers: { 'content-type': 'application/json' } }
+      );
+    }
+    // Pour l'instant, on laisse passer pour le front, mais on pourrait rediriger
+    return NextResponse.next();
+  }
+
+  if (!JWT_SECRET) {
+    throw new Error('JWT_SECRET environment variable is not set.');
+  }
+
+  try {
+    const secret = new TextEncoder().encode(JWT_SECRET);
+    await jwtVerify(token, secret);
+    return NextResponse.next();
+  } catch (err) {
+    if (pathname.startsWith('/api/')) {
+      return new NextResponse(JSON.stringify({ success: false, message: 'Authentication failed: invalid token.' }), { status: 401, headers: { 'content-type': 'application/json' }});
+    }
+    const url = req.nextUrl.clone()
+    url.pathname = '/login'
+    return NextResponse.redirect(url);
+  }
+}
+
+export const config = {
+  // Appliquer le middleware à toutes les routes sauf celles qui ont une extension de fichier (ex: .png, .css)
+  matcher: '/((?!.*\\..*|_next).*)',
+};

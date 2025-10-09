@@ -1,0 +1,598 @@
+{
+  "templates": [
+    {
+      "id": "template-business-professional",
+      "name": "Business Professional",
+      "category": "Business",
+      "description": "Template professionnel pour entreprises et présentations corporate",
+      "tags": ["business", "corporate", "professional", "presentation"],
+      "preview": "/templates/previews/business-professional.jpg",
+      "config": {
+        "slides": [
+          {
+            "id": "slide-1",
+            "type": "title",
+            "content": {
+              "title": "Titre Principal",
+              "subtitle": "Sous-titre descriptif",
+              "background": {
+                "type": "gradient",
+                "colors": ["#1e3a8a", "#3b82f6"]
+              },
+              "textColor": "#ffffff",
+              "font": "Inter",
+              "titleSize": 48,
+              "subtitleSize": 24
+            }
+          },
+          {
+            "id": "slide-2",
+            "type": "content",
+            "content": {
+              "title": "Point Clé 1",
+              "description": "Description détaillée du point clé",
+              "icon": "trending-up",
+              "background": {
+                "type": "solid",
+                "color": "#f8fafc"
+              },
+              "textColor": "#1e293b",
+              "accentColor": "#3b82f6"
+            }
+          },
+          {
+            "id": "slide-3",
+            "type": "stats",
+            "content": {
+              "title": "Statistiques",
+              "stats": [
+                { "value": "95%", "label": "Satisfaction client" },
+                { "value": "50+", "label": "Projets réalisés" },
+                { "value": "24/7", "label": "Support disponible" }
+              ],
+              "background": {
+                "type": "gradient",
+                "colors": ["#f1f5f9", "#e2e8f0"]
+              }
+            }
+          }
+        ],
+        "transitions": {
+          "type": "fade",
+          "duration": 0.5
+        },
+        "timing": {
+          "slideDuration": 3,
+          "totalDuration": 9
+        }
+      },
+      "socialFormats": {
+        "instagram": { "width": 1080, "height": 1080 },
+        "youtube": { "width": 1920, "height": 1080 },
+        "linkedin": { "width": 1200, "height": 627 },
+        "tiktok": { "width": 1080, "height": 1920 }
+      }
+    },
+    {
+      "id": "template-marketing-vibrant",
+      "name": "Marketing Vibrant",
+      "category": "Marketing",
+      "description": "Template coloré et dynamique pour campagnes marketing",
+      "tags": ["marketing", "colorful", "dynamic", "campaign"],
+      "preview": "/templates/previews/marketing-vibrant.jpg",
+      "config": {
+        "slides": [
+          {
+            "id": "slide-1",
+            "type": "hero",
+            "content": {
+              "title": "NOUVEAU PRODUIT",
+              "subtitle": "Découvrez notre dernière innovation",
+              "cta": "En savoir plus",
+              "background": {
+                "type": "gradient",
+                "colors": ["#ff6b6b", "#ffa500", "#ffeb3b"]
+              },
+              "textColor": "#ffffff",
+              "font": "Poppins",
+              "titleSize": 56,
+              "subtitleSize": 28
+            }
+          },
+          {
+            "id": "slide-2",
+            "type": "features",
+            "content": {
+              "title": "Fonctionnalités",
+              "features": [
+                { "icon": "star", "text": "Qualité premium" },
+                { "icon": "shield", "text": "Garantie 2 ans" },
+                { "icon": "truck", "text": "Livraison gratuite" }
+              ],
+              "background": {
+                "type": "pattern",
+                "pattern": "dots",
+                "color": "#f0f9ff"
+              }
+            }
+          },
+          {
+            "id": "slide-3",
+            "type": "cta",
+            "content": {
+              "title": "Commandez maintenant !",
+              "subtitle": "Offre limitée - 50% de réduction",
+              "button": {
+                "text": "Acheter",
+                "color": "#ff6b6b",
+                "textColor": "#ffffff"
+              },
+              "background": {
+                "type": "gradient",
+                "colors": ["#667eea", "#764ba2"]
+              }
+            }
+          }
+        ],
+        "transitions": {
+          "type": "slide",
+          "direction": "left",
+          "duration": 0.8
+        },
+        "timing": {
+          "slideDuration": 4,
+          "totalDuration": 12
+        }
+      }
+    },
+    {
+      "id": "template-educational-clean",
+      "name": "Educational Clean",
+      "category": "Education",
+      "description": "Template épuré pour contenu éducatif et formations",
+      "tags": ["education", "clean", "minimal", "learning"],
+      "preview": "/templates/previews/educational-clean.jpg",
+      "config": {
+        "slides": [
+          {
+            "id": "slide-1",
+            "type": "lesson",
+            "content": {
+              "title": "Leçon 1",
+              "topic": "Introduction au sujet",
+              "background": {
+                "type": "solid",
+                "color": "#ffffff"
+              },
+              "textColor": "#1f2937",
+              "accentColor": "#10b981",
+              "font": "Inter"
+            }
+          },
+          {
+            "id": "slide-2",
+            "type": "content",
+            "content": {
+              "title": "Points clés à retenir",
+              "list": [
+                "Point important 1",
+                "Point important 2",
+                "Point important 3"
+              ],
+              "background": {
+                "type": "gradient",
+                "colors": ["#f0fdf4", "#dcfce7"]
+              },
+              "textColor": "#166534"
+            }
+          },
+          {
+            "id": "slide-3",
+            "type": "quiz",
+            "content": {
+              "title": "Question de révision",
+              "question": "Quelle est la réponse ?",
+              "options": ["Option A", "Option B", "Option C"],
+              "background": {
+                "type": "solid",
+                "color": "#fef3c7"
+              },
+              "textColor": "#92400e"
+            }
+          }
+        ],
+        "transitions": {
+          "type": "fade",
+          "duration": 0.3
+        },
+        "timing": {
+          "slideDuration": 5,
+          "totalDuration": 15
+        }
+      }
+    },
+    {
+      "id": "template-lifestyle-modern",
+      "name": "Lifestyle Modern",
+      "category": "Lifestyle",
+      "description": "Template moderne pour contenu lifestyle et bien-être",
+      "tags": ["lifestyle", "modern", "wellness", "health"],
+      "preview": "/templates/previews/lifestyle-modern.jpg",
+      "config": {
+        "slides": [
+          {
+            "id": "slide-1",
+            "type": "inspiration",
+            "content": {
+              "title": "Bienvenue dans votre nouveau style de vie",
+              "subtitle": "Découvrez nos conseils bien-être",
+              "background": {
+                "type": "gradient",
+                "colors": ["#fdf2f8", "#fce7f3"]
+              },
+              "textColor": "#831843",
+              "font": "Playfair Display"
+            }
+          },
+          {
+            "id": "slide-2",
+            "type": "tips",
+            "content": {
+              "title": "Conseils du jour",
+              "tip": "Prenez 10 minutes pour vous chaque matin",
+              "icon": "sun",
+              "background": {
+                "type": "solid",
+                "color": "#fef3c7"
+              },
+              "textColor": "#92400e"
+            }
+          },
+          {
+            "id": "slide-3",
+            "type": "motivation",
+            "content": {
+              "quote": "Votre bien-être est votre priorité",
+              "author": "Équipe Wellness",
+              "background": {
+                "type": "gradient",
+                "colors": ["#ecfdf5", "#d1fae5"]
+              },
+              "textColor": "#065f46"
+            }
+          }
+        ],
+        "transitions": {
+          "type": "zoom",
+          "duration": 0.6
+        },
+        "timing": {
+          "slideDuration": 4,
+          "totalDuration": 12
+        }
+      }
+    },
+    {
+      "id": "template-tech-innovation",
+      "name": "Tech Innovation",
+      "category": "Technology",
+      "description": "Template futuriste pour innovations technologiques",
+      "tags": ["technology", "innovation", "futuristic", "ai"],
+      "preview": "/templates/previews/tech-innovation.jpg",
+      "config": {
+        "slides": [
+          {
+            "id": "slide-1",
+            "type": "future",
+            "content": {
+              "title": "L'AVENIR EST ICI",
+              "subtitle": "Technologie de pointe",
+              "background": {
+                "type": "gradient",
+                "colors": ["#0f172a", "#1e293b", "#334155"]
+              },
+              "textColor": "#00d4ff",
+              "font": "Orbitron",
+              "effects": ["glow", "neon"]
+            }
+          },
+          {
+            "id": "slide-2",
+            "type": "innovation",
+            "content": {
+              "title": "Innovation",
+              "description": "Révolutionnez votre façon de travailler",
+              "icon": "cpu",
+              "background": {
+                "type": "pattern",
+                "pattern": "circuit",
+                "color": "#0f172a"
+              },
+              "textColor": "#00d4ff",
+              "accentColor": "#ff6b6b"
+            }
+          },
+          {
+            "id": "slide-3",
+            "type": "data",
+            "content": {
+              "title": "Données en temps réel",
+              "metrics": [
+                { "value": "99.9%", "label": "Uptime" },
+                { "value": "< 1ms", "label": "Latence" },
+                { "value": "1M+", "label": "Utilisateurs" }
+              ],
+              "background": {
+                "type": "gradient",
+                "colors": ["#1e293b", "#334155"]
+              },
+              "textColor": "#ffffff"
+            }
+          }
+        ],
+        "transitions": {
+          "type": "matrix",
+          "duration": 1.0
+        },
+        "timing": {
+          "slideDuration": 3,
+          "totalDuration": 9
+        }
+      }
+    },
+    {
+      "id": "template-creative-arts",
+      "name": "Creative Arts",
+      "category": "Creative",
+      "description": "Template artistique pour créateurs et artistes",
+      "tags": ["creative", "arts", "artistic", "design"],
+      "preview": "/templates/previews/creative-arts.jpg",
+      "config": {
+        "slides": [
+          {
+            "id": "slide-1",
+            "type": "artistic",
+            "content": {
+              "title": "Créativité",
+              "subtitle": "L'art de l'expression",
+              "background": {
+                "type": "gradient",
+                "colors": ["#ff9a9e", "#fecfef", "#fecfef"]
+              },
+              "textColor": "#ffffff",
+              "font": "Dancing Script",
+              "titleSize": 52
+            }
+          },
+          {
+            "id": "slide-2",
+            "type": "portfolio",
+            "content": {
+              "title": "Portfolio",
+              "description": "Découvrez mes créations",
+              "background": {
+                "type": "pattern",
+                "pattern": "brush-strokes",
+                "color": "#fef3c7"
+              },
+              "textColor": "#92400e"
+            }
+          },
+          {
+            "id": "slide-3",
+            "type": "inspiration",
+            "content": {
+              "quote": "L'art lave l'âme de la poussière du quotidien",
+              "author": "Pablo Picasso",
+              "background": {
+                "type": "gradient",
+                "colors": ["#667eea", "#764ba2"]
+              },
+              "textColor": "#ffffff"
+            }
+          }
+        ],
+        "transitions": {
+          "type": "paint",
+          "duration": 0.8
+        },
+        "timing": {
+          "slideDuration": 4,
+          "totalDuration": 12
+        }
+      }
+    },
+    {
+      "id": "template-health-wellness",
+      "name": "Health & Wellness",
+      "category": "Health",
+      "description": "Template pour contenu santé et bien-être",
+      "tags": ["health", "wellness", "fitness", "medical"],
+      "preview": "/templates/previews/health-wellness.jpg",
+      "config": {
+        "slides": [
+          {
+            "id": "slide-1",
+            "type": "health",
+            "content": {
+              "title": "Votre santé, notre priorité",
+              "subtitle": "Prenez soin de vous",
+              "background": {
+                "type": "gradient",
+                "colors": ["#ecfdf5", "#d1fae5"]
+              },
+              "textColor": "#065f46",
+              "font": "Inter",
+              "icon": "heart"
+            }
+          },
+          {
+            "id": "slide-2",
+            "type": "tips",
+            "content": {
+              "title": "Conseils santé",
+              "list": [
+                "Buvez 8 verres d'eau par jour",
+                "Dormez 7-8 heures par nuit",
+                "Faites 30 min d'exercice quotidien"
+              ],
+              "background": {
+                "type": "solid",
+                "color": "#f0fdf4"
+              },
+              "textColor": "#166534"
+            }
+          },
+          {
+            "id": "slide-3",
+            "type": "motivation",
+            "content": {
+              "title": "Rappel quotidien",
+              "message": "Votre bien-être mental est aussi important que votre santé physique",
+              "background": {
+                "type": "gradient",
+                "colors": ["#fef3c7", "#fde68a"]
+              },
+              "textColor": "#92400e"
+            }
+          }
+        ],
+        "transitions": {
+          "type": "fade",
+          "duration": 0.5
+        },
+        "timing": {
+          "slideDuration": 4,
+          "totalDuration": 12
+        }
+      }
+    },
+    {
+      "id": "template-premium-luxury",
+      "name": "Premium Luxury",
+      "category": "Luxury",
+      "description": "Template premium pour marques de luxe",
+      "tags": ["luxury", "premium", "elegant", "sophisticated"],
+      "preview": "/templates/previews/premium-luxury.jpg",
+      "config": {
+        "slides": [
+          {
+            "id": "slide-1",
+            "type": "luxury",
+            "content": {
+              "title": "EXCLUSIVITÉ",
+              "subtitle": "Collection limitée",
+              "background": {
+                "type": "gradient",
+                "colors": ["#1f2937", "#374151", "#4b5563"]
+              },
+              "textColor": "#fbbf24",
+              "font": "Playfair Display",
+              "effects": ["gold", "shine"]
+            }
+          },
+          {
+            "id": "slide-2",
+            "type": "premium",
+            "content": {
+              "title": "Qualité exceptionnelle",
+              "description": "Matériaux sélectionnés avec soin",
+              "background": {
+                "type": "pattern",
+                "pattern": "gold-dots",
+                "color": "#1f2937"
+              },
+              "textColor": "#fbbf24",
+              "accentColor": "#ffffff"
+            }
+          },
+          {
+            "id": "slide-3",
+            "type": "exclusive",
+            "content": {
+              "title": "Réservé aux initiés",
+              "subtitle": "Rejoignez l'élite",
+              "background": {
+                "type": "gradient",
+                "colors": ["#374151", "#1f2937"]
+              },
+              "textColor": "#fbbf24"
+            }
+          }
+        ],
+        "transitions": {
+          "type": "elegant",
+          "duration": 0.7
+        },
+        "timing": {
+          "slideDuration": 4,
+          "totalDuration": 12
+        }
+      }
+    },
+    {
+      "id": "template-minimalist-clean",
+      "name": "Minimalist Clean",
+      "category": "Minimal",
+      "description": "Template minimaliste et épuré",
+      "tags": ["minimal", "clean", "simple", "modern"],
+      "preview": "/templates/previews/minimalist-clean.jpg",
+      "config": {
+        "slides": [
+          {
+            "id": "slide-1",
+            "type": "minimal",
+            "content": {
+              "title": "Simplicité",
+              "subtitle": "Moins c'est plus",
+              "background": {
+                "type": "solid",
+                "color": "#ffffff"
+              },
+              "textColor": "#000000",
+              "font": "Helvetica",
+              "titleSize": 48
+            }
+          },
+          {
+            "id": "slide-2",
+            "type": "content",
+            "content": {
+              "title": "Focus sur l'essentiel",
+              "description": "Éliminez le superflu",
+              "background": {
+                "type": "solid",
+                "color": "#f8f9fa"
+              },
+              "textColor": "#495057"
+            }
+          },
+          {
+            "id": "slide-3",
+            "type": "quote",
+            "content": {
+              "quote": "La perfection est atteinte non pas lorsqu'il n'y a plus rien à ajouter, mais lorsqu'il n'y a plus rien à retirer",
+              "author": "Antoine de Saint-Exupéry",
+              "background": {
+                "type": "solid",
+                "color": "#ffffff"
+              },
+              "textColor": "#000000"
+            }
+          }
+        ],
+        "transitions": {
+          "type": "fade",
+          "duration": 0.3
+        },
+        "timing": {
+          "slideDuration": 5,
+          "totalDuration": 15
+        }
+      }
+    }
+  ]
+}
+
+
+

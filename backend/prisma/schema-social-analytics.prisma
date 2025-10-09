@@ -1,0 +1,163 @@
+// Modèle pour l'analyse des réseaux sociaux
+model SocialAccount {
+  id           String   @id @default(cuid())
+  userId       String
+  platform     String   // instagram, youtube, tiktok, facebook, twitter, linkedin, pinterest, snapchat
+  username     String
+  accessToken  String
+  refreshToken String?
+  connectedAt  DateTime @default(now())
+  lastSync     DateTime @default(now())
+  isActive     Boolean  @default(true)
+  
+  // Relations
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  performanceData PerformanceData[]
+  
+  @@unique([userId, platform])
+  @@map("social_accounts")
+}
+
+model PerformanceData {
+  id              String   @id @default(cuid())
+  socialAccountId String
+  contentId       String?  // ID du contenu sur la plateforme
+  platform        String
+  url             String?
+  
+  // Métriques de portée
+  views           Int      @default(0)
+  impressions     Int      @default(0)
+  shares          Int      @default(0)
+  
+  // Métriques d'engagement
+  likes           Int      @default(0)
+  comments        Int      @default(0)
+  engagementRate  Float    @default(0)
+  watchTime       Int?     // en secondes
+  
+  // Métriques de croissance
+  subscribersGained Int    @default(0)
+  subscribersLost   Int    @default(0)
+  ctr               Float  @default(0)
+  
+  // Métriques de conversion
+  bioLinkClicks     Int    @default(0)
+  purchases         Int    @default(0)
+  leadsGenerated    Int    @default(0)
+  
+  // Analyse qualitative
+  visualStyle       String?
+  tone              String?
+  averageDuration   Int?    // en secondes
+  hashtags          String[] // tableau de hashtags
+  effectiveFormats  String[] // formats efficaces
+  bestPerformingContent String[] // contenu performant
+  
+  publishedAt       DateTime
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  
+  // Relations
+  socialAccount     SocialAccount @relation(fields: [socialAccountId], references: [id], onDelete: Cascade)
+  
+  @@map("performance_data")
+}
+
+model TrendData {
+  id                String   @id @default(cuid())
+  platform          String
+  date              DateTime @default(now())
+  
+  // Tendances
+  trendingSounds    String[]
+  emergingHashtags  String[]
+  growingThemes     String[]
+  viralFormats      String[]
+  
+  // Insights concurrents
+  competitorInsights Json?   // données des concurrents
+  
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  
+  @@map("trend_data")
+}
+
+model StrategicRecommendation {
+  id                String   @id @default(cuid())
+  userId            String
+  objective         String   // growth, engagement, conversions, branding
+  platform          String?
+  
+  // Recommandations
+  contentType       String
+  optimalFrequency  String
+  artisticStyle     Json     // { visual, tone, editing, colors }
+  recommendedCTAs   String[]
+  platformAdaptations Json  // adaptations par plateforme
+  trendingElements  String[]
+  
+  // Métadonnées
+  confidence        Float    @default(0)
+  generatedAt       DateTime @default(now())
+  expiresAt         DateTime?
+  
+  // Relations
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@map("strategic_recommendations")
+}
+
+model BenchmarkData {
+  id                String   @id @default(cuid())
+  platform          String
+  niche             String?
+  
+  // Benchmarks du secteur
+  industryMetrics   Json     // métriques moyennes du secteur
+  topPerformers     Json     // top 10% des performeurs
+  growthRates       Json     // taux de croissance moyens
+  
+  // Période de référence
+  periodStart       DateTime
+  periodEnd         DateTime
+  sampleSize        Int      @default(0)
+  
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  
+  @@map("benchmark_data")
+}
+
+model UserObjective {
+  id                String   @id @default(cuid())
+  userId            String
+  objective         String   // growth, engagement, conversions, branding
+  priority          Int      @default(1) // 1 = priorité haute, 5 = priorité basse
+  targetMetrics     Json?    // métriques cibles
+  currentMetrics    Json?    // métriques actuelles
+  progress          Float    @default(0) // pourcentage de progression
+  
+  // Configuration
+  isActive          Boolean  @default(true)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  
+  // Relations
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@unique([userId, objective])
+  @@map("user_objectives")
+}
+
+// Extension du modèle User existant
+model User {
+  // ... autres champs existants ...
+  
+  // Relations pour l'analyse sociale
+  socialAccounts            SocialAccount[]
+  strategicRecommendations  StrategicRecommendation[]
+  userObjectives           UserObjective[]
+}
+

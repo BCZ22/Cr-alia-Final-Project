@@ -1,0 +1,310 @@
+{
+  "common": {
+    "loading": "Chargement...",
+    "error": "Erreur",
+    "success": "Succès",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "create": "Créer",
+    "search": "Rechercher",
+    "filter": "Filtrer",
+    "export": "Exporter",
+    "import": "Importer",
+    "language": "Langue",
+    "theme": "Thème",
+    "settings": "Paramètres"
+  },
+  "navigation": {
+    "home": "Accueil",
+    "aiContent": "🤖 IA Content",
+    "carousel": "🎨 Carrousels",
+    "analytics": "📊 Analytics",
+    "calendar": "📅 Calendrier",
+    "inspiration": "💡 Inspiration",
+    "crm": "👥 CRM",
+    "videoEditor": "🎬 Éditeur Vidéo"
+  },
+  "home": {
+    "title": "🚀 Crealia",
+    "subtitle": "Plateforme SaaS de création de contenu intelligent avec IA",
+    "description": "Générez des posts LinkedIn, créez des carrousels professionnels, et analysez vos performances en temps réel.",
+    "startWithAI": "Commencer avec l'IA",
+    "createCarousel": "Créer un Carousel",
+    "features": {
+      "aiGeneration": {
+        "title": "Génération IA",
+        "description": "Créez du contenu LinkedIn optimisé avec l'intelligence artificielle. Posts, hooks, et templates personnalisés.",
+        "cta": "Essayer maintenant →"
+      },
+      "carousels": {
+        "title": "Carrousels",
+        "description": "Générateur de carrousels visuels avec templates professionnels. Export en vidéo, PDF, et images.",
+        "cta": "Créer un carousel →"
+      },
+      "analytics": {
+        "title": "Analytics",
+        "description": "Dashboard complet avec métriques de performance, analyses de contenu et insights détaillés.",
+        "cta": "Voir les analytics →"
+      },
+      "calendar": {
+        "title": "Calendrier",
+        "description": "Planifiez et programmez vos publications avec le calendrier de contenu intelligent.",
+        "cta": "Planifier du contenu →"
+      },
+      "inspiration": {
+        "title": "Inspiration",
+        "description": "Découvrez du contenu viral et des tendances pour inspirer vos créations.",
+        "cta": "Trouver l'inspiration →"
+      },
+      "crm": {
+        "title": "CRM",
+        "description": "Gérez vos leads et contacts avec le système CRM intégré et les séquences d'outreach.",
+        "cta": "Gérer les contacts →"
+      }
+    },
+    "platform": {
+      "title": "🎯 Plateforme Complète",
+      "functional": "Fonctionnel",
+      "modules": "Modules",
+      "possibilities": "Possibilités",
+      "ready": "Prêt"
+    },
+    "footer": {
+      "copyright": "© 2024 Crealia - Plateforme SaaS de création de contenu intelligent",
+      "status": "Application entièrement fonctionnelle et prête à l'utilisation"
+    }
+  },
+  "aiContent": {
+    "title": "Générateur de Contenu IA",
+    "subtitle": "Créez du contenu LinkedIn optimisé avec l'intelligence artificielle",
+    "form": {
+      "topic": "Sujet du contenu",
+      "topicPlaceholder": "Ex: Les tendances du marketing digital en 2024",
+      "tone": "Ton",
+      "toneOptions": {
+        "professional": "Professionnel",
+        "casual": "Décontracté",
+        "friendly": "Amical",
+        "authoritative": "Autoritaire",
+        "inspiring": "Inspirant"
+      },
+      "style": "Style",
+      "styleOptions": {
+        "informative": "Informatif",
+        "storytelling": "Storytelling",
+        "educational": "Éducatif",
+        "promotional": "Promotionnel",
+        "conversational": "Conversationnel"
+      },
+      "length": "Longueur",
+      "lengthOptions": {
+        "short": "Court (50-100 mots)",
+        "medium": "Moyen (100-200 mots)",
+        "long": "Long (200-300 mots)",
+        "custom": "Personnalisé"
+      },
+      "targetAudience": "Audience cible",
+      "targetAudiencePlaceholder": "Ex: Entrepreneurs, marketeurs, développeurs",
+      "keywords": "Mots-clés",
+      "keywordsPlaceholder": "Ex: marketing, digital, innovation",
+      "language": "Langue",
+      "generate": "Générer le contenu",
+      "regenerate": "Régénérer",
+      "save": "Enregistrer",
+      "export": "Exporter"
+    },
+    "advanced": {
+      "title": "Paramètres avancés",
+      "complexity": "Complexité linguistique",
+      "complexityOptions": {
+        "simple": "Simple",
+        "intermediate": "Intermédiaire",
+        "advanced": "Avancé"
+      },
+      "seoOptimization": "Optimisation SEO",
+      "keywordDensity": "Densité des mots-clés",
+      "includeHashtags": "Inclure des hashtags",
+      "includeEmojis": "Inclure des emojis",
+      "includeCallToAction": "Inclure un appel à l'action",
+      "personalization": "Personnalisation",
+      "userName": "Nom d'utilisateur",
+      "userLocation": "Localisation",
+      "userIndustry": "Secteur d'activité"
+    },
+    "results": {
+      "title": "Contenu généré",
+      "loading": "Génération en cours...",
+      "error": "Erreur lors de la génération",
+      "retry": "Réessayer",
+      "rating": "Évaluer ce contenu",
+      "feedback": "Votre avis nous aide à améliorer",
+      "like": "J'aime",
+      "dislike": "Je n'aime pas",
+      "suggestions": "Suggestions d'amélioration"
+    },
+    "templates": {
+      "title": "Templates prédéfinis",
+      "business": "Business",
+      "marketing": "Marketing",
+      "tech": "Technologie",
+      "lifestyle": "Lifestyle",
+      "education": "Éducation",
+      "useTemplate": "Utiliser ce template"
+    }
+  },
+  "carousel": {
+    "title": "Générateur de Carrousels",
+    "subtitle": "Créez des carrousels visuels professionnels",
+    "templates": {
+      "title": "Choisir un template",
+      "business": "Business Professional",
+      "marketing": "Marketing Vibrant",
+      "educational": "Educational Clean",
+      "lifestyle": "Lifestyle Modern",
+      "tech": "Tech Innovation",
+      "creative": "Creative Arts",
+      "health": "Health & Wellness",
+      "luxury": "Premium Luxury",
+      "minimal": "Minimalist Clean"
+    },
+    "editor": {
+      "title": "Éditeur de Carousel",
+      "addSlide": "Ajouter une diapositive",
+      "removeSlide": "Supprimer la diapositive",
+      "duplicateSlide": "Dupliquer la diapositive",
+      "moveUp": "Déplacer vers le haut",
+      "moveDown": "Déplacer vers le bas",
+      "preview": "Aperçu",
+      "export": "Exporter"
+    },
+    "export": {
+      "title": "Options d'export",
+      "format": "Format",
+      "quality": "Qualité",
+      "resolution": "Résolution",
+      "duration": "Durée par slide (secondes)",
+      "export": "Exporter",
+      "download": "Télécharger"
+    }
+  },
+  "analytics": {
+    "title": "Analytics & Performance",
+    "subtitle": "Analysez vos performances et optimisez votre contenu",
+    "overview": {
+      "title": "Vue d'ensemble",
+      "totalPosts": "Total des posts",
+      "totalViews": "Total des vues",
+      "totalEngagement": "Total des interactions",
+      "averageEngagement": "Engagement moyen"
+    },
+    "charts": {
+      "engagement": "Évolution de l'engagement",
+      "reach": "Portée",
+      "clicks": "Clics",
+      "shares": "Partages",
+      "comments": "Commentaires"
+    },
+    "filters": {
+      "dateRange": "Période",
+      "contentType": "Type de contenu",
+      "platform": "Plateforme",
+      "apply": "Appliquer",
+      "reset": "Réinitialiser"
+    },
+    "insights": {
+      "title": "Insights",
+      "bestPerforming": "Meilleures performances",
+      "trending": "Tendances",
+      "recommendations": "Recommandations"
+    }
+  },
+  "calendar": {
+    "title": "Calendrier de Contenu",
+    "subtitle": "Planifiez et programmez vos publications",
+    "addEvent": "Ajouter un événement",
+    "editEvent": "Modifier l'événement",
+    "deleteEvent": "Supprimer l'événement",
+    "event": {
+      "title": "Titre",
+      "description": "Description",
+      "date": "Date",
+      "time": "Heure",
+      "platform": "Plateforme",
+      "status": "Statut",
+      "statusOptions": {
+        "draft": "Brouillon",
+        "scheduled": "Programmé",
+        "published": "Publié"
+      }
+    },
+    "sync": {
+      "title": "Synchronisation",
+      "googleCalendar": "Google Calendar",
+      "outlook": "Outlook",
+      "sync": "Synchroniser"
+    }
+  },
+  "inspiration": {
+    "title": "Inspiration & Tendances",
+    "subtitle": "Découvrez du contenu viral et des tendances",
+    "trending": "Tendances",
+    "viral": "Contenu viral",
+    "categories": "Catégories",
+    "search": "Rechercher des idées",
+    "save": "Sauvegarder",
+    "share": "Partager"
+  },
+  "crm": {
+    "title": "Gestion des Contacts",
+    "subtitle": "Gérez vos leads et contacts",
+    "contacts": "Contacts",
+    "leads": "Leads",
+    "addContact": "Ajouter un contact",
+    "editContact": "Modifier le contact",
+    "deleteContact": "Supprimer le contact",
+    "contact": {
+      "name": "Nom",
+      "email": "Email",
+      "phone": "Téléphone",
+      "company": "Entreprise",
+      "position": "Poste",
+      "status": "Statut",
+      "notes": "Notes"
+    },
+    "sequences": {
+      "title": "Séquences d'outreach",
+      "create": "Créer une séquence",
+      "edit": "Modifier la séquence",
+      "delete": "Supprimer la séquence"
+    }
+  },
+  "videoEditor": {
+    "title": "Éditeur Vidéo",
+    "subtitle": "Créez et éditez vos vidéos",
+    "timeline": "Timeline",
+    "media": "Médias",
+    "effects": "Effets",
+    "text": "Texte",
+    "audio": "Audio",
+    "export": "Exporter"
+  },
+  "errors": {
+    "generic": "Une erreur est survenue",
+    "network": "Erreur de connexion",
+    "unauthorized": "Non autorisé",
+    "notFound": "Ressource non trouvée",
+    "validation": "Erreur de validation",
+    "server": "Erreur serveur"
+  },
+  "success": {
+    "contentGenerated": "Contenu généré avec succès",
+    "contentSaved": "Contenu enregistré",
+    "contentExported": "Contenu exporté",
+    "settingsUpdated": "Paramètres mis à jour"
+  }
+}
+
+
+

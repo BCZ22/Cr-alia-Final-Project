@@ -1,0 +1,743 @@
+
+> my-v0-project@0.1.0 build
+> next build
+
+  ▲ Next.js 14.2.16
+  - Environments: .env.local, .env.production, .env
+
+   Creating an optimized production build ...
+ ⚠ Compiled with warnings
+
+./components/ai/AIGenerator.tsx
+Attempted import error: 'Label' is not exported from '@/components/ui/label' (imported as 'Label').
+
+Import trace for requested module:
+./components/ai/AIGenerator.tsx
+./app/dashboard/page.tsx
+
+./components/ai/AIGenerator.tsx
+Attempted import error: 'Label' is not exported from '@/components/ui/label' (imported as 'Label').
+
+Import trace for requested module:
+./components/ai/AIGenerator.tsx
+./app/dashboard/page.tsx
+
+./components/ai/AIGenerator.tsx
+Attempted import error: 'Label' is not exported from '@/components/ui/label' (imported as 'Label').
+
+Import trace for requested module:
+./components/ai/AIGenerator.tsx
+./app/dashboard/page.tsx
+
+./components/ai/AIGenerator.tsx
+Attempted import error: 'Label' is not exported from '@/components/ui/label' (imported as 'Label').
+
+Import trace for requested module:
+./components/ai/AIGenerator.tsx
+./app/dashboard/page.tsx
+
+./components/auth/LoginForm.tsx
+Attempted import error: 'Label' is not exported from '@/components/ui/label' (imported as 'Label').
+
+Import trace for requested module:
+./components/auth/LoginForm.tsx
+./app/login/page.tsx
+
+./components/auth/LoginForm.tsx
+Attempted import error: 'Label' is not exported from '@/components/ui/label' (imported as 'Label').
+
+Import trace for requested module:
+./components/auth/LoginForm.tsx
+./app/login/page.tsx
+
+./components/auth/RegisterForm.tsx
+Attempted import error: 'Label' is not exported from '@/components/ui/label' (imported as 'Label').
+
+Import trace for requested module:
+./components/auth/RegisterForm.tsx
+./app/register/page.tsx
+
+./components/auth/RegisterForm.tsx
+Attempted import error: 'Label' is not exported from '@/components/ui/label' (imported as 'Label').
+
+Import trace for requested module:
+./components/auth/RegisterForm.tsx
+./app/register/page.tsx
+
+./components/auth/RegisterForm.tsx
+Attempted import error: 'Label' is not exported from '@/components/ui/label' (imported as 'Label').
+
+Import trace for requested module:
+./components/auth/RegisterForm.tsx
+./app/register/page.tsx
+
+./components/social-accounts/SocialAccountManager.tsx
+Attempted import error: 'Tiktok' is not exported from '__barrel_optimize__?names=Activity,AlertCircle,CheckCircle,Clock,Eye,Facebook,Filter,Globe,Instagram,Linkedin,Pinterest,Plus,RefreshCw,Search,Shield,Snapchat,Tiktok,Trash2,Twitter,Users,Youtube!=!lucide-react' (imported as 'Tiktok').
+
+Import trace for requested module:
+./components/social-accounts/SocialAccountManager.tsx
+./app/social-accounts/page.tsx
+
+./components/social-accounts/SocialAccountManager.tsx
+Attempted import error: 'Pinterest' is not exported from '__barrel_optimize__?names=Activity,AlertCircle,CheckCircle,Clock,Eye,Facebook,Filter,Globe,Instagram,Linkedin,Pinterest,Plus,RefreshCw,Search,Shield,Snapchat,Tiktok,Trash2,Twitter,Users,Youtube!=!lucide-react' (imported as 'Pinterest').
+
+Import trace for requested module:
+./components/social-accounts/SocialAccountManager.tsx
+./app/social-accounts/page.tsx
+
+./components/social-accounts/SocialAccountManager.tsx
+Attempted import error: 'Snapchat' is not exported from '__barrel_optimize__?names=Activity,AlertCircle,CheckCircle,Clock,Eye,Facebook,Filter,Globe,Instagram,Linkedin,Pinterest,Plus,RefreshCw,Search,Shield,Snapchat,Tiktok,Trash2,Twitter,Users,Youtube!=!lucide-react' (imported as 'Snapchat').
+
+Import trace for requested module:
+./components/social-accounts/SocialAccountManager.tsx
+./app/social-accounts/page.tsx
+
+./components/ui/ai/AiContentGenerator.tsx
+Attempted import error: 'Label' is not exported from '@/components/ui/label' (imported as 'Label').
+
+Import trace for requested module:
+./components/ui/ai/AiContentGenerator.tsx
+
+./components/ui/ai/AiContentGenerator.tsx
+Attempted import error: 'Label' is not exported from '@/components/ui/label' (imported as 'Label').
+
+Import trace for requested module:
+./components/ui/ai/AiContentGenerator.tsx
+
+./components/ui/ai/AiContentGenerator.tsx
+Attempted import error: 'Label' is not exported from '@/components/ui/label' (imported as 'Label').
+
+Import trace for requested module:
+./components/ui/ai/AiContentGenerator.tsx
+
+./components/ui/ai/AiContentGenerator.tsx
+Attempted import error: 'Label' is not exported from '@/components/ui/label' (imported as 'Label').
+
+Import trace for requested module:
+./components/ui/ai/AiContentGenerator.tsx
+
+./components/ui/ai/AiContentGenerator.tsx
+Attempted import error: 'Label' is not exported from '@/components/ui/label' (imported as 'Label').
+
+Import trace for requested module:
+./components/ui/ai/AiContentGenerator.tsx
+
+./components/ui/ai/AiContentGenerator.tsx
+Attempted import error: 'Label' is not exported from '@/components/ui/label' (imported as 'Label').
+
+Import trace for requested module:
+./components/ui/ai/AiContentGenerator.tsx
+
+./components/ui/ai/AiContentGenerator.tsx
+Attempted import error: 'Label' is not exported from '@/components/ui/label' (imported as 'Label').
+
+Import trace for requested module:
+./components/ui/ai/AiContentGenerator.tsx
+
+./components/ui/calendar/EditorialCalendar.tsx
+Attempted import error: 'Label' is not exported from '@/components/ui/label' (imported as 'Label').
+
+Import trace for requested module:
+./components/ui/calendar/EditorialCalendar.tsx
+
+./components/ui/calendar/EditorialCalendar.tsx
+Attempted import error: 'Label' is not exported from '@/components/ui/label' (imported as 'Label').
+
+Import trace for requested module:
+./components/ui/calendar/EditorialCalendar.tsx
+
+./components/ui/calendar/EditorialCalendar.tsx
+Attempted import error: 'Label' is not exported from '@/components/ui/label' (imported as 'Label').
+
+Import trace for requested module:
+./components/ui/calendar/EditorialCalendar.tsx
+
+./components/ui/calendar/EditorialCalendar.tsx
+Attempted import error: 'Label' is not exported from '@/components/ui/label' (imported as 'Label').
+
+Import trace for requested module:
+./components/ui/calendar/EditorialCalendar.tsx
+
+./components/ui/calendar/EditorialCalendar.tsx
+Attempted import error: 'Label' is not exported from '@/components/ui/label' (imported as 'Label').
+
+Import trace for requested module:
+./components/ui/calendar/EditorialCalendar.tsx
+
+./components/ui/calendar/EditorialCalendar.tsx
+Attempted import error: 'Label' is not exported from '@/components/ui/label' (imported as 'Label').
+
+Import trace for requested module:
+./components/ui/calendar/EditorialCalendar.tsx
+
+./app/api/calendar/events/route.ts
+Attempted import error: 'editorialCalendarService' is not exported from '@/lib/services/editorial-calendar.service' (imported as 'editorialCalendarService').
+
+Import trace for requested module:
+./app/api/calendar/events/route.ts
+
+./app/api/calendar/events/route.ts
+Attempted import error: 'editorialCalendarService' is not exported from '@/lib/services/editorial-calendar.service' (imported as 'editorialCalendarService').
+
+Import trace for requested module:
+./app/api/calendar/events/route.ts
+
+./app/api/content/[id]/route.ts
+Attempted import error: 'contentLibraryService' is not exported from '@/lib/services/content-library.service' (imported as 'contentLibraryService').
+
+Import trace for requested module:
+./app/api/content/[id]/route.ts
+
+./app/api/content/[id]/route.ts
+Attempted import error: 'contentLibraryService' is not exported from '@/lib/services/content-library.service' (imported as 'contentLibraryService').
+
+Import trace for requested module:
+./app/api/content/[id]/route.ts
+
+./app/api/content/[id]/route.ts
+Attempted import error: 'contentLibraryService' is not exported from '@/lib/services/content-library.service' (imported as 'contentLibraryService').
+
+Import trace for requested module:
+./app/api/content/[id]/route.ts
+
+./app/api/content/generate/route.ts
+Attempted import error: 'auth' is not exported from '@clerk/nextjs' (imported as 'auth').
+
+Import trace for requested module:
+./app/api/content/generate/route.ts
+
+./app/api/content/route.ts
+Attempted import error: 'contentLibraryService' is not exported from '@/lib/services/content-library.service' (imported as 'contentLibraryService').
+
+Import trace for requested module:
+./app/api/content/route.ts
+
+./app/api/content/route.ts
+Attempted import error: 'contentLibraryService' is not exported from '@/lib/services/content-library.service' (imported as 'contentLibraryService').
+
+Import trace for requested module:
+./app/api/content/route.ts
+
+./app/api/content/stats/route.ts
+Attempted import error: 'contentLibraryService' is not exported from '@/lib/services/content-library.service' (imported as 'contentLibraryService').
+
+Import trace for requested module:
+./app/api/content/stats/route.ts
+
+./app/api/export/download/[id]/route.ts
+Attempted import error: 'exportService' is not exported from '@/lib/services/export.service' (imported as 'exportService').
+
+Import trace for requested module:
+./app/api/export/download/[id]/route.ts
+
+./app/api/export/route.ts
+Attempted import error: 'exportService' is not exported from '@/lib/services/export.service' (imported as 'exportService').
+
+Import trace for requested module:
+./app/api/export/route.ts
+
+./app/api/export/route.ts
+Attempted import error: 'exportService' is not exported from '@/lib/services/export.service' (imported as 'exportService').
+
+Import trace for requested module:
+./app/api/export/route.ts
+
+./lib/services/export.service.ts
+Attempted import error: 'create' is not exported from 'html-to-pdf' (imported as 'htmlToPdf').
+
+Import trace for requested module:
+./lib/services/export.service.ts
+./app/api/export/route.ts
+
+./node_modules/fluent-ffmpeg/lib/options/misc.js
+Critical dependency: the request of a dependency is an expression
+
+Import trace for requested module:
+./node_modules/fluent-ffmpeg/lib/options/misc.js
+./node_modules/fluent-ffmpeg/lib/fluent-ffmpeg.js
+./node_modules/fluent-ffmpeg/index.js
+./lib/services/video-editor-service.ts
+./app/api/v1/video/clip/route.ts
+
+./src/services/trends/trend-prediction-engine.service.ts
+Attempted import error: 'z'.'infer' is not exported from 'zod' (imported as 'z').
+
+Import trace for requested module:
+./src/services/trends/trend-prediction-engine.service.ts
+./app/api/analytics/advanced/route.ts
+
+<w> [webpack.cache.PackFileCacheStrategy] Skipped not serializable cache item 'Compilation/modules|/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[12].use[2]!/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[14].oneOf[12].use[3]!/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/swiper/swiper.css': No serializer registered for Warning
+<w> while serializing webpack/lib/cache/PackFileCacheStrategy.PackContentItems -> webpack/lib/NormalModule -> Array { 1 items } -> webpack/lib/ModuleWarning -> Warning
+<w> [webpack.cache.PackFileCacheStrategy] Skipped not serializable cache item 'Compilation/modules|/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[12].use[2]!/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[14].oneOf[12].use[3]!/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/swiper/modules/navigation.css': No serializer registered for Warning
+<w> while serializing webpack/lib/cache/PackFileCacheStrategy.PackContentItems -> webpack/lib/NormalModule -> Array { 1 items } -> webpack/lib/ModuleWarning -> Warning
+<w> [webpack.cache.PackFileCacheStrategy] Skipped not serializable cache item 'Compilation/modules|/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[12].use[2]!/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[14].oneOf[12].use[3]!/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/swiper/modules/pagination.css': No serializer registered for Warning
+<w> while serializing webpack/lib/cache/PackFileCacheStrategy.PackContentItems -> webpack/lib/NormalModule -> Array { 1 items } -> webpack/lib/ModuleWarning -> Warning
+<w> [webpack.cache.PackFileCacheStrategy] Skipped not serializable cache item 'Compilation/modules|/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[12].use[2]!/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[14].oneOf[12].use[3]!/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/swiper/modules/thumbs.css': No serializer registered for Warning
+<w> while serializing webpack/lib/cache/PackFileCacheStrategy.PackContentItems -> webpack/lib/NormalModule -> Array { 1 items } -> webpack/lib/ModuleWarning -> Warning
+ ⚠ Compiled with warnings
+
+./node_modules/swiper/modules/navigation.css.webpack[javascript/auto]!=!./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[12].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[14].oneOf[12].use[3]!./node_modules/swiper/modules/navigation.css
+Warning
+
+(22:3) Nested CSS was detected, but CSS nesting has not been configured correctly.
+Please enable a CSS nesting plugin *before* Tailwind in your configuration.
+See how here: https://tailwindcss.com/docs/using-with-preprocessors#nesting
+
+Import trace for requested module:
+./node_modules/swiper/modules/navigation.css.webpack[javascript/auto]!=!./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[12].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[14].oneOf[12].use[3]!./node_modules/swiper/modules/navigation.css
+./node_modules/swiper/modules/navigation.css
+./components/ui/EnhancedCarouselEditor.tsx
+./app/carousel/page.tsx
+
+./node_modules/swiper/modules/pagination.css.webpack[javascript/auto]!=!./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[12].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[14].oneOf[12].use[3]!./node_modules/swiper/modules/pagination.css
+Warning
+
+(28:3) Nested CSS was detected, but CSS nesting has not been configured correctly.
+Please enable a CSS nesting plugin *before* Tailwind in your configuration.
+See how here: https://tailwindcss.com/docs/using-with-preprocessors#nesting
+
+Import trace for requested module:
+./node_modules/swiper/modules/pagination.css.webpack[javascript/auto]!=!./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[12].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[14].oneOf[12].use[3]!./node_modules/swiper/modules/pagination.css
+./node_modules/swiper/modules/pagination.css
+./components/ui/EnhancedCarouselEditor.tsx
+./app/carousel/page.tsx
+
+./node_modules/swiper/modules/thumbs.css.webpack[javascript/auto]!=!./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[12].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[14].oneOf[12].use[3]!./node_modules/swiper/modules/thumbs.css
+Warning
+
+(2:3) Nested CSS was detected, but CSS nesting has not been configured correctly.
+Please enable a CSS nesting plugin *before* Tailwind in your configuration.
+See how here: https://tailwindcss.com/docs/using-with-preprocessors#nesting
+
+Import trace for requested module:
+./node_modules/swiper/modules/thumbs.css.webpack[javascript/auto]!=!./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[12].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[14].oneOf[12].use[3]!./node_modules/swiper/modules/thumbs.css
+./node_modules/swiper/modules/thumbs.css
+./components/ui/EnhancedCarouselEditor.tsx
+./app/carousel/page.tsx
+
+./node_modules/swiper/swiper.css.webpack[javascript/auto]!=!./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[12].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[14].oneOf[12].use[3]!./node_modules/swiper/swiper.css
+Warning
+
+(95:3) Nested CSS was detected, but CSS nesting has not been configured correctly.
+Please enable a CSS nesting plugin *before* Tailwind in your configuration.
+See how here: https://tailwindcss.com/docs/using-with-preprocessors#nesting
+
+Import trace for requested module:
+./node_modules/swiper/swiper.css.webpack[javascript/auto]!=!./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[12].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[14].oneOf[12].use[3]!./node_modules/swiper/swiper.css
+./node_modules/swiper/swiper.css
+./components/ui/EnhancedCarouselEditor.tsx
+./app/carousel/page.tsx
+
+./components/ai/AIGenerator.tsx
+Attempted import error: 'Label' is not exported from '@/components/ui/label' (imported as 'Label').
+
+Import trace for requested module:
+./components/ai/AIGenerator.tsx
+./app/dashboard/page.tsx
+
+./components/ai/AIGenerator.tsx
+Attempted import error: 'Label' is not exported from '@/components/ui/label' (imported as 'Label').
+
+Import trace for requested module:
+./components/ai/AIGenerator.tsx
+./app/dashboard/page.tsx
+
+./components/ai/AIGenerator.tsx
+Attempted import error: 'Label' is not exported from '@/components/ui/label' (imported as 'Label').
+
+Import trace for requested module:
+./components/ai/AIGenerator.tsx
+./app/dashboard/page.tsx
+
+./components/ai/AIGenerator.tsx
+Attempted import error: 'Label' is not exported from '@/components/ui/label' (imported as 'Label').
+
+Import trace for requested module:
+./components/ai/AIGenerator.tsx
+./app/dashboard/page.tsx
+
+./components/auth/LoginForm.tsx
+Attempted import error: 'Label' is not exported from '@/components/ui/label' (imported as 'Label').
+
+Import trace for requested module:
+./components/auth/LoginForm.tsx
+./app/login/page.tsx
+
+./components/auth/LoginForm.tsx
+Attempted import error: 'Label' is not exported from '@/components/ui/label' (imported as 'Label').
+
+Import trace for requested module:
+./components/auth/LoginForm.tsx
+./app/login/page.tsx
+
+./components/auth/RegisterForm.tsx
+Attempted import error: 'Label' is not exported from '@/components/ui/label' (imported as 'Label').
+
+Import trace for requested module:
+./components/auth/RegisterForm.tsx
+./app/register/page.tsx
+
+./components/auth/RegisterForm.tsx
+Attempted import error: 'Label' is not exported from '@/components/ui/label' (imported as 'Label').
+
+Import trace for requested module:
+./components/auth/RegisterForm.tsx
+./app/register/page.tsx
+
+./components/auth/RegisterForm.tsx
+Attempted import error: 'Label' is not exported from '@/components/ui/label' (imported as 'Label').
+
+Import trace for requested module:
+./components/auth/RegisterForm.tsx
+./app/register/page.tsx
+
+./components/social-accounts/SocialAccountManager.tsx
+Attempted import error: 'Tiktok' is not exported from '__barrel_optimize__?names=Activity,AlertCircle,CheckCircle,Clock,Eye,Facebook,Filter,Globe,Instagram,Linkedin,Pinterest,Plus,RefreshCw,Search,Shield,Snapchat,Tiktok,Trash2,Twitter,Users,Youtube!=!lucide-react' (imported as 'Tiktok').
+
+Import trace for requested module:
+./components/social-accounts/SocialAccountManager.tsx
+./app/social-accounts/page.tsx
+
+./components/social-accounts/SocialAccountManager.tsx
+Attempted import error: 'Pinterest' is not exported from '__barrel_optimize__?names=Activity,AlertCircle,CheckCircle,Clock,Eye,Facebook,Filter,Globe,Instagram,Linkedin,Pinterest,Plus,RefreshCw,Search,Shield,Snapchat,Tiktok,Trash2,Twitter,Users,Youtube!=!lucide-react' (imported as 'Pinterest').
+
+Import trace for requested module:
+./components/social-accounts/SocialAccountManager.tsx
+./app/social-accounts/page.tsx
+
+./components/social-accounts/SocialAccountManager.tsx
+Attempted import error: 'Snapchat' is not exported from '__barrel_optimize__?names=Activity,AlertCircle,CheckCircle,Clock,Eye,Facebook,Filter,Globe,Instagram,Linkedin,Pinterest,Plus,RefreshCw,Search,Shield,Snapchat,Tiktok,Trash2,Twitter,Users,Youtube!=!lucide-react' (imported as 'Snapchat').
+
+Import trace for requested module:
+./components/social-accounts/SocialAccountManager.tsx
+./app/social-accounts/page.tsx
+
+./components/ui/ai/AiContentGenerator.tsx
+Attempted import error: 'Label' is not exported from '@/components/ui/label' (imported as 'Label').
+
+Import trace for requested module:
+./components/ui/ai/AiContentGenerator.tsx
+
+./components/ui/ai/AiContentGenerator.tsx
+Attempted import error: 'Label' is not exported from '@/components/ui/label' (imported as 'Label').
+
+Import trace for requested module:
+./components/ui/ai/AiContentGenerator.tsx
+
+./components/ui/ai/AiContentGenerator.tsx
+Attempted import error: 'Label' is not exported from '@/components/ui/label' (imported as 'Label').
+
+Import trace for requested module:
+./components/ui/ai/AiContentGenerator.tsx
+
+./components/ui/ai/AiContentGenerator.tsx
+Attempted import error: 'Label' is not exported from '@/components/ui/label' (imported as 'Label').
+
+Import trace for requested module:
+./components/ui/ai/AiContentGenerator.tsx
+
+./components/ui/ai/AiContentGenerator.tsx
+Attempted import error: 'Label' is not exported from '@/components/ui/label' (imported as 'Label').
+
+Import trace for requested module:
+./components/ui/ai/AiContentGenerator.tsx
+
+./components/ui/ai/AiContentGenerator.tsx
+Attempted import error: 'Label' is not exported from '@/components/ui/label' (imported as 'Label').
+
+Import trace for requested module:
+./components/ui/ai/AiContentGenerator.tsx
+
+./components/ui/ai/AiContentGenerator.tsx
+Attempted import error: 'Label' is not exported from '@/components/ui/label' (imported as 'Label').
+
+Import trace for requested module:
+./components/ui/ai/AiContentGenerator.tsx
+
+./components/ui/calendar/EditorialCalendar.tsx
+Attempted import error: 'Label' is not exported from '@/components/ui/label' (imported as 'Label').
+
+Import trace for requested module:
+./components/ui/calendar/EditorialCalendar.tsx
+
+./components/ui/calendar/EditorialCalendar.tsx
+Attempted import error: 'Label' is not exported from '@/components/ui/label' (imported as 'Label').
+
+Import trace for requested module:
+./components/ui/calendar/EditorialCalendar.tsx
+
+./components/ui/calendar/EditorialCalendar.tsx
+Attempted import error: 'Label' is not exported from '@/components/ui/label' (imported as 'Label').
+
+Import trace for requested module:
+./components/ui/calendar/EditorialCalendar.tsx
+
+./components/ui/calendar/EditorialCalendar.tsx
+Attempted import error: 'Label' is not exported from '@/components/ui/label' (imported as 'Label').
+
+Import trace for requested module:
+./components/ui/calendar/EditorialCalendar.tsx
+
+./components/ui/calendar/EditorialCalendar.tsx
+Attempted import error: 'Label' is not exported from '@/components/ui/label' (imported as 'Label').
+
+Import trace for requested module:
+./components/ui/calendar/EditorialCalendar.tsx
+
+./components/ui/calendar/EditorialCalendar.tsx
+Attempted import error: 'Label' is not exported from '@/components/ui/label' (imported as 'Label').
+
+Import trace for requested module:
+./components/ui/calendar/EditorialCalendar.tsx
+
+ ✓ Compiled successfully
+   Skipping validation of types
+   Skipping linting
+   Collecting page data ...
+TypeError: Cannot read properties of undefined (reading 'bind')
+    at Qr.wrapEngine (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:111:10643)
+    at Qr.loadEngine (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:112:749)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Qr.instantiateLibrary (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:111:11901)
+TypeError: Cannot read properties of undefined (reading 'bind')
+    at Qr.wrapEngine (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:111:10643)
+    at Qr.loadEngine (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:112:749)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Qr.instantiateLibrary (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:111:11901)
+TypeError: Cannot read properties of undefined (reading 'bind')
+    at Qr.wrapEngine (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:111:10643)
+    at Qr.loadEngine (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:112:749)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Qr.instantiateLibrary (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:111:11901)
+TypeError: Cannot read properties of undefined (reading 'bind')
+    at Qr.wrapEngine (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:111:10643)
+    at Qr.loadEngine (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:112:749)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Qr.instantiateLibrary (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:111:11901)
+Modèles ML temporairement désactivés, utilisation de l'analyse basée sur les règles
+TypeError: Cannot read properties of undefined (reading 'bind')
+    at Qr.wrapEngine (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:111:10643)
+    at Qr.loadEngine (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:112:749)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Qr.instantiateLibrary (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:111:11901)
+TypeError: Cannot read properties of undefined (reading 'bind')
+    at Qr.wrapEngine (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:111:10643)
+    at Qr.loadEngine (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:112:749)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Qr.instantiateLibrary (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:111:11901)
+Modèles de tendances temporairement désactivés, utilisation de l'analyse basée sur les règles
+TypeError: Cannot read properties of undefined (reading 'bind')
+    at Qr.wrapEngine (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:111:10643)
+    at Qr.loadEngine (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:112:749)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Qr.instantiateLibrary (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:111:11901)
+TypeError: Cannot read properties of undefined (reading 'bind')
+    at Qr.wrapEngine (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:111:10643)
+    at Qr.loadEngine (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:112:749)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Qr.instantiateLibrary (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:111:11901)
+TypeError: Cannot read properties of undefined (reading 'bind')
+    at Qr.wrapEngine (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:111:10643)
+    at Qr.loadEngine (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:112:749)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Qr.instantiateLibrary (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:111:11901)
+TypeError: Cannot read properties of undefined (reading 'bind')
+    at Qr.wrapEngine (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:111:10643)
+    at Qr.loadEngine (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:112:749)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Qr.instantiateLibrary (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:111:11901)
+TypeError: Cannot read properties of undefined (reading 'bind')
+    at Qr.wrapEngine (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:111:10643)
+    at Qr.loadEngine (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:112:749)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Qr.instantiateLibrary (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:111:11901)
+TypeError: Cannot read properties of undefined (reading 'bind')
+    at Qr.wrapEngine (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:111:10643)
+    at Qr.loadEngine (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:112:749)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Qr.instantiateLibrary (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:111:11901)
+TypeError: Cannot read properties of undefined (reading 'bind')
+    at Qr.wrapEngine (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:111:10643)
+    at Qr.loadEngine (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:112:749)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Qr.instantiateLibrary (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:111:11901)
+TypeError: Cannot read properties of undefined (reading 'bind')
+    at Qr.wrapEngine (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:111:10643)
+    at Qr.loadEngine (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:112:749)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Qr.instantiateLibrary (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:111:11901)
+TypeError: Cannot read properties of undefined (reading 'bind')
+    at Qr.wrapEngine (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:111:10643)
+    at Qr.loadEngine (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:112:749)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Qr.instantiateLibrary (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:111:11901)
+TypeError: Cannot read properties of undefined (reading 'bind')
+    at Qr.wrapEngine (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:111:10643)
+    at Qr.loadEngine (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:112:749)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Qr.instantiateLibrary (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:111:11901)
+TypeError: Cannot read properties of undefined (reading 'bind')
+    at Qr.wrapEngine (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:111:10643)
+    at Qr.loadEngine (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:112:749)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Qr.instantiateLibrary (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:111:11901)
+TypeError: Cannot read properties of undefined (reading 'bind')
+    at Qr.wrapEngine (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:111:10643)
+    at Qr.loadEngine (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:112:749)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Qr.instantiateLibrary (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:111:11901)
+TypeError: Cannot read properties of undefined (reading 'bind')
+    at Qr.wrapEngine (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:111:10643)
+    at Qr.loadEngine (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:112:749)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Qr.instantiateLibrary (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:111:11901)
+TypeError: Cannot read properties of undefined (reading 'bind')
+    at Qr.wrapEngine (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:111:10643)
+    at Qr.loadEngine (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:112:749)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Qr.instantiateLibrary (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:111:11901)
+TypeError: Cannot read properties of undefined (reading 'bind')
+    at Qr.wrapEngine (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:111:10643)
+    at Qr.loadEngine (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:112:749)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Qr.instantiateLibrary (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:111:11901)
+TypeError: Cannot read properties of undefined (reading 'bind')
+    at Qr.wrapEngine (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:111:10643)
+    at Qr.loadEngine (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:112:749)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Qr.instantiateLibrary (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:111:11901)
+TypeError: Cannot read properties of undefined (reading 'bind')
+    at Qr.wrapEngine (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:111:10643)
+    at Qr.loadEngine (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:112:749)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Qr.instantiateLibrary (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:111:11901)
+TypeError: Cannot read properties of undefined (reading 'bind')
+    at Qr.wrapEngine (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:111:10643)
+    at Qr.loadEngine (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:112:749)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Qr.instantiateLibrary (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:111:11901)
+TypeError: Cannot read properties of undefined (reading 'bind')
+    at Qr.wrapEngine (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:111:10643)
+    at Qr.loadEngine (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:112:749)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Qr.instantiateLibrary (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:111:11901)
+TypeError: Cannot read properties of undefined (reading 'bind')
+    at Qr.wrapEngine (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:111:10643)
+    at Qr.loadEngine (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:112:749)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Qr.instantiateLibrary (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:111:11901)
+TypeError: Cannot read properties of undefined (reading 'bind')
+    at Qr.wrapEngine (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:111:10643)
+    at Qr.loadEngine (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:112:749)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Qr.instantiateLibrary (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:111:11901)
+TypeError: Cannot read properties of undefined (reading 'bind')
+    at Qr.wrapEngine (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:111:10643)
+    at Qr.loadEngine (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:112:749)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Qr.instantiateLibrary (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:111:11901)
+TypeError: Cannot read properties of undefined (reading 'bind')
+    at Qr.wrapEngine (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:111:10643)
+    at Qr.loadEngine (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:112:749)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Qr.instantiateLibrary (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:111:11901)
+TypeError: Cannot read properties of undefined (reading 'bind')
+    at Qr.wrapEngine (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:111:10643)
+    at Qr.loadEngine (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:112:749)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Qr.instantiateLibrary (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:111:11901)
+TypeError: Cannot read properties of undefined (reading 'bind')
+    at Qr.wrapEngine (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:111:10643)
+    at Qr.loadEngine (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:112:749)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Qr.instantiateLibrary (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:111:11901)
+TypeError: Cannot read properties of undefined (reading 'bind')
+    at Qr.wrapEngine (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:111:10643)
+    at Qr.loadEngine (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:112:749)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Qr.instantiateLibrary (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:111:11901)
+TypeError: Cannot read properties of undefined (reading 'bind')
+    at Qr.wrapEngine (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:111:10643)
+    at Qr.loadEngine (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:112:749)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Qr.instantiateLibrary (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:111:11901)
+TypeError: Cannot read properties of undefined (reading 'bind')
+    at Qr.wrapEngine (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:111:10643)
+    at Qr.loadEngine (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:112:749)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Qr.instantiateLibrary (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:111:11901)
+TypeError: Cannot read properties of undefined (reading 'bind')
+    at Qr.wrapEngine (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:111:10643)
+    at Qr.loadEngine (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:112:749)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Qr.instantiateLibrary (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:111:11901)
+TypeError: Cannot read properties of undefined (reading 'bind')
+    at Qr.wrapEngine (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:111:10643)
+    at Qr.loadEngine (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:112:749)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Qr.instantiateLibrary (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:111:11901)
+TypeError: Cannot read properties of undefined (reading 'bind')
+    at Qr.wrapEngine (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:111:10643)
+    at Qr.loadEngine (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:112:749)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Qr.instantiateLibrary (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:111:11901)
+TypeError: Cannot read properties of undefined (reading 'bind')
+    at Qr.wrapEngine (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:111:10643)
+    at Qr.loadEngine (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:112:749)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Qr.instantiateLibrary (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:111:11901)
+TypeError: Cannot read properties of undefined (reading 'bind')
+    at Qr.wrapEngine (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:111:10643)
+    at Qr.loadEngine (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:112:749)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Qr.instantiateLibrary (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:111:11901)
+TypeError: Cannot read properties of undefined (reading 'bind')
+    at Qr.wrapEngine (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:111:10643)
+    at Qr.loadEngine (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:112:749)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Qr.instantiateLibrary (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:111:11901)
+TypeError: Cannot read properties of undefined (reading 'bind')
+    at Qr.wrapEngine (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:111:10643)
+    at Qr.loadEngine (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:112:749)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Qr.instantiateLibrary (/Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/@prisma/client/runtime/library.js:111:11901)
+Error: BullMQ: Your redis options maxRetriesPerRequest must be null.
+    at es.checkBlockingOptions (/Users/anthonybocca/Downloads/FlowGestion /crealia/.next/server/chunks/839.js:7719:1424)
+    at new es (/Users/anthonybocca/Downloads/FlowGestion /crealia/.next/server/chunks/839.js:7719:564)
+    at new v (/Users/anthonybocca/Downloads/FlowGestion /crealia/.next/server/chunks/839.js:7720:65703)
+    at c.initializeWorkers (/Users/anthonybocca/Downloads/FlowGestion /crealia/.next/server/chunks/7690.js:1:1176)
+    at new c (/Users/anthonybocca/Downloads/FlowGestion /crealia/.next/server/chunks/7690.js:1:871)
+    at new c (/Users/anthonybocca/Downloads/FlowGestion /crealia/.next/server/chunks/7690.js:1:5549)
+    at 70156 (/Users/anthonybocca/Downloads/FlowGestion /crealia/.next/server/app/api/video-editor/export/route.js:1:1264)
+    at t (/Users/anthonybocca/Downloads/FlowGestion /crealia/.next/server/webpack-runtime.js:1:143)
+    at t (/Users/anthonybocca/Downloads/FlowGestion /crealia/.next/server/app/api/video-editor/export/route.js:1:2666)
+    at /Users/anthonybocca/Downloads/FlowGestion /crealia/.next/server/app/api/video-editor/export/route.js:1:2718
+Error: BullMQ: Your redis options maxRetriesPerRequest must be null.
+    at es.checkBlockingOptions (/Users/anthonybocca/Downloads/FlowGestion /crealia/.next/server/chunks/839.js:7719:1424)
+    at new es (/Users/anthonybocca/Downloads/FlowGestion /crealia/.next/server/chunks/839.js:7719:564)
+    at new v (/Users/anthonybocca/Downloads/FlowGestion /crealia/.next/server/chunks/839.js:7720:65703)
+    at c.initializeWorkers (/Users/anthonybocca/Downloads/FlowGestion /crealia/.next/server/chunks/7690.js:1:1176)
+    at new c (/Users/anthonybocca/Downloads/FlowGestion /crealia/.next/server/chunks/7690.js:1:871)
+    at new c (/Users/anthonybocca/Downloads/FlowGestion /crealia/.next/server/chunks/7690.js:1:5549)
+    at 39136 (/Users/anthonybocca/Downloads/FlowGestion /crealia/.next/server/app/api/video-editor/export/[id]/route.js:1:1263)
+    at t (/Users/anthonybocca/Downloads/FlowGestion /crealia/.next/server/webpack-runtime.js:1:143)
+    at t (/Users/anthonybocca/Downloads/FlowGestion /crealia/.next/server/app/api/video-editor/export/[id]/route.js:1:2456)
+    at /Users/anthonybocca/Downloads/FlowGestion /crealia/.next/server/app/api/video-editor/export/[id]/route.js:1:2508
+Error: BullMQ: Your redis options maxRetriesPerRequest must be null.
+    at es.checkBlockingOptions (/Users/anthonybocca/Downloads/FlowGestion /crealia/.next/server/chunks/839.js:7719:1424)
+    at new es (/Users/anthonybocca/Downloads/FlowGestion /crealia/.next/server/chunks/839.js:7719:564)
+    at new v (/Users/anthonybocca/Downloads/FlowGestion /crealia/.next/server/chunks/839.js:7720:65703)
+    at u.initializeWorkers (/Users/anthonybocca/Downloads/FlowGestion /crealia/.next/server/chunks/8277.js:1:1176)
+    at new u (/Users/anthonybocca/Downloads/FlowGestion /crealia/.next/server/chunks/8277.js:1:871)
+    at new h (/Users/anthonybocca/Downloads/FlowGestion /crealia/.next/server/chunks/8277.js:1:5992)
+    at 90092 (/Users/anthonybocca/Downloads/FlowGestion /crealia/.next/server/app/api/video-editor/media/route.js:1:1263)
+    at t (/Users/anthonybocca/Downloads/FlowGestion /crealia/.next/server/webpack-runtime.js:1:143)
+    at t (/Users/anthonybocca/Downloads/FlowGestion /crealia/.next/server/app/api/video-editor/media/route.js:1:2517)
+    at /Users/anthonybocca/Downloads/FlowGestion /crealia/.next/server/app/api/video-editor/media/route.js:1:2569
+
+> Build error occurred
+Error: Failed to collect page data for /api/video-editor/export
+    at /Users/anthonybocca/Downloads/FlowGestion /crealia/node_modules/next/dist/build/utils.js:1268:15
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5) {
+  type: 'Error'
+}

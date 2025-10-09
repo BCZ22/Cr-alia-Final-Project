@@ -1,0 +1,102 @@
+// =============================================================================
+// SCHEMA MINIMAL POUR LES NOUVELLES FONCTIONNALITÉS
+// =============================================================================
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// =============================================================================
+// MODÈLES DE BASE
+// =============================================================================
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations pour nos nouvelles fonctionnalités
+  customTemplates     CarouselTemplate[]
+  templateReviews     CarouselTemplateReview[]
+  templateDownloads   CarouselTemplateDownload[]
+
+  @@map("users")
+}
+
+// =============================================================================
+// TEMPLATES DE CARROUSEL
+// =============================================================================
+
+model CarouselTemplate {
+  id            String   @id @default(cuid())
+  name          String
+  description   String?
+  category      String?
+  thumbnail     String?
+  designData    Json     // Données de design du template
+  isDefault     Boolean  @default(false)
+  isCustom      Boolean  @default(false)
+  isShared      Boolean  @default(false)
+  shareToken    String?  @unique
+  downloadCount Int      @default(0)
+  rating        Float?   @default(0)
+  reviewCount   Int      @default(0)
+  version       String   @default("1.0.0")
+  isArchived    Boolean  @default(false)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  // Relations
+  userId        String
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  reviews       CarouselTemplateReview[]
+  downloads     CarouselTemplateDownload[]
+
+  @@index([category])
+  @@index([isDefault])
+  @@index([isShared])
+  @@index([rating])
+  @@map("carousel_templates")
+}
+
+model CarouselTemplateReview {
+  id        String   @id @default(cuid())
+  rating    Int      // 1-5
+  comment   String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  templateId String
+  template   CarouselTemplate @relation(fields: [templateId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, templateId])
+  @@map("carousel_template_reviews")
+}
+
+model CarouselTemplateDownload {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+
+  // Relations
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  templateId String
+  template   CarouselTemplate @relation(fields: [templateId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([templateId])
+  @@index([createdAt])
+  @@map("carousel_template_downloads")
+}
+
+

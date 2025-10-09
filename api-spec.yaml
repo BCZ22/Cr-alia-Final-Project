@@ -1,0 +1,1355 @@
+openapi: 3.0.3
+info:
+  title: Crealia SaaS API
+  description: API complète pour la plateforme SaaS de création et d'analyse de contenu
+  version: 1.0.0
+  contact:
+    name: Crealia Support
+    email: support@crealia.com
+servers:
+  - url: https://api.crealia.com/v1
+    description: Production server
+  - url: https://staging-api.crealia.com/v1
+    description: Staging server
+  - url: http://localhost:3000/api/v1
+    description: Development server
+
+security:
+  - BearerAuth: []
+  - ApiKeyAuth: []
+
+paths:
+  # Authentication & User Management
+  /auth/register:
+    post:
+      tags: [Authentication]
+      summary: User registration
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterRequest'
+      responses:
+        '201':
+          description: User created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '409':
+          $ref: '#/components/responses/Conflict'
+
+  /auth/login:
+    post:
+      tags: [Authentication]
+      summary: User login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        '200':
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /auth/oauth/{platform}:
+    get:
+      tags: [Authentication]
+      summary: Start OAuth2 flow
+      parameters:
+        - name: platform
+          in: path
+          required: true
+          schema:
+            type: string
+            enum: [google, github, microsoft, apple]
+      responses:
+        '302':
+          description: Redirect to OAuth provider
+        '400':
+          $ref: '#/components/responses/BadRequest'
+
+  /auth/oauth/{platform}/callback:
+    get:
+      tags: [Authentication]
+      summary: OAuth2 callback
+      parameters:
+        - name: platform
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: code
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: state
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OAuth successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+
+  # Media Upload & Management
+  /uploads/presign:
+    post:
+      tags: [Media]
+      summary: Get presigned URL for upload
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PresignRequest'
+      responses:
+        '200':
+          description: Presigned URL generated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PresignResponse'
+
+  /assets:
+    get:
+      tags: [Media]
+      summary: List user assets
+      parameters:
+        - name: projectId
+          in: query
+          schema:
+            type: string
+        - name: type
+          in: query
+          schema:
+            $ref: '#/components/schemas/AssetType'
+        - name: search
+          in: query
+          schema:
+            type: string
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 20
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            default: 0
+      responses:
+        '200':
+          description: Assets list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssetsListResponse'
+
+    post:
+      tags: [Media]
+      summary: Finalize asset upload
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AssetFinalizeRequest'
+      responses:
+        '201':
+          description: Asset created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Asset'
+
+  /assets/{assetId}:
+    get:
+      tags: [Media]
+      summary: Get asset details
+      parameters:
+        - name: assetId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Asset details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Asset'
+
+    delete:
+      tags: [Media]
+      summary: Delete asset
+      parameters:
+        - name: assetId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Asset deleted
+
+  # Photo Editor
+  /assets/{assetId}/edit:
+    post:
+      tags: [Photo Editor]
+      summary: Apply photo edits
+      parameters:
+        - name: assetId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PhotoEditRequest'
+      responses:
+        '202':
+          description: Edit job queued
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Job'
+
+  /assets/{assetId}/background-remove:
+    post:
+      tags: [Photo Editor]
+      summary: Remove background
+      parameters:
+        - name: assetId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BackgroundRemoveRequest'
+      responses:
+        '202':
+          description: Background removal job queued
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Job'
+
+  # Face Editor
+  /assets/{assetId}/face-detect:
+    post:
+      tags: [Face Editor]
+      summary: Detect faces
+      parameters:
+        - name: assetId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Face detection results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FaceDetectionResponse'
+
+  /assets/{assetId}/face-edit:
+    post:
+      tags: [Face Editor]
+      summary: Apply face editing
+      parameters:
+        - name: assetId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FaceEditRequest'
+      responses:
+        '202':
+          description: Face edit job queued
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Job'
+
+  # AI Art Generation
+  /ai/generate:
+    post:
+      tags: [AI Art]
+      summary: Generate AI art
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AIGenerationRequest'
+      responses:
+        '202':
+          description: AI generation job queued
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Job'
+
+  /ai/generate/stream:
+    post:
+      tags: [AI Art]
+      summary: Generate AI art with streaming
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AIGenerationRequest'
+      responses:
+        '200':
+          description: Streaming generation
+          content:
+            text/event-stream:
+              schema:
+                type: string
+
+  # Video Editor
+  /video/projects:
+    get:
+      tags: [Video Editor]
+      summary: List video projects
+      responses:
+        '200':
+          description: Video projects list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VideoProjectsResponse'
+
+    post:
+      tags: [Video Editor]
+      summary: Create video project
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VideoProjectCreateRequest'
+      responses:
+        '201':
+          description: Video project created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VideoProject'
+
+  /video/projects/{projectId}/timeline:
+    post:
+      tags: [Video Editor]
+      summary: Update video timeline
+      parameters:
+        - name: projectId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TimelineUpdateRequest'
+      responses:
+        '200':
+          description: Timeline updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VideoProject'
+
+  /video/projects/{projectId}/export:
+    post:
+      tags: [Video Editor]
+      summary: Export video project
+      parameters:
+        - name: projectId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VideoExportRequest'
+      responses:
+        '202':
+          description: Export job queued
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Job'
+
+  # Social Integration
+  /social/accounts:
+    get:
+      tags: [Social Integration]
+      summary: List connected social accounts
+      responses:
+        '200':
+          description: Social accounts list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SocialAccountsResponse'
+
+  /social/accounts/{platform}/connect:
+    get:
+      tags: [Social Integration]
+      summary: Connect social account
+      parameters:
+        - name: platform
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/SocialPlatform'
+      responses:
+        '302':
+          description: Redirect to social platform
+
+  /social/publish:
+    post:
+      tags: [Social Integration]
+      summary: Publish content to social platforms
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SocialPublishRequest'
+      responses:
+        '202':
+          description: Publish job queued
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Job'
+
+  /social/schedule:
+    post:
+      tags: [Social Integration]
+      summary: Schedule social post
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SocialScheduleRequest'
+      responses:
+        '201':
+          description: Post scheduled
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduledPost'
+
+  # Analytics
+  /analytics/overview:
+    get:
+      tags: [Analytics]
+      summary: Get analytics overview
+      parameters:
+        - name: from
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date
+        - name: to
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date
+        - name: platform
+          in: query
+          schema:
+            $ref: '#/components/schemas/SocialPlatform'
+      responses:
+        '200':
+          description: Analytics overview
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnalyticsOverview'
+
+  /analytics/reports:
+    post:
+      tags: [Analytics]
+      summary: Generate analytics report
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReportRequest'
+      responses:
+        '202':
+          description: Report generation job queued
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Job'
+
+  # Jobs & Status
+  /jobs/{jobId}:
+    get:
+      tags: [Jobs]
+      summary: Get job status
+      parameters:
+        - name: jobId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Job status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Job'
+
+  /jobs/{jobId}/cancel:
+    post:
+      tags: [Jobs]
+      summary: Cancel job
+      parameters:
+        - name: jobId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Job cancelled
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
+
+  schemas:
+    # Authentication
+    RegisterRequest:
+      type: object
+      required: [email, password, username]
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          minLength: 8
+        username:
+          type: string
+          minLength: 3
+        firstName:
+          type: string
+        lastName:
+          type: string
+
+    LoginRequest:
+      type: object
+      required: [email, password]
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+
+    AuthResponse:
+      type: object
+      properties:
+        user:
+          $ref: '#/components/schemas/User'
+        token:
+          type: string
+        refreshToken:
+          type: string
+        expiresIn:
+          type: integer
+
+    # Media
+    PresignRequest:
+      type: object
+      required: [filename, contentType]
+      properties:
+        filename:
+          type: string
+        contentType:
+          type: string
+        projectId:
+          type: string
+
+    PresignResponse:
+      type: object
+      properties:
+        presignedUrl:
+          type: string
+        assetId:
+          type: string
+        expiresIn:
+          type: integer
+
+    AssetFinalizeRequest:
+      type: object
+      required: [assetId, metadata]
+      properties:
+        assetId:
+          type: string
+        metadata:
+          type: object
+        tags:
+          type: array
+          items:
+            type: string
+
+    Asset:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        originalName:
+          type: string
+        type:
+          $ref: '#/components/schemas/AssetType'
+        mimeType:
+          type: string
+        fileSize:
+          type: integer
+          format: int64
+        width:
+          type: integer
+        height:
+          type: integer
+        duration:
+          type: number
+        status:
+          $ref: '#/components/schemas/AssetStatus'
+        metadata:
+          type: object
+        tags:
+          type: array
+          items:
+            type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+    AssetType:
+      type: string
+      enum: [IMAGE, VIDEO, AUDIO, DOCUMENT, OTHER]
+
+    AssetStatus:
+      type: string
+      enum: [UPLOADING, PROCESSING, READY, FAILED, ARCHIVED]
+
+    AssetsListResponse:
+      type: object
+      properties:
+        assets:
+          type: array
+          items:
+            $ref: '#/components/schemas/Asset'
+        total:
+          type: integer
+        limit:
+          type: integer
+        offset:
+          type: integer
+
+    # Photo Editor
+    PhotoEditRequest:
+      type: object
+      required: [operations]
+      properties:
+        operations:
+          type: array
+          items:
+            $ref: '#/components/schemas/PhotoOperation'
+        outputFormat:
+          type: string
+          default: "webp"
+        quality:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 90
+
+    PhotoOperation:
+      type: object
+      required: [type, parameters]
+      properties:
+        type:
+          $ref: '#/components/schemas/EditType'
+        parameters:
+          type: object
+        intensity:
+          type: number
+          minimum: 0
+          maximum: 1
+          default: 1
+
+    EditType:
+      type: string
+      enum: [CROP, RESIZE, ROTATE, FLIP, BRIGHTNESS, CONTRAST, SATURATION, HUE, VIBRANCE, CLARITY, SHARPNESS, NOISE_REDUCTION, EXPOSURE, HIGHLIGHTS, SHADOWS, COLOR_BALANCE, COLOR_GRADING, FILTER, LUT, BACKGROUND_REMOVAL, FACE_DETECTION, FACE_BEAUTIFY, FACE_SWAP, OBJECT_REMOVAL, HEALING_BRUSH, CLONE_STAMP, GRADIENT, RADIAL_FILTER, BRUSH, SELECTIVE_EDIT, PERSPECTIVE_CORRECTION, LENS_CORRECTION, HORIZON_STRAIGHTEN, UPSCALE, DENOISE, STYLE_TRANSFER, ARTISTIC_FILTER, TEXTURE, DEHAZE, VIGNETTE, GRAIN, BLUR, SHARPEN]
+
+    BackgroundRemoveRequest:
+      type: object
+      properties:
+        method:
+          type: string
+          enum: [ai, manual]
+          default: ai
+        refine:
+          type: boolean
+          default: true
+
+    # Face Editor
+    FaceDetectionResponse:
+      type: object
+      properties:
+        faces:
+          type: array
+          items:
+            $ref: '#/components/schemas/FaceData'
+
+    FaceData:
+      type: object
+      properties:
+        id:
+          type: string
+        boundingBox:
+          $ref: '#/components/schemas/BoundingBox'
+        landmarks:
+          type: array
+          items:
+            $ref: '#/components/schemas/Landmark'
+        confidence:
+          type: number
+
+    BoundingBox:
+      type: object
+      properties:
+        x:
+          type: number
+        y:
+          type: number
+        width:
+          type: number
+        height:
+          type: number
+
+    Landmark:
+      type: object
+      properties:
+        x:
+          type: number
+        y:
+          type: number
+        type:
+          type: string
+
+    FaceEditRequest:
+      type: object
+      required: [faceId, operations]
+      properties:
+        faceId:
+          type: string
+        operations:
+          type: array
+          items:
+            $ref: '#/components/schemas/FaceOperation'
+        consentGiven:
+          type: boolean
+          default: false
+
+    FaceOperation:
+      type: object
+      required: [type, parameters]
+      properties:
+        type:
+          $ref: '#/components/schemas/FaceProcessingType'
+        parameters:
+          type: object
+
+    FaceProcessingType:
+      type: string
+      enum: [FACE_BEAUTIFY, FACE_SWAP, AGE_PROGRESSION, GENDER_SWAP, MAKEUP_APPLICATION, HAIR_COLOR_CHANGE, EXPRESSION_CHANGE, FACE_MORPHING, PORTRAIT_BOKEH, FACE_RELIGHTING]
+
+    # AI Art
+    AIGenerationRequest:
+      type: object
+      required: [type, prompt]
+      properties:
+        type:
+          $ref: '#/components/schemas/AIArtType'
+        prompt:
+          type: string
+        negativePrompt:
+          type: string
+        model:
+          type: string
+          default: "stable-diffusion-xl"
+        parameters:
+          type: object
+          properties:
+            seed:
+              type: integer
+            steps:
+              type: integer
+              default: 20
+            cfgScale:
+              type: number
+              default: 7.5
+            width:
+              type: integer
+              default: 1024
+            height:
+              type: integer
+              default: 1024
+        projectId:
+          type: string
+
+    AIArtType:
+      type: string
+      enum: [TEXT_TO_IMAGE, IMAGE_TO_IMAGE, INPAINTING, OUTPAINTING, STYLE_TRANSFER, UPSCALE, ENHANCE, AVATAR_GENERATION, BATCH_GENERATION]
+
+    # Video Editor
+    VideoProject:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        duration:
+          type: number
+        fps:
+          type: integer
+        resolution:
+          type: string
+        aspectRatio:
+          type: string
+        status:
+          $ref: '#/components/schemas/VideoProjectStatus'
+        timeline:
+          type: object
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+    VideoProjectStatus:
+      type: string
+      enum: [DRAFT, EDITING, RENDERING, COMPLETED, ARCHIVED]
+
+    VideoProjectCreateRequest:
+      type: object
+      required: [name]
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        resolution:
+          type: string
+          default: "1920x1080"
+        fps:
+          type: integer
+          default: 30
+
+    VideoProjectsResponse:
+      type: object
+      properties:
+        projects:
+          type: array
+          items:
+            $ref: '#/components/schemas/VideoProject'
+        total:
+          type: integer
+
+    TimelineUpdateRequest:
+      type: object
+      required: [tracks]
+      properties:
+        tracks:
+          type: array
+          items:
+            $ref: '#/components/schemas/VideoTrack'
+        duration:
+          type: number
+
+    VideoTrack:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          $ref: '#/components/schemas/VideoTrackType'
+        name:
+          type: string
+        index:
+          type: integer
+        muted:
+          type: boolean
+        locked:
+          type: boolean
+        volume:
+          type: number
+        opacity:
+          type: number
+        clips:
+          type: array
+          items:
+            $ref: '#/components/schemas/VideoClip'
+
+    VideoTrackType:
+      type: string
+      enum: [VIDEO, AUDIO, TEXT, IMAGE, EFFECT]
+
+    VideoClip:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        assetId:
+          type: string
+        startTime:
+          type: number
+        endTime:
+          type: number
+        trimStart:
+          type: number
+        trimEnd:
+          type: number
+        speed:
+          type: number
+        volume:
+          type: number
+        opacity:
+          type: number
+        effects:
+          type: array
+          items:
+            type: object
+        transitions:
+          type: array
+          items:
+            type: object
+
+    VideoExportRequest:
+      type: object
+      required: [format, resolution]
+      properties:
+        name:
+          type: string
+        format:
+          type: string
+          default: "mp4"
+        codec:
+          type: string
+          default: "h264"
+        resolution:
+          type: string
+        bitrate:
+          type: integer
+        quality:
+          type: string
+          default: "high"
+
+    # Social Integration
+    SocialPlatform:
+      type: string
+      enum: [INSTAGRAM, YOUTUBE, TIKTOK, FACEBOOK, TWITTER, LINKEDIN, PINTEREST, SNAPCHAT]
+
+    SocialAccountsResponse:
+      type: object
+      properties:
+        accounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/SocialAccount'
+
+    SocialAccount:
+      type: object
+      properties:
+        id:
+          type: string
+        platform:
+          $ref: '#/components/schemas/SocialPlatform'
+        username:
+          type: string
+        displayName:
+          type: string
+        profilePicture:
+          type: string
+        status:
+          $ref: '#/components/schemas/SocialAccountStatus'
+        isActive:
+          type: boolean
+        connectedAt:
+          type: string
+          format: date-time
+
+    SocialAccountStatus:
+      type: string
+      enum: [CONNECTED, EXPIRED, REVOKED, PENDING, ERROR]
+
+    SocialPublishRequest:
+      type: object
+      required: [content, platforms]
+      properties:
+        content:
+          $ref: '#/components/schemas/SocialContent'
+        platforms:
+          type: array
+          items:
+            $ref: '#/components/schemas/PlatformPublishConfig'
+        requireApproval:
+          type: boolean
+          default: true
+
+    SocialContent:
+      type: object
+      properties:
+        text:
+          type: string
+        mediaIds:
+          type: array
+          items:
+            type: string
+        hashtags:
+          type: array
+          items:
+            type: string
+        mentions:
+          type: array
+          items:
+            type: string
+        location:
+          type: string
+
+    PlatformPublishConfig:
+      type: object
+      required: [platform, accountId]
+      properties:
+        platform:
+          $ref: '#/components/schemas/SocialPlatform'
+        accountId:
+          type: string
+        customizations:
+          type: object
+
+    SocialScheduleRequest:
+      type: object
+      required: [content, platforms, scheduledAt]
+      properties:
+        content:
+          $ref: '#/components/schemas/SocialContent'
+        platforms:
+          type: array
+          items:
+            $ref: '#/components/schemas/PlatformPublishConfig'
+        scheduledAt:
+          type: string
+          format: date-time
+        requireApproval:
+          type: boolean
+          default: true
+
+    ScheduledPost:
+      type: object
+      properties:
+        id:
+          type: string
+        content:
+          $ref: '#/components/schemas/SocialContent'
+        platforms:
+          type: array
+          items:
+            $ref: '#/components/schemas/SocialPlatform'
+        scheduledAt:
+          type: string
+          format: date-time
+        status:
+          type: string
+          enum: [SCHEDULED, PUBLISHED, FAILED, CANCELLED]
+        createdAt:
+          type: string
+          format: date-time
+
+    # Analytics
+    AnalyticsOverview:
+      type: object
+      properties:
+        period:
+          type: object
+          properties:
+            from:
+              type: string
+              format: date
+            to:
+              type: string
+              format: date
+        metrics:
+          type: object
+          properties:
+            totalImpressions:
+              type: integer
+            totalReach:
+              type: integer
+            totalEngagement:
+              type: integer
+            totalLikes:
+              type: integer
+            totalComments:
+              type: integer
+            totalShares:
+              type: integer
+            avgEngagementRate:
+              type: number
+            topPerformingPosts:
+              type: array
+              items:
+                type: object
+        trends:
+          type: object
+          properties:
+            followerGrowth:
+              type: number
+            engagementTrend:
+              type: number
+            reachTrend:
+              type: number
+
+    ReportRequest:
+      type: object
+      required: [type, period]
+      properties:
+        type:
+          $ref: '#/components/schemas/ReportType'
+        period:
+          $ref: '#/components/schemas/ReportPeriod'
+        platforms:
+          type: array
+          items:
+            $ref: '#/components/schemas/SocialPlatform'
+        format:
+          type: string
+          enum: [PDF, CSV, JSON]
+          default: PDF
+        includeInsights:
+          type: boolean
+          default: true
+
+    ReportType:
+      type: string
+      enum: [PERFORMANCE, ENGAGEMENT, CONTENT_ANALYSIS, COMPETITOR_ANALYSIS, TREND_ANALYSIS, AUDIENCE_INSIGHTS, REVENUE_ANALYSIS, CUSTOM]
+
+    ReportPeriod:
+      type: string
+      enum: [DAILY, WEEKLY, MONTHLY, QUARTERLY, YEARLY, CUSTOM]
+
+    # Jobs
+    Job:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          $ref: '#/components/schemas/JobType'
+        status:
+          $ref: '#/components/schemas/JobStatus'
+        priority:
+          $ref: '#/components/schemas/JobPriority'
+        progress:
+          type: integer
+          minimum: 0
+          maximum: 100
+        message:
+          type: string
+        stage:
+          type: string
+        input:
+          type: object
+        output:
+          type: object
+        error:
+          type: string
+        retryCount:
+          type: integer
+        maxRetries:
+          type: integer
+        startedAt:
+          type: string
+          format: date-time
+        completedAt:
+          type: string
+          format: date-time
+        duration:
+          type: integer
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+    JobType:
+      type: string
+      enum: [ASSET_PROCESSING, THUMBNAIL_GENERATION, EDIT_APPLICATION, EXPORT_GENERATION, AI_INFERENCE, BACKGROUND_REMOVAL, FACE_DETECTION, STYLE_TRANSFER, UPSCALE, VIDEO_TRANSCODE, AUDIO_PROCESSING, METADATA_EXTRACTION, BATCH_PROCESSING]
+
+    JobStatus:
+      type: string
+      enum: [PENDING, QUEUED, PROCESSING, COMPLETED, FAILED, CANCELLED, STALLED, DELAYED]
+
+    JobPriority:
+      type: string
+      enum: [LOW, NORMAL, HIGH, URGENT]
+
+    # User
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+          format: email
+        username:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        avatar:
+          type: string
+        role:
+          $ref: '#/components/schemas/UserRole'
+        isActive:
+          type: boolean
+        isVerified:
+          type: boolean
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+    UserRole:
+      type: string
+      enum: [USER, PRO, ENTERPRISE, ADMIN]
+
+    # Error Responses
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        details:
+          type: object
+        timestamp:
+          type: string
+          format: date-time
+
+  responses:
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
+    Forbidden:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
+    NotFound:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
+    Conflict:
+      description: Conflict
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
+    InternalServerError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'

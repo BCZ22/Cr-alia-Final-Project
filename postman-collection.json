@@ -1,0 +1,578 @@
+{
+  "info": {
+    "name": "Crealia SaaS API",
+    "description": "Collection complète pour l'API Crealia SaaS",
+    "version": "1.0.0",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{auth_token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:3000/api/v1",
+      "type": "string"
+    },
+    {
+      "key": "auth_token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "user_id",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "asset_id",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "project_id",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Register User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"test@example.com\",\n  \"password\": \"password123\",\n  \"username\": \"testuser\",\n  \"firstName\": \"Test\",\n  \"lastName\": \"User\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/register",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "register"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"test@example.com\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/login",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "login"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Start OAuth Flow - Google",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/auth/oauth/google",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "oauth", "google"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Media Management",
+      "item": [
+        {
+          "name": "Get Presigned Upload URL",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"filename\": \"test-image.jpg\",\n  \"contentType\": \"image/jpeg\",\n  \"projectId\": \"{{project_id}}\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/uploads/presign",
+              "host": ["{{base_url}}"],
+              "path": ["uploads", "presign"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "List Assets",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/assets?limit=20&offset=0&type=IMAGE",
+              "host": ["{{base_url}}"],
+              "path": ["assets"],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "20"
+                },
+                {
+                  "key": "offset",
+                  "value": "0"
+                },
+                {
+                  "key": "type",
+                  "value": "IMAGE"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Asset Details",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/assets/{{asset_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["assets", "{{asset_id}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Asset",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{base_url}}/assets/{{asset_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["assets", "{{asset_id}}"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Photo Editor",
+      "item": [
+        {
+          "name": "Apply Photo Edits",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"operations\": [\n    {\n      \"type\": \"BRIGHTNESS\",\n      \"parameters\": {\n        \"value\": 20\n      },\n      \"intensity\": 0.8\n    },\n    {\n      \"type\": \"CONTRAST\",\n      \"parameters\": {\n        \"value\": 15\n      },\n      \"intensity\": 1.0\n    }\n  ],\n  \"outputFormat\": \"webp\",\n  \"quality\": 90\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/assets/{{asset_id}}/edit",
+              "host": ["{{base_url}}"],
+              "path": ["assets", "{{asset_id}}", "edit"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Remove Background",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"method\": \"ai\",\n  \"refine\": true\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/assets/{{asset_id}}/background-remove",
+              "host": ["{{base_url}}"],
+              "path": ["assets", "{{asset_id}}", "background-remove"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Face Editor",
+      "item": [
+        {
+          "name": "Detect Faces",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/assets/{{asset_id}}/face-detect",
+              "host": ["{{base_url}}"],
+              "path": ["assets", "{{asset_id}}", "face-detect"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Apply Face Editing",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"faceId\": \"face_1\",\n  \"operations\": [\n    {\n      \"type\": \"FACE_BEAUTIFY\",\n      \"parameters\": {\n        \"skinSmoothing\": 0.7,\n        \"teethWhitening\": 0.5,\n        \"eyeBrightening\": 0.3\n      }\n    }\n  ],\n  \"consentGiven\": true\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/assets/{{asset_id}}/face-edit",
+              "host": ["{{base_url}}"],
+              "path": ["assets", "{{asset_id}}", "face-edit"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "AI Art Generation",
+      "item": [
+        {
+          "name": "Generate AI Art",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"TEXT_TO_IMAGE\",\n  \"prompt\": \"A beautiful sunset over mountains, digital art style\",\n  \"negativePrompt\": \"blurry, low quality, distorted\",\n  \"model\": \"stable-diffusion-xl\",\n  \"parameters\": {\n    \"seed\": 42,\n    \"steps\": 25,\n    \"cfgScale\": 7.5,\n    \"width\": 1024,\n    \"height\": 1024\n  },\n  \"projectId\": \"{{project_id}}\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/ai/generate",
+              "host": ["{{base_url}}"],
+              "path": ["ai", "generate"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Generate AI Art (Streaming)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "text/event-stream"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"TEXT_TO_IMAGE\",\n  \"prompt\": \"A futuristic city at night, neon lights\",\n  \"model\": \"stable-diffusion-xl\",\n  \"parameters\": {\n    \"steps\": 20,\n    \"cfgScale\": 8.0\n  }\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/ai/generate/stream",
+              "host": ["{{base_url}}"],
+              "path": ["ai", "generate", "stream"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Video Editor",
+      "item": [
+        {
+          "name": "Create Video Project",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"My Video Project\",\n  \"description\": \"A sample video project\",\n  \"resolution\": \"1920x1080\",\n  \"fps\": 30\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/video/projects",
+              "host": ["{{base_url}}"],
+              "path": ["video", "projects"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "List Video Projects",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/video/projects",
+              "host": ["{{base_url}}"],
+              "path": ["video", "projects"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Video Timeline",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tracks\": [\n    {\n      \"id\": \"track_1\",\n      \"type\": \"VIDEO\",\n      \"name\": \"Main Video Track\",\n      \"index\": 0,\n      \"muted\": false,\n      \"locked\": false,\n      \"volume\": 1.0,\n      \"opacity\": 1.0,\n      \"clips\": [\n        {\n          \"id\": \"clip_1\",\n          \"name\": \"Intro Clip\",\n          \"assetId\": \"{{asset_id}}\",\n          \"startTime\": 0,\n          \"endTime\": 5.0,\n          \"trimStart\": 0,\n          \"trimEnd\": 0,\n          \"speed\": 1.0,\n          \"volume\": 1.0,\n          \"opacity\": 1.0\n        }\n      ]\n    }\n  ],\n  \"duration\": 30.0\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/video/projects/{{project_id}}/timeline",
+              "host": ["{{base_url}}"],
+              "path": ["video", "projects", "{{project_id}}", "timeline"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Export Video",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Exported Video\",\n  \"format\": \"mp4\",\n  \"codec\": \"h264\",\n  \"resolution\": \"1920x1080\",\n  \"bitrate\": 5000,\n  \"quality\": \"high\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/video/projects/{{project_id}}/export",
+              "host": ["{{base_url}}"],
+              "path": ["video", "projects", "{{project_id}}", "export"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Social Integration",
+      "item": [
+        {
+          "name": "List Social Accounts",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/social/accounts",
+              "host": ["{{base_url}}"],
+              "path": ["social", "accounts"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Connect Instagram Account",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/social/accounts/instagram/connect",
+              "host": ["{{base_url}}"],
+              "path": ["social", "accounts", "instagram", "connect"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Publish to Social Platforms",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"content\": {\n    \"text\": \"Check out this amazing content! 🚀\",\n    \"mediaIds\": [\"{{asset_id}}\"],\n    \"hashtags\": [\"#crealia\", \"#content\", \"#creative\"],\n    \"mentions\": [\"@crealia\"],\n    \"location\": \"Paris, France\"\n  },\n  \"platforms\": [\n    {\n      \"platform\": \"INSTAGRAM\",\n      \"accountId\": \"instagram_account_1\",\n      \"customizations\": {\n        \"caption\": \"Custom Instagram caption\",\n        \"hashtags\": [\"#instagram\", \"#photo\"]\n      }\n    },\n    {\n      \"platform\": \"FACEBOOK\",\n      \"accountId\": \"facebook_account_1\"\n    }\n  ],\n  \"requireApproval\": true\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/social/publish",
+              "host": ["{{base_url}}"],
+              "path": ["social", "publish"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Schedule Social Post",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"content\": {\n    \"text\": \"Scheduled post for tomorrow! 📅\",\n    \"mediaIds\": [\"{{asset_id}}\"],\n    \"hashtags\": [\"#scheduled\", \"#content\"],\n    \"mentions\": []\n  },\n  \"platforms\": [\n    {\n      \"platform\": \"INSTAGRAM\",\n      \"accountId\": \"instagram_account_1\"\n    },\n    {\n      \"platform\": \"FACEBOOK\",\n      \"accountId\": \"facebook_account_1\"\n    }\n  ],\n  \"scheduledAt\": \"2024-01-15T10:00:00Z\",\n  \"requireApproval\": true\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/social/schedule",
+              "host": ["{{base_url}}"],
+              "path": ["social", "schedule"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Analytics",
+      "item": [
+        {
+          "name": "Get Analytics Overview",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/analytics/overview?from=2024-01-01&to=2024-01-31&platform=INSTAGRAM",
+              "host": ["{{base_url}}"],
+              "path": ["analytics", "overview"],
+              "query": [
+                {
+                  "key": "from",
+                  "value": "2024-01-01"
+                },
+                {
+                  "key": "to",
+                  "value": "2024-01-31"
+                },
+                {
+                  "key": "platform",
+                  "value": "INSTAGRAM"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Generate Analytics Report",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"PERFORMANCE\",\n  \"period\": \"MONTHLY\",\n  \"platforms\": [\"INSTAGRAM\", \"FACEBOOK\", \"TWITTER\"],\n  \"format\": \"PDF\",\n  \"includeInsights\": true\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/analytics/reports",
+              "host": ["{{base_url}}"],
+              "path": ["analytics", "reports"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Jobs & Status",
+      "item": [
+        {
+          "name": "Get Job Status",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/jobs/{{job_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["jobs", "{{job_id}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Cancel Job",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/jobs/{{job_id}}/cancel",
+              "host": ["{{base_url}}"],
+              "path": ["jobs", "{{job_id}}", "cancel"]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "// Auto-extract auth token from login response",
+          "if (pm.response && pm.response.json && pm.response.json.token) {",
+          "    pm.environment.set('auth_token', pm.response.json.token);",
+          "}"
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,237 @@
+{
+  "dashboard": {
+    "id": null,
+    "title": "Crealia - Dashboard Principal",
+    "tags": ["crealia", "production"],
+    "style": "dark",
+    "timezone": "browser",
+    "panels": [
+      {
+        "id": 1,
+        "title": "Statut des Services",
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "up{job=\"crealia-app\"}",
+            "legendFormat": "Application"
+          },
+          {
+            "expr": "up{job=\"postgres\"}",
+            "legendFormat": "PostgreSQL"
+          },
+          {
+            "expr": "up{job=\"redis\"}",
+            "legendFormat": "Redis"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "thresholds": {
+              "steps": [
+                {
+                  "color": "red",
+                  "value": 0
+                },
+                {
+                  "color": "green",
+                  "value": 1
+                }
+              ]
+            }
+          }
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 0,
+          "y": 0
+        }
+      },
+      {
+        "id": 2,
+        "title": "Temps de Réponse API",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "histogram_quantile(0.95, rate(http_request_duration_seconds_bucket{job=\"crealia-app\"}[5m]))",
+            "legendFormat": "P95"
+          },
+          {
+            "expr": "histogram_quantile(0.50, rate(http_request_duration_seconds_bucket{job=\"crealia-app\"}[5m]))",
+            "legendFormat": "P50"
+          }
+        ],
+        "yAxes": [
+          {
+            "label": "Temps (s)",
+            "min": 0
+          }
+        ],
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 12,
+          "y": 0
+        }
+      },
+      {
+        "id": 3,
+        "title": "Taux d'Erreur",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "rate(http_requests_total{job=\"crealia-app\",status=~\"5..\"}[5m])",
+            "legendFormat": "Erreurs 5xx"
+          },
+          {
+            "expr": "rate(http_requests_total{job=\"crealia-app\",status=~\"4..\"}[5m])",
+            "legendFormat": "Erreurs 4xx"
+          }
+        ],
+        "yAxes": [
+          {
+            "label": "Erreurs/sec",
+            "min": 0
+          }
+        ],
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 0,
+          "y": 8
+        }
+      },
+      {
+        "id": 4,
+        "title": "Utilisation CPU",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "rate(process_cpu_seconds_total{job=\"crealia-app\"}[5m]) * 100",
+            "legendFormat": "CPU %"
+          }
+        ],
+        "yAxes": [
+          {
+            "label": "CPU %",
+            "min": 0,
+            "max": 100
+          }
+        ],
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 12,
+          "y": 8
+        }
+      },
+      {
+        "id": 5,
+        "title": "Utilisation Mémoire",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "process_resident_memory_bytes{job=\"crealia-app\"} / 1024 / 1024",
+            "legendFormat": "Mémoire (MB)"
+          }
+        ],
+        "yAxes": [
+          {
+            "label": "Mémoire (MB)",
+            "min": 0
+          }
+        ],
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 0,
+          "y": 16
+        }
+      },
+      {
+        "id": 6,
+        "title": "Connexions Base de Données",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "pg_stat_database_numbackends{job=\"postgres\"}",
+            "legendFormat": "Connexions actives"
+          }
+        ],
+        "yAxes": [
+          {
+            "label": "Connexions",
+            "min": 0
+          }
+        ],
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 12,
+          "y": 16
+        }
+      },
+      {
+        "id": 7,
+        "title": "Jobs d'Export Vidéo",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "rate(video_export_jobs_total{status=\"completed\"}[5m])",
+            "legendFormat": "Exports réussis"
+          },
+          {
+            "expr": "rate(video_export_jobs_total{status=\"failed\"}[5m])",
+            "legendFormat": "Exports échoués"
+          }
+        ],
+        "yAxes": [
+          {
+            "label": "Jobs/sec",
+            "min": 0
+          }
+        ],
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 0,
+          "y": 24
+        }
+      },
+      {
+        "id": 8,
+        "title": "Templates Créés",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "rate(templates_created_total[5m])",
+            "legendFormat": "Templates créés"
+          }
+        ],
+        "yAxes": [
+          {
+            "label": "Templates/sec",
+            "min": 0
+          }
+        ],
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 12,
+          "y": 24
+        }
+      }
+    ],
+    "time": {
+      "from": "now-1h",
+      "to": "now"
+    },
+    "refresh": "30s"
+  }
+}
+
+
+

@@ -1,0 +1,192 @@
+groups:
+  - name: crealia-alerts
+    rules:
+      # Alertes de disponibilité
+      - alert: ServiceDown
+        expr: up{job="crealia-app"} == 0
+        for: 1m
+        labels:
+          severity: critical
+          service: crealia-app
+        annotations:
+          summary: "Service Crealia indisponible"
+          description: "Le service Crealia est down depuis plus d'1 minute"
+
+      - alert: DatabaseDown
+        expr: up{job="postgres"} == 0
+        for: 1m
+        labels:
+          severity: critical
+          service: postgres
+        annotations:
+          summary: "Base de données PostgreSQL indisponible"
+          description: "PostgreSQL est down depuis plus d'1 minute"
+
+      - alert: RedisDown
+        expr: up{job="redis"} == 0
+        for: 1m
+        labels:
+          severity: critical
+          service: redis
+        annotations:
+          summary: "Redis indisponible"
+          description: "Redis est down depuis plus d'1 minute"
+
+      # Alertes de performance
+      - alert: HighResponseTime
+        expr: histogram_quantile(0.95, rate(http_request_duration_seconds_bucket{job="crealia-app"}[5m])) > 2
+        for: 5m
+        labels:
+          severity: warning
+          service: crealia-app
+        annotations:
+          summary: "Temps de réponse élevé"
+          description: "Le temps de réponse P95 est supérieur à 2 secondes depuis 5 minutes"
+
+      - alert: HighErrorRate
+        expr: rate(http_requests_total{job="crealia-app",status=~"5.."}[5m]) > 0.1
+        for: 2m
+        labels:
+          severity: critical
+          service: crealia-app
+        annotations:
+          summary: "Taux d'erreur élevé"
+          description: "Le taux d'erreur 5xx est supérieur à 10% depuis 2 minutes"
+
+      - alert: HighCPUUsage
+        expr: rate(process_cpu_seconds_total{job="crealia-app"}[5m]) * 100 > 80
+        for: 5m
+        labels:
+          severity: warning
+          service: crealia-app
+        annotations:
+          summary: "Utilisation CPU élevée"
+          description: "L'utilisation CPU est supérieure à 80% depuis 5 minutes"
+
+      - alert: HighMemoryUsage
+        expr: process_resident_memory_bytes{job="crealia-app"} / 1024 / 1024 > 1500
+        for: 5m
+        labels:
+          severity: warning
+          service: crealia-app
+        annotations:
+          summary: "Utilisation mémoire élevée"
+          description: "L'utilisation mémoire est supérieure à 1.5GB depuis 5 minutes"
+
+      # Alertes de base de données
+      - alert: DatabaseConnectionsHigh
+        expr: pg_stat_database_numbackends{job="postgres"} > 80
+        for: 5m
+        labels:
+          severity: warning
+          service: postgres
+        annotations:
+          summary: "Nombre de connexions DB élevé"
+          description: "Le nombre de connexions à la base de données est supérieur à 80"
+
+      - alert: DatabaseSlowQueries
+        expr: rate(pg_stat_database_tup_returned{job="postgres"}[5m]) / rate(pg_stat_database_tup_fetched{job="postgres"}[5m]) < 0.1
+        for: 5m
+        labels:
+          severity: warning
+          service: postgres
+        annotations:
+          summary: "Requêtes lentes détectées"
+          description: "Ratio de requêtes lentes détecté dans la base de données"
+
+      # Alertes métier
+      - alert: VideoExportFailures
+        expr: rate(video_export_jobs_total{status="failed"}[5m]) > 0.1
+        for: 2m
+        labels:
+          severity: warning
+          service: video-export
+        annotations:
+          summary: "Échecs d'export vidéo"
+          description: "Taux d'échec des exports vidéo supérieur à 10%"
+
+      - alert: NoVideoExports
+        expr: rate(video_export_jobs_total[5m]) == 0
+        for: 10m
+        labels:
+          severity: info
+          service: video-export
+        annotations:
+          summary: "Aucun export vidéo"
+          description: "Aucun export vidéo depuis 10 minutes"
+
+      - alert: TemplateCreationSpike
+        expr: rate(templates_created_total[5m]) > 10
+        for: 2m
+        labels:
+          severity: info
+          service: templates
+        annotations:
+          summary: "Pic de création de templates"
+          description: "Création de plus de 10 templates par minute"
+
+      # Alertes de sécurité
+      - alert: HighFailedLogins
+        expr: rate(auth_failed_logins_total[5m]) > 5
+        for: 2m
+        labels:
+          severity: warning
+          service: auth
+        annotations:
+          summary: "Tentatives de connexion échouées"
+          description: "Plus de 5 tentatives de connexion échouées par minute"
+
+      - alert: SuspiciousActivity
+        expr: rate(http_requests_total{job="crealia-app",status=~"4.."}[5m]) > 50
+        for: 2m
+        labels:
+          severity: warning
+          service: crealia-app
+        annotations:
+          summary: "Activité suspecte détectée"
+          description: "Plus de 50 requêtes 4xx par minute - possible attaque"
+
+      # Alertes de stockage
+      - alert: DiskSpaceLow
+        expr: (node_filesystem_avail_bytes{mountpoint="/"} / node_filesystem_size_bytes{mountpoint="/"}) < 0.1
+        for: 5m
+        labels:
+          severity: critical
+          service: storage
+        annotations:
+          summary: "Espace disque faible"
+          description: "Moins de 10% d'espace disque disponible"
+
+      - alert: StorageErrors
+        expr: rate(storage_errors_total[5m]) > 0
+        for: 1m
+        labels:
+          severity: warning
+          service: storage
+        annotations:
+          summary: "Erreurs de stockage"
+          description: "Erreurs détectées dans le système de stockage"
+
+      # Alertes de queue
+      - alert: QueueBacklog
+        expr: redis_queue_length > 1000
+        for: 5m
+        labels:
+          severity: warning
+          service: redis
+        annotations:
+          summary: "Queue en retard"
+          description: "Plus de 1000 jobs en attente dans la queue"
+
+      - alert: QueueProcessingSlow
+        expr: rate(redis_queue_processed_total[5m]) < 1
+        for: 5m
+        labels:
+          severity: warning
+          service: redis
+        annotations:
+          summary: "Traitement de queue lent"
+          description: "Moins d'1 job traité par seconde depuis 5 minutes"
+
+
+

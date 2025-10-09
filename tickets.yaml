@@ -1,0 +1,104 @@
+tickets:
+  - id: CREALIA-SEC-001
+    title: "Faille de sécurité : Le token JWT est stocké dans le localStorage"
+    severity: "Bloquant"
+    description: |
+      Le token d'authentification JWT est actuellement stocké dans le localStorage du navigateur.
+      Cette méthode est vulnérable aux attaques XSS (Cross-Site Scripting). Si un script malveillant
+      est injecté dans l'application, il peut accéder au token, le voler et usurper l'identité de l'utilisateur.
+    steps_to_reproduce: |
+      1. Se connecter à l'application.
+      2. Ouvrir les outils de développement du navigateur.
+      3. Dans la console, taper `localStorage.getItem('auth_token')`.
+      4. Le token JWT s'affiche en clair.
+    fix_hint: |
+      Migrer le stockage du token vers des cookies HttpOnly.
+      - Le backend doit définir le cookie dans l'en-tête `Set-Cookie` lors du login/register.
+      - Le cookie doit avoir les attributs `HttpOnly`, `Secure` (en production), et `SameSite=Strict`.
+      - Le frontend doit être configuré pour envoyer les cookies avec chaque requête (généralement via `credentials: 'include'` dans les appels `fetch` ou `withCredentials: true` avec `axios`).
+      - Le `apiClient` frontend doit être adapté pour ne plus lire le token depuis le localStorage.
+
+  - id: CREALIA-FEAT-001
+    title: "Fonctionnalités non implémentées dans l'éditeur vidéo"
+    severity: "Majeur"
+    description: |
+      Plusieurs fonctionnalités clés de l'éditeur vidéo sont définies dans le store Zustand (`video-editor-store.ts`)
+      mais ne sont pas implémentées. Les appels aux endpoints backend correspondants sont absents.
+      Cela bloque une partie significative de l'expérience utilisateur de l'éditeur.
+    affected_features:
+      - Déplacement de clips (`moveClip`)
+      - Redimensionnement de clips (`resizeClip`)
+      - Ajout, mise à jour et suppression d'effets (`addEffect`, `updateEffect`, `deleteEffect`)
+    fix_hint: |
+      Pour chaque fonctionnalité manquante, implémenter la logique d'appel à l'API dans `video-editor-store.ts`.
+      1. Créer les endpoints backend nécessaires si'ils n'existent pas (ex: `POST /api/video-editor/clips/:id/move`).
+      2. Implémenter la logique dans le store pour appeler ces endpoints en utilisant `fetch` ou `apiClient`.
+      3. Mettre à jour l'état local du store en fonction de la réponse du backend pour refléter les changements dans l'UI.
+      Exemple pour `moveClip`:
+      ```typescript
+      // Dans video-editor-store.ts
+      moveClip: async (clipId, newStartTime, newTrackId) => {
+        try {
+          const response = await fetch(`/api/video-editor/clips/${clipId}/move`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ newStartTime, newTrackId }),
+          });
+          if (!response.ok) throw new Error('Failed to move clip');
+          // Mettre à jour l'état local...
+        } catch (error) {
+          // Gérer l'erreur...
+        }
+      },
+      ```
+
+- ticket_id: CREALIA-AUTH-001
+  title: "Auth Flow Mismatch: Inconsistent JWT Handling (Cookie vs. Bearer Token)"
+  description: "The authentication flow is critically broken. The login endpoint sets a JWT in an HttpOnly cookie, but protected routes expect the JWT as a Bearer token in the Authorization header. Client-side code cannot access HttpOnly cookies to perform this transfer."
+  severity: Blocker
+  reproduction:
+    - "1. Analyze `app.old/api/auth/login/route.ts` to see the `Set-Cookie` header with `httpOnly: true`."
+    - "2. Analyze `app.old/api/auth/me/route.ts` to see the code expecting an `Authorization: Bearer` header."
+    - "3. Note that no frontend code can bridge this gap due to browser security restrictions."
+  patch_hint: "Modify all protected API routes to extract the JWT from the `auth_token` cookie instead of the Authorization header. This is the more secure approach. See `report.md` for a code snippet."
+  assignee_suggestion: Backend Team
+
+- ticket_id: CREALIA-API-001
+  title: "API Contract Mismatch: Missing 'dateRange' in Performance Extraction"
+  description: "The frontend call to `/api/social-analytics/extract` does not include the `dateRange` object that the backend endpoint requires. This will cause the feature to fail."
+  severity: High
+  reproduction:
+    - "1. Inspect the `fetch` call in `components/social-analytics/SocialAnalyticsDashboard.tsx` around line 167. The request body is `{\"userId\": \"...\", \"platform\": \"...\"}`."
+    - "2. Inspect the backend handler in `app.old/api/social-analytics/extract/route.ts`, which expects a `dateRange` property in the request body."
+  patch_hint: "Add a date range picker UI component to the Social Analytics dashboard. Pass the selected date range in the request body when calling the `/api/social-analytics/extract` endpoint."
+  assignee_suggestion: Frontend Team
+
+- ticket_id: CREALIA-BACKEND-001
+  title: "Remove Mock Data from 'GET /api/auth/me' Endpoint"
+  description: "The endpoint to fetch the current user's data (`/api/auth/me`) is using a hardcoded list of mock users instead of querying the actual database via Prisma. This prevents the feature from working with real user data."
+  severity: Medium
+  reproduction:
+    - "1. Examine the file `app.old/api/auth/me/route.ts`."
+    - "2. Observe the `mockUsers` array and its usage within the `GET` handler."
+  patch_hint: "Remove the `mockUsers` array and replace the `mockUsers.find(...)` logic with a Prisma query: `await prisma.user.findUnique({ where: { id: decoded.userId } });`. Ensure the Prisma client is imported."
+  assignee_suggestion: Backend Team
+
+- ticket_id: CREALIA-OPS-001
+  title: "Resolve Environment and Docker Build Issues"
+  description: "The local development environment cannot be started due to network timeouts when pulling Docker images and installing pnpm dependencies. This blocks all local testing and validation."
+  severity: Blocker
+  reproduction:
+    - "1. Run `docker-compose up --build` at the project root."
+    - "2. Observe the `TLS handshake timeout` and other network-related errors in the terminal output."
+  patch_hint: "This is likely an issue with the local machine's network configuration (e.g., firewall, proxy, DNS). The user needs to diagnose their network connection to Docker Hub and npm registry. A corrected multi-stage `Dockerfile` has been provided to ensure the build works correctly once the network issues are resolved."
+  assignee_suggestion: DevOps / Local User
+
+- ticket_id: CREALIA-CONFIG-001
+  title: "Review and Configure CORS Policy"
+  description: "No explicit CORS (Cross-Origin Resource Sharing) policy is configured in the application. This could lead to issues if the frontend and backend are ever served from different domains or ports."
+  severity: Medium
+  reproduction:
+    - "A codebase search for CORS configuration in `next.config.js` or a dedicated middleware returned no results."
+  patch_hint: "If the frontend and backend will always be served from the same Next.js instance, this may not be an immediate issue. However, for flexibility and security, it is recommended to configure a CORS policy. This can be done in `next.config.js` via the `headers` function or in a custom middleware."
+  assignee_suggestion: Backend Team
+

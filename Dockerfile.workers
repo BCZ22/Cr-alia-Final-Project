@@ -1,0 +1,53 @@
+# =============================================================================
+# DOCKERFILE - WORKERS VIDÉO
+# =============================================================================
+
+FROM node:18-alpine
+
+# Installer les dépendances système
+RUN apk add --no-cache \
+    ffmpeg \
+    python3 \
+    make \
+    g++ \
+    cairo-dev \
+    jpeg-dev \
+    pango-dev \
+    musl-dev \
+    giflib-dev \
+    pixman-dev \
+    pangomm-dev \
+    libjpeg-turbo-dev \
+    freetype-dev
+
+# Créer le répertoire de travail
+WORKDIR /app
+
+# Copier les fichiers de dépendances
+COPY package*.json ./
+COPY prisma ./prisma/
+
+# Installer les dépendances
+RUN npm ci --only=production
+
+# Copier le code source
+COPY src/workers ./src/workers
+COPY src/services ./src/services
+COPY src/utils ./src/utils
+
+# Générer le client Prisma
+RUN npx prisma generate
+
+# Créer un utilisateur non-root
+RUN addgroup -g 1001 -S nodejs
+RUN adduser -S nodejs -u 1001
+
+# Changer les permissions
+RUN chown -R nodejs:nodejs /app
+USER nodejs
+
+# Exposer le port
+EXPOSE 3001
+
+# Commande par défaut
+CMD ["node", "src/workers/video-render.worker.js"]
