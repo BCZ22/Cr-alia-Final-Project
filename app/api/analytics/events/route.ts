@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import AnalyticsService from '../../../../../backend/services/analytics.service';
+import AnalyticsService from '@/backend/services/analytics.service';
 import { z } from 'zod';
 
 const analyticsService = new AnalyticsService();
