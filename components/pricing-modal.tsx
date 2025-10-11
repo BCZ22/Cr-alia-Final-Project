@@ -58,9 +58,9 @@ const plans = [
     annualTotalPrice: "664", // New annual total price
     description: "400 vidéos d'IA par mois",
     features: [
-      "3 heures d'export",
-      "180 minutes de voix off",
-      "700 images IA",
+      "5 heures d'export",
+      "250 minutes de voix off",
+      "600 images IA",
       "Analytics complètes",
       "Support 24/7",
       "Templates illimités",
@@ -75,7 +75,7 @@ const featuresComparison = [
   {
     category: "Crédits Workflow",
     features: [
-      { name: "Crédits inclus", hobby: "50 crédits inclus", viral: "150 crédits inclus", pro: "250 crédits inclus" },
+      { name: "Crédits inclus", hobby: "50 crédits inclus", viral: "150 crédits inclus", pro: "400 crédits inclus" },
     ],
   },
   {
@@ -99,7 +99,7 @@ const toolsComparison = [
         name: "Générateur de Voix Off IA",
         hobby: "30 minutes incluses",
         viral: "120 minutes incluses",
-        pro: "180 minutes incluses",
+        pro: "250 minutes incluses",
       },
       {
         name: "Générateur de Sous-titres IA",
