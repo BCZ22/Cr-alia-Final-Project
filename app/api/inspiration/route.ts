@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import InspirationService from '../../../../backend/services/inspiration.service';
+import InspirationService from '@/backend/services/inspiration.service';
 import { z } from 'zod';
 
 const inspirationService = new InspirationService();
