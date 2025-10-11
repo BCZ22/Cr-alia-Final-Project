@@ -1169,22 +1169,6 @@ enum SentimentType {
 }
 
 // =============================================================================
-// MODÈLE FAQ
-// =============================================================================
-
-model FAQ {
-  id        String   @id @default(cuid())
-  slug      String   @unique
-  question  String
-  answer    String
-  isActive  Boolean  @default(true)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@map("faqs")
-}
-
-// =============================================================================
 // MODÈLES NOTIFICATIONS & SCHEDULING
 // =============================================================================
 

@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import AnalyticsService from '@/backend/services/analytics.service';
 import { z } from 'zod';
 
+export const dynamic = 'force-dynamic';
+
 const analyticsService = new AnalyticsService();
 
 const eventsQuerySchema = z.object({
