@@ -1,6 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import AIService from '../../../../../backend/services/ai/ai.service';
 import { z } from 'zod';
+import OpenAI from 'openai';
+import { getServerSession } from "next-auth/next";
+import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import UserService from "@/backend/services/user.service";
 
 const aiService = new AIService();
 

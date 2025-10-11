@@ -92,6 +92,7 @@
     "react-i18next": "^16.0.0",
     "react-resizable-panels": "^2.1.7",
     "recharts": "latest",
+    "replicate": "^1.3.0",
     "sharp": "^0.34.4",
     "sonner": "^1.7.4",
     "stripe": "^19.1.0",

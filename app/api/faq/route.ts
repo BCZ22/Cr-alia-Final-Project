@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import FAQService from '../../../../../backend/services/faq.service';
+import FaqService from '@/backend/services/faq.service';
 
-const faqService = new FAQService();
+const faqService = new FaqService();
 
 /**
  * GET /api/faq

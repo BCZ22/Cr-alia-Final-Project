@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import StudioService from '../../../../../backend/services/studio.service';
+import StudioService from '@/backend/services/studio.service';
 import { z } from 'zod';
 
 const studioService = new StudioService();

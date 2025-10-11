@@ -3,7 +3,7 @@ import { z } from 'zod';
 import OpenAI from 'openai';
 import { getServerSession } from "next-auth/next";
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
-import UserService from '../../../../../backend/services/user.service';
+import UserService from "@/backend/services/user.service";
 
 const textToImageSchema = z.object({
   prompt: z.string().min(1, { message: "Prompt is required." }),
