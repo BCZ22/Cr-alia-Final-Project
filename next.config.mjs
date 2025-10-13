@@ -18,6 +18,7 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  // Re-trigger deployment
 }
 
 export default nextConfig
