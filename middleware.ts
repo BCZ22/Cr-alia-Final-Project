@@ -6,17 +6,8 @@ export default withAuth({
   },
 })
 
+// This middleware applies only to the root route
 export const config = {
-  /*
-   * Match all request paths except for the ones starting with:
-   * - api (API routes)
-   * - _next/static (static files)
-   * - _next/image (image optimization files)
-   * - favicon.ico (favicon file)
-   * - auth (authentication routes)
-   */
-  matcher: [
-    "/((?!api|_next/static|_next/image|favicon.ico|auth).*)",
-  ],
+  matcher: ["/"],
 };
 
