@@ -1,6 +1,6 @@
 'use client'
 
-import { AppLayout } from '@/components/final-layout/app-layout'
+import { AppLayout } from '@/components/app-layout'
 
 export default function DashboardLayout({
   children,
