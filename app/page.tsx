@@ -2,14 +2,14 @@
 
 import { useState } from "react"
 import { Navigation } from "@/components/navigation"
-import { FeatureModules } from "@/feature-modules"
-import { AIAssistant } from "@/ai-assistant"
-import { SupportChat } from "@/support-chat"
+import { FeatureModules } from "@/components/feature-modules"
+import { AIAssistant } from "@/components/ai-assistant"
+import { SupportChat } from "@/components/support-chat"
 import { SignupModal } from "@/components/signup-modal"
 import { SignupModalDark } from "@/components/signup-modal-dark"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
-import { Footer } from "@/footer"
+import { Footer } from "@/components/footer"
 
 const SparklesIcon = ({ className }: { className?: string }) => (
   <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">

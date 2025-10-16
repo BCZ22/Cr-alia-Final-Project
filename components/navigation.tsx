@@ -2,8 +2,8 @@
 
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
-import { CrealiaLogo } from "@/crealia-logo"
-import { CrealiaAIInterface } from "@/crealia-ai-interface"
+import { CrealiaLogo } from "@/components/crealia-logo"
+import { CrealiaAIInterface } from "@/components/crealia-ai-interface"
 import { SignupModal } from "@/components/signup-modal"
 import { cn } from "@/lib/utils"
 import { PricingModal } from "@/components/pricing-modal"
