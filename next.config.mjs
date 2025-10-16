@@ -9,7 +9,7 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  // Re-trigger deployment
+  // Re-trigger deployment - force cache invalidation
 }
 
 export default nextConfig
