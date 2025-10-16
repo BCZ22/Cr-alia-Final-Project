@@ -4,9 +4,9 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { CrealiaLogo } from "@/crealia-logo"
 import { CrealiaAIInterface } from "@/crealia-ai-interface"
-import { SignupModal } from "@/signup-modal"
+import { SignupModal } from "@/components/signup-modal"
 import { cn } from "@/lib/utils"
-import { PricingModal } from "@/pricing-modal"
+import { PricingModal } from "@/components/pricing-modal"
 
 const AIBrainIcon = ({ className }: { className?: string }) => (
   <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
