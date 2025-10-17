@@ -5,20 +5,29 @@ import { ChevronDownIcon } from 'lucide-react'
 
 import { cn } from '@/lib/utils'
 
-const NavigationMenu = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement> & { children?: React.ReactNode }
->(({ className, ...props }, ref) => (
-  <nav
-    ref={ref}
-    className={cn(
-      "flex items-center space-x-4 lg:space-x-6",
-      className
-    )}
-    {...props}
-  />
-))
-NavigationMenu.displayName = "NavigationMenu"
+function NavigationMenu({
+  className,
+  children,
+  viewport = true,
+  ...props
+}: React.ComponentProps<typeof NavigationMenuPrimitive.Root> & {
+  viewport?: boolean
+}) {
+  return (
+    <NavigationMenuPrimitive.Root
+      data-slot="navigation-menu"
+      data-viewport={viewport}
+      className={cn(
+        'group/navigation-menu relative flex max-w-max flex-1 items-center justify-center',
+        className,
+      )}
+      {...props}
+    >
+      {children}
+      {viewport && <NavigationMenuViewport />}
+    </NavigationMenuPrimitive.Root>
+  )
+}
 
 function NavigationMenuList({
   className,
