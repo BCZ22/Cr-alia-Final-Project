@@ -4,7 +4,7 @@ import AuthProvider from './auth-provider';
 import { Toaster } from '@/components/ui/sonner';
 import { ThemeProvider } from '@/components/theme-provider';
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({ subsets: ['latin'], variable: "--font-sans" });
 
 export const metadata = {
   title: 'Créalia',
@@ -18,7 +18,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="fr" suppressHydrationWarning>
-      <body className={inter.className}>
+      <body className={`font-sans ${inter.variable} antialiased`}>
         <AuthProvider>
           <ThemeProvider
             attribute="class"
