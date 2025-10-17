@@ -1,6 +1,6 @@
 'use client'
 
-import { AppLayout } from '@/components/components/header-final/crealia-header-8/components/app-layout'
+import { AppLayout } from '@/components/app-layout'
 
 export default function DashboardLayout({
   children,

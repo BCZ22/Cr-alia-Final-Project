@@ -56,11 +56,11 @@ const plans = [
     monthlyPrice: "79", // Original monthly price kept
     annualMonthlyPrice: "55", // New annual monthly equivalent
     annualTotalPrice: "664", // New annual total price
-    description: "400 vidéos d'IA par mois",
+    description: "250 vidéos d'IA par mois",
     features: [
-      "5 heures d'export",
-      "250 minutes de voix off",
-      "600 images IA",
+      "3 heures d'export",
+      "180 minutes de voix off",
+      "500 images IA",
       "Analytics complètes",
       "Support 24/7",
       "Templates illimités",
@@ -75,7 +75,7 @@ const featuresComparison = [
   {
     category: "Crédits Workflow",
     features: [
-      { name: "Crédits inclus", hobby: "50 crédits inclus", viral: "150 crédits inclus", pro: "400 crédits inclus" },
+      { name: "Crédits inclus", hobby: "40 crédits inclus", viral: "120 crédits inclus", pro: "180 crédits inclus" },
     ],
   },
   {
@@ -99,7 +99,7 @@ const toolsComparison = [
         name: "Générateur de Voix Off IA",
         hobby: "30 minutes incluses",
         viral: "120 minutes incluses",
-        pro: "250 minutes incluses",
+        pro: "180 minutes incluses",
       },
       {
         name: "Générateur de Sous-titres IA",
@@ -109,9 +109,9 @@ const toolsComparison = [
       },
       {
         name: "Crédits Créalia",
-        hobby: "50 crédits inclus",
-        viral: "150 crédits inclus",
-        pro: "250 crédits inclus",
+        hobby: "40 crédits inclus",
+        viral: "120 crédits inclus",
+        pro: "180 crédits inclus",
       },
     ],
   },
