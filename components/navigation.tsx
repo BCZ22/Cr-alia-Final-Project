@@ -159,18 +159,15 @@ const navigation = [
   { name: "Pricing", href: "#", icon: CreditCardIcon, current: false },
 ]
 
-export function Navigation() {
+export function Navigation({ onStartFree, onCrealiaAIClick, onPricingClick }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const [aiInterfaceOpen, setAiInterfaceOpen] = useState(false)
-  const [signupModalOpen, setSignupModalOpen] = useState(false)
-  const [pricingModalOpen, setPricingModalOpen] = useState(false)
 
-  const handleNavigationClick = (item: (typeof navigation)[0]) => {
+  const handleNavigationClick = (item) => {
     if (item.name === "Créalia AI") {
-      setAiInterfaceOpen(true)
+      onCrealiaAIClick()
     }
     if (item.name === "Pricing") {
-      setPricingModalOpen(true)
+      onPricingClick()
     }
   }
 
@@ -218,7 +215,7 @@ export function Navigation() {
                 size="sm"
                 className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-full animate-fade-in shadow-lg px-6 py-2.5 h-auto text-sm font-medium"
                 style={{ animationDelay: "0.5s" }}
-                onClick={() => setSignupModalOpen(true)}
+                onClick={onStartFree}
               >
                 Essayer Gratuitement
               </Button>
@@ -257,9 +254,9 @@ export function Navigation() {
         )}
       </nav>
 
-      <CrealiaAIInterface isOpen={aiInterfaceOpen} onClose={() => setAiInterfaceOpen(false)} />
-      <SignupModal isOpen={signupModalOpen} onClose={() => setSignupModalOpen(false)} />
-      <PricingModal isOpen={pricingModalOpen} onClose={() => setPricingModalOpen(false)} />
+      <CrealiaAIInterface isOpen={false} onClose={() => {}} />
+      <SignupModal isOpen={false} onClose={() => {}} />
+      <PricingModal isOpen={false} onClose={() => {}} />
     </>
   )
 }

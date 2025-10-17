@@ -10,6 +10,10 @@ import { SignupModalDark } from "@/components/signup-modal-dark"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Footer } from "@/components/footer"
+import { CrealiaAIInterface } from "@/components/crealia-ai-interface"
+import { PricingModal } from "@/components/pricing-modal"
+import { AboutModal } from "@/components/about-modal"
+import { PrivacyPolicyModal } from "@/components/privacy-policy-modal"
 
 const SparklesIcon = ({ className }: { className?: string }) => (
   <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -51,10 +55,19 @@ export default function HomePage() {
   const [isChatOpen, setIsChatOpen] = useState(false)
   const [isSignupOpen, setIsSignupOpen] = useState(false)
   const [isSignupDarkOpen, setIsSignupDarkOpen] = useState(false)
+  const [aiInterfaceOpen, setAiInterfaceOpen] = useState(false)
+  const [pricingModalOpen, setPricingModalOpen] = useState(false)
+  const [aboutModalOpen, setAboutModalOpen] = useState(false)
+  const [privacyModalOpen, setPrivacyModalOpen] = useState(false)
+  const [termsModalOpen, setTermsModalOpen] = useState(false)
 
   return (
     <div className="min-h-screen bg-background">
-      <Navigation />
+      <Navigation
+        onStartFree={() => setIsSignupDarkOpen(true)}
+        onCrealiaAIClick={() => setAiInterfaceOpen(true)}
+        onPricingClick={() => setPricingModalOpen(true)}
+      />
 
       <main className="container mx-auto px-4 py-16">
         <section className="text-center mb-32 pt-16">
@@ -326,8 +339,17 @@ export default function HomePage() {
       <SupportChat isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
       <SignupModal isOpen={isSignupOpen} onClose={() => setIsSignupOpen(false)} />
       <SignupModalDark isOpen={isSignupDarkOpen} onClose={() => setIsSignupDarkOpen(false)} />
+      <CrealiaAIInterface isOpen={aiInterfaceOpen} onClose={() => setAiInterfaceOpen(false)} />
+      <PricingModal isOpen={pricingModalOpen} onClose={() => setPricingModalOpen(false)} />
+      <AboutModal isOpen={aboutModalOpen} onClose={() => setAboutModalOpen(false)} />
+      <PrivacyPolicyModal isOpen={privacyModalOpen} onClose={() => setPrivacyModalOpen(false)} />
+      <PrivacyPolicyModal isOpen={termsModalOpen} onClose={() => setTermsModalOpen(false)} initialSection={1} />
 
-      <Footer />
+      <Footer
+        onAboutClick={() => setAboutModalOpen(true)}
+        onPrivacyClick={() => setPrivacyModalOpen(true)}
+        onTermsClick={() => setTermsModalOpen(true)}
+      />
     </div>
   )
 }
