@@ -10,10 +10,6 @@ import { SignupModalDark } from "@/components/signup-modal-dark"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Footer } from "@/components/footer"
-import { CrealiaAIInterface } from "@/components/crealia-ai-interface"
-import { PricingModal } from "@/components/pricing-modal"
-import { AboutModal } from "@/components/about-modal"
-import { PrivacyPolicyModal } from "@/components/privacy-policy-modal"
 
 const SparklesIcon = ({ className }: { className?: string }) => (
   <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -55,77 +51,73 @@ export default function HomePage() {
   const [isChatOpen, setIsChatOpen] = useState(false)
   const [isSignupOpen, setIsSignupOpen] = useState(false)
   const [isSignupDarkOpen, setIsSignupDarkOpen] = useState(false)
-  const [aiInterfaceOpen, setAiInterfaceOpen] = useState(false)
-  const [pricingModalOpen, setPricingModalOpen] = useState(false)
-  const [aboutModalOpen, setAboutModalOpen] = useState(false)
-  const [privacyModalOpen, setPrivacyModalOpen] = useState(false)
-  const [termsModalOpen, setTermsModalOpen] = useState(false)
 
   return (
-    <div className="min-h-screen bg-background">
-      <Navigation
-        onStartFree={() => setIsSignupDarkOpen(true)}
-        onCrealiaAIClick={() => setAiInterfaceOpen(true)}
-        onPricingClick={() => setPricingModalOpen(true)}
-      />
+    <div className="min-h-screen startup-gradient">
+      <Navigation />
 
-      <main className="container mx-auto px-4 py-16">
-        <section className="text-center mb-32 pt-16">
-          <div className="inline-flex items-center gap-2 px-6 py-3 bg-primary/10 border border-primary/20 rounded-full mb-12 animate-fade-in">
-            <SparklesIcon className="w-4 h-4 text-primary animate-pulse-subtle" />
-            <span className="text-sm font-medium text-primary">Plateforme #1 pour créateurs</span>
+      <section className="section-padding pt-32">
+        <div className="container-modern">
+          <div className="text-center mb-20">
+            <div className="inline-flex items-center gap-2 px-6 py-3 bg-primary/10 border border-primary/20 rounded-full mb-12 animate-fade-in">
+              <SparklesIcon className="w-4 h-4 text-primary animate-pulse-subtle" />
+              <span className="text-sm font-medium text-primary">Plateforme #1 pour créateurs</span>
+            </div>
+
+            <h1 className="text-5xl md:text-8xl font-bold text-balance mb-8 animate-slide-up text-pretty">
+              Créez du contenu
+              <br />
+              <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">viral</span>
+              <br />
+              avec l'IA
+            </h1>
+
+            <p className="text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto text-balance mb-12 animate-slide-up leading-relaxed">
+              Transformez vos idées en Reels viraux, analysez vos performances et générez des concepts créatifs
+              illimités.
+              <br />
+              La suite complète pour dominer les réseaux sociaux.
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-6 justify-center animate-slide-up">
+              <Button
+                size="lg"
+                className="btn-gradient text-white font-medium px-12 py-4 text-lg rounded-full"
+                onClick={() => setIsSignupDarkOpen(true)}
+              >
+                Commencer gratuitement
+                <SparklesIcon className="w-5 h-5 ml-2" />
+              </Button>
+              <Button
+                size="lg"
+                variant="outline"
+                className="border-2 border-border hover:border-primary/40 px-12 py-4 text-lg rounded-full transition-all duration-300 bg-transparent"
+                onClick={() => setIsSignupDarkOpen(true)}
+              >
+                Voir la démo
+                <PlayIcon className="w-5 h-5 ml-2" />
+              </Button>
+            </div>
+
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center mt-20 animate-slide-up">
+              {[
+                { metric: "10K+", label: "Créateurs actifs" },
+                { metric: "50M+", label: "Vues générées" },
+                { metric: "95%", label: "Taux de satisfaction" },
+                { metric: "24/7", label: "Support client" },
+              ].map((stat, index) => (
+                <div key={index} className="glass-card p-6 rounded-2xl card-hover">
+                  <div className="text-3xl md:text-4xl font-bold text-primary mb-2">{stat.metric}</div>
+                  <div className="text-muted-foreground font-medium">{stat.label}</div>
+                </div>
+              ))}
+            </div>
           </div>
+        </div>
+      </section>
 
-          <h1 className="text-5xl md:text-8xl font-bold text-balance mb-8 animate-slide-up text-pretty">
-            Créez du contenu
-            <br />
-            <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">viral</span>
-            <br />
-            avec l'IA
-          </h1>
-
-          <p className="text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto text-balance mb-12 animate-slide-up leading-relaxed">
-            Transformez vos idées en Reels viraux, analysez vos performances et générez des concepts créatifs illimités.
-            <br />
-            La suite complète pour dominer les réseaux sociaux.
-          </p>
-
-          <div className="flex flex-col sm:flex-row gap-6 justify-center animate-slide-up">
-            <Button
-              size="lg"
-              className="btn-gradient text-white font-medium px-12 py-4 text-lg rounded-full"
-              onClick={() => setIsSignupDarkOpen(true)}
-            >
-              Commencer gratuitement
-              <SparklesIcon className="w-5 h-5 ml-2" />
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              className="border-2 border-border hover:border-primary/40 px-12 py-4 text-lg rounded-full transition-all duration-300 bg-transparent"
-              onClick={() => setIsSignupDarkOpen(true)}
-            >
-              Voir la démo
-              <PlayIcon className="w-5 h-5 ml-2" />
-            </Button>
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center mt-20 animate-slide-up">
-            {[
-              { metric: "10K+", label: "Créateurs actifs" },
-              { metric: "500M+", label: "Vues générées" },
-              { metric: "95%", label: "Taux de satisfaction" },
-              { metric: "24/7", label: "Support client" },
-            ].map((stat, index) => (
-              <div key={index} className="glass-card p-6 rounded-2xl card-hover">
-                <div className="text-3xl md:text-4xl font-bold text-primary mb-2">{stat.metric}</div>
-                <div className="text-muted-foreground font-medium">{stat.label}</div>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section className="mb-32">
+      <section className="section-padding bg-card/50">
+        <div className="container-modern">
           <div className="text-center mb-20">
             <h2 className="text-4xl md:text-6xl font-bold text-balance mb-6">Comment ça marche</h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto text-balance">
@@ -163,9 +155,11 @@ export default function HomePage() {
               </Card>
             ))}
           </div>
-        </section>
+        </div>
+      </section>
 
-        <section className="mb-32">
+      <section className="section-padding">
+        <div className="container-modern">
           <div className="text-center mb-20">
             <h2 className="text-4xl md:text-6xl font-bold text-balance mb-6">Fonctionnalités puissantes</h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto text-balance">
@@ -176,7 +170,7 @@ export default function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
               {
-                title: "Génération de Short/Post IA",
+                title: "Génération de Scripts IA",
                 description: "Scripts optimisés pour l'engagement et la viralité",
                 icon: "✍️",
               },
@@ -213,9 +207,11 @@ export default function HomePage() {
               </Card>
             ))}
           </div>
-        </section>
+        </div>
+      </section>
 
-        <section className="mb-32">
+      <section className="section-padding bg-card/50">
+        <div className="container-modern">
           <div className="text-center mb-20">
             <h2 className="text-4xl md:text-6xl font-bold text-balance mb-6">Ils nous font confiance</h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto text-balance">
@@ -262,9 +258,11 @@ export default function HomePage() {
               </Card>
             ))}
           </div>
-        </section>
+        </div>
+      </section>
 
-        <section className="mb-32">
+      <section className="section-padding">
+        <div className="container-modern">
           <div className="text-center mb-20">
             <h2 className="text-4xl md:text-6xl font-bold text-balance mb-6">Questions fréquentes</h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto text-balance">
@@ -322,10 +320,12 @@ export default function HomePage() {
               Contacter le support
             </Button>
           </div>
-        </section>
+        </div>
+      </section>
 
-        <section className="mb-32">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+      <section className="section-padding">
+        <div className="container-modern">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 mb-20">
             <div className="lg:col-span-2">
               <FeatureModules />
             </div>
@@ -333,23 +333,14 @@ export default function HomePage() {
               <AIAssistant />
             </div>
           </div>
-        </section>
-      </main>
+        </div>
+      </section>
 
       <SupportChat isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
       <SignupModal isOpen={isSignupOpen} onClose={() => setIsSignupOpen(false)} />
       <SignupModalDark isOpen={isSignupDarkOpen} onClose={() => setIsSignupDarkOpen(false)} />
-      <CrealiaAIInterface isOpen={aiInterfaceOpen} onClose={() => setAiInterfaceOpen(false)} />
-      <PricingModal isOpen={pricingModalOpen} onClose={() => setPricingModalOpen(false)} />
-      <AboutModal isOpen={aboutModalOpen} onClose={() => setAboutModalOpen(false)} />
-      <PrivacyPolicyModal isOpen={privacyModalOpen} onClose={() => setPrivacyModalOpen(false)} />
-      <PrivacyPolicyModal isOpen={termsModalOpen} onClose={() => setTermsModalOpen(false)} initialSection={1} />
 
-      <Footer
-        onAboutClick={() => setAboutModalOpen(true)}
-        onPrivacyClick={() => setPrivacyModalOpen(true)}
-        onTermsClick={() => setTermsModalOpen(true)}
-      />
+      <Footer />
     </div>
   )
 }
