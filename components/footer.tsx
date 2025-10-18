@@ -40,7 +40,10 @@ const PinterestIcon = ({ className }: { className?: string }) => (
   </svg>
 )
 
-export function Footer({ onAboutClick, onPrivacyClick, onTermsClick }) {
+export function Footer() {
+  const [showAboutModal, setShowAboutModal] = useState(false)
+  const [showPrivacyModal, setShowPrivacyModal] = useState(false)
+  const [showTermsModal, setShowTermsModal] = useState(false)
 
   return (
     <>
@@ -173,7 +176,7 @@ export function Footer({ onAboutClick, onPrivacyClick, onTermsClick }) {
                 </li>
                 <li>
                   <button
-                    onClick={onAboutClick}
+                    onClick={() => setShowAboutModal(true)}
                     className="text-muted-foreground hover:text-primary transition-colors text-left"
                   >
                     À propos
@@ -207,11 +210,11 @@ export function Footer({ onAboutClick, onPrivacyClick, onTermsClick }) {
             </div>
 
             <div className="flex items-center space-x-6 text-sm text-muted-foreground">
-              <button onClick={onPrivacyClick} className="hover:text-primary transition-colors">
+              <button onClick={() => setShowPrivacyModal(true)} className="hover:text-primary transition-colors">
                 Politique de confidentialité
               </button>
               <span>•</span>
-              <button onClick={onTermsClick} className="hover:text-primary transition-colors">
+              <button onClick={() => setShowTermsModal(true)} className="hover:text-primary transition-colors">
                 Conditions d'utilisation
               </button>
             </div>
@@ -226,9 +229,9 @@ export function Footer({ onAboutClick, onPrivacyClick, onTermsClick }) {
         </div>
       </footer>
 
-      <AboutModal isOpen={false} onClose={() => {}} />
-      <PrivacyPolicyModal isOpen={false} onClose={() => {}} />
-      <PrivacyPolicyModal isOpen={false} onClose={() => {}} initialSection={1} />
+      <AboutModal isOpen={showAboutModal} onClose={() => setShowAboutModal(false)} />
+      <PrivacyPolicyModal isOpen={showPrivacyModal} onClose={() => setShowPrivacyModal(false)} />
+      <PrivacyPolicyModal isOpen={showTermsModal} onClose={() => setShowTermsModal(false)} initialSection={1} />
     </>
   )
 }

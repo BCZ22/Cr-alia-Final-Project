@@ -14,6 +14,10 @@ import { CrealiaAIInterface } from "@/components/crealia-ai-interface"
 import { PricingModal } from "@/components/pricing-modal"
 import { AboutModal } from "@/components/about-modal"
 import { PrivacyPolicyModal } from "@/components/privacy-policy-modal"
+import { CrealiaStudioInterface } from "@/components/crealia-studio-interface"
+import { CrealiaAnalyticsInterface } from "@/components/crealia-analytics-interface"
+import { CrealiaInspirationInterface } from "@/components/crealia-inspiration-interface"
+import { CrealiaFAQInterface } from "@/components/crealia-faq-interface"
 
 const SparklesIcon = ({ className }: { className?: string }) => (
   <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -352,6 +356,13 @@ export default function HomePage() {
       <AboutModal isOpen={aboutModalOpen} onClose={() => setAboutModalOpen(false)} />
       <PrivacyPolicyModal isOpen={privacyModalOpen} onClose={() => setPrivacyModalOpen(false)} />
       <PrivacyPolicyModal isOpen={termsModalOpen} onClose={() => setTermsModalOpen(false)} initialSection={1} />
+      <CrealiaStudioInterface isOpen={studioInterfaceOpen} onClose={() => setStudioInterfaceOpen(false)} />
+      <CrealiaAnalyticsInterface isOpen={analyticsInterfaceOpen} onClose={() => setAnalyticsInterfaceOpen(false)} />
+      <CrealiaInspirationInterface
+        isOpen={inspirationInterfaceOpen}
+        onClose={() => setInspirationInterfaceOpen(false)}
+      />
+      <CrealiaFAQInterface isOpen={faqInterfaceOpen} onClose={() => setFaqInterfaceOpen(false)} />
 
       <Footer
         onAboutClick={() => setAboutModalOpen(true)}
