@@ -73,6 +73,7 @@ export default function HomePage() {
     <div className="min-h-screen bg-background">
       <Navigation
         onStartFree={() => setIsSignupDarkOpen(true)}
+        onLoginClick={() => setIsSignupOpen(true)}
         onCrealiaAIClick={() => setAiInterfaceOpen(true)}
         onPricingClick={() => setPricingModalOpen(true)}
         onStudioClick={() => setStudioInterfaceOpen(true)}

@@ -126,6 +126,7 @@ export function Navigation({
     onAnalyticsClick,
     onInspirationClick,
     onFAQClick,
+    onLoginClick,
   }) {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   
@@ -190,6 +191,7 @@ export function Navigation({
                   size="sm"
                   className="hover:bg-secondary/80 rounded-full animate-fade-in text-muted-foreground hover:text-foreground"
                   style={{ animationDelay: "0.4s" }}
+                  onClick={onLoginClick}
                 >
                   Se connecter
                 </Button>
