@@ -46,8 +46,7 @@ interface FooterProps {
   onTermsClick?: () => void
 }
 
-export function Footer({ onAboutClick, onPrivacyClick, onTermsClick }: FooterProps)
-
+export function Footer({ onAboutClick, onPrivacyClick, onTermsClick }: FooterProps) {
   return (
     <>
       <footer className="bg-background border-t border-border">
