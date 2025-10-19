@@ -19,34 +19,46 @@ const navigation = [
   { name: "Pricing", href: "#" },
 ]
 
-export function Navigation() {
-  const [signupModalOpen, setSignupModalOpen] = useState(false)
-  const [pricingModalOpen, setPricingModalOpen] = useState(false)
-  const [aiInterfaceOpen, setAiInterfaceOpen] = useState(false)
-  const [studioInterfaceOpen, setStudioInterfaceOpen] = useState(false)
-  const [analyticsInterfaceOpen, setAnalyticsInterfaceOpen] = useState(false)
-  const [inspirationInterfaceOpen, setInspirationInterfaceOpen] = useState(false)
-  const [faqInterfaceOpen, setFaqInterfaceOpen] = useState(false)
+interface NavigationProps {
+  onStartFree?: () => void
+  onLoginClick?: () => void
+  onCrealiaAIClick?: () => void
+  onPricingClick?: () => void
+  onStudioClick?: () => void
+  onAnalyticsClick?: () => void
+  onInspirationClick?: () => void
+  onFAQClick?: () => void
+}
 
+export function Navigation({
+  onStartFree,
+  onLoginClick,
+  onCrealiaAIClick,
+  onPricingClick,
+  onStudioClick,
+  onAnalyticsClick,
+  onInspirationClick,
+  onFAQClick,
+}: NavigationProps) {
   const handleNavigationClick = (item: (typeof navigation)[0]) => {
     switch (item.name) {
       case "Créalia AI":
-        setAiInterfaceOpen(true)
+        onCrealiaAIClick?.()
         break
       case "Créalia Studio":
-        setStudioInterfaceOpen(true)
+        onStudioClick?.()
         break
       case "Créalia Analytics":
-        setAnalyticsInterfaceOpen(true)
+        onAnalyticsClick?.()
         break
       case "Inspiration":
-        setInspirationInterfaceOpen(true)
+        onInspirationClick?.()
         break
       case "FAQ":
-        setFaqInterfaceOpen(true)
+        onFAQClick?.()
         break
       case "Pricing":
-        setPricingModalOpen(true)
+        onPricingClick?.()
         break
     }
   }
@@ -81,33 +93,30 @@ export function Navigation() {
 
           {/* DROITE : boutons placés en dernier pour être tout à droite */}
           <div className="right-group">
-            <a className="btn ghost login" href="/login">
-              Se connecter
-            </a>
-            <a
-              className="btn primary try"
-              href="/signup"
+            <button
+              className="btn ghost login"
               onClick={(e) => {
                 e.preventDefault()
-                setSignupModalOpen(true)
+                onLoginClick?.()
               }}
+              aria-label="Se connecter"
+            >
+              Se connecter
+            </button>
+            <button
+              className="btn primary try"
+              onClick={(e) => {
+                e.preventDefault()
+                onStartFree?.()
+              }}
+              aria-label="Essayer Gratuitement"
             >
               Essayer Gratuitement
-            </a>
+            </button>
           </div>
         </div>
       </header>
 
-      <SignupModal isOpen={signupModalOpen} onClose={() => setSignupModalOpen(false)} />
-      <PricingModal isOpen={pricingModalOpen} onClose={() => setPricingModalOpen(false)} />
-      <CrealiaAIInterface isOpen={aiInterfaceOpen} onClose={() => setAiInterfaceOpen(false)} />
-      <CrealiaStudioInterface isOpen={studioInterfaceOpen} onClose={() => setStudioInterfaceOpen(false)} />
-      <CrealiaAnalyticsInterface isOpen={analyticsInterfaceOpen} onClose={() => setAnalyticsInterfaceOpen(false)} />
-      <CrealiaInspirationInterface
-        isOpen={inspirationInterfaceOpen}
-        onClose={() => setInspirationInterfaceOpen(false)}
-      />
-      <CrealiaFAQInterface isOpen={faqInterfaceOpen} onClose={() => setFaqInterfaceOpen(false)} />
     </>
   )
 }
