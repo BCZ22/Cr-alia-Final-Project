@@ -57,32 +57,32 @@ export function Footer({ onAboutClick, onPrivacyClick, onTermsClick }: FooterPro
               <h3 className="font-bold text-foreground mb-4">Créalia AI</h3>
               <ul className="space-y-2 text-sm">
                 <li>
-                  <a href="/ai/reels" className="text-muted-foreground hover:text-primary transition-colors">
+                  <a href="/reels" className="text-muted-foreground hover:text-primary transition-colors">
                     Générateur de Reels IA
                   </a>
                 </li>
                 <li>
-                  <a href="/ai/avatar" className="text-muted-foreground hover:text-primary transition-colors">
+                  <a href="/avatars" className="text-muted-foreground hover:text-primary transition-colors">
                     Créateur d'Avatar IA
                   </a>
                 </li>
                 <li>
-                  <a href="/ai/images" className="text-muted-foreground hover:text-primary transition-colors">
+                  <a href="/images" className="text-muted-foreground hover:text-primary transition-colors">
                     Générateur d'Images IA
                   </a>
                 </li>
                 <li>
-                  <a href="/ai/voiceover" className="text-muted-foreground hover:text-primary transition-colors">
+                  <a href="/voice" className="text-muted-foreground hover:text-primary transition-colors">
                     Générateur de Voix Off IA
                   </a>
                 </li>
                 <li>
-                  <a href="/ai/subtitles" className="text-muted-foreground hover:text-primary transition-colors">
+                  <a href="/subtitles" className="text-muted-foreground hover:text-primary transition-colors">
                     Générateur de Sous-titres IA
                   </a>
                 </li>
                 <li>
-                  <a href="/ai/memes" className="text-muted-foreground hover:text-primary transition-colors">
+                  <a href="/memes" className="text-muted-foreground hover:text-primary transition-colors">
                     Générateur de Memes IA
                   </a>
                 </li>
@@ -167,7 +167,7 @@ export function Footer({ onAboutClick, onPrivacyClick, onTermsClick }: FooterPro
               <h3 className="font-bold text-foreground mb-4">Entreprise</h3>
               <ul className="space-y-2 text-sm">
                 <li>
-                  <a href="/affiliate" className="text-muted-foreground hover:text-primary transition-colors">
+                  <a href="/affiliation" className="text-muted-foreground hover:text-primary transition-colors">
                     Programme d'affiliation
                   </a>
                 </li>
@@ -213,13 +213,13 @@ export function Footer({ onAboutClick, onPrivacyClick, onTermsClick }: FooterPro
             </div>
 
             <div className="flex items-center space-x-6 text-sm text-muted-foreground">
-              <button onClick={onPrivacyClick} className="hover:text-primary transition-colors" aria-label="Politique de confidentialité">
+              <a href="/privacy" className="hover:text-primary transition-colors" aria-label="Politique de confidentialité">
                 Politique de confidentialité
-              </button>
+              </a>
               <span>•</span>
-              <button onClick={onTermsClick} className="hover:text-primary transition-colors" aria-label="Conditions d'utilisation">
+              <a href="/terms" className="hover:text-primary transition-colors" aria-label="Conditions d'utilisation">
                 Conditions d'utilisation
-              </button>
+              </a>
             </div>
           </div>
 

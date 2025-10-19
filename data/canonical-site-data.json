@@ -21,27 +21,27 @@
         "items": [
           {
             "label": "Générateur de Reels IA",
-            "route": "/ai/reels"
+            "route": "/reels"
           },
           {
             "label": "Créateur d'Avatar IA",
-            "route": "/ai/avatar"
+            "route": "/avatars"
           },
           {
             "label": "Générateur d'Images IA",
-            "route": "/ai/images"
+            "route": "/images"
           },
           {
             "label": "Générateur de Voix Off IA",
-            "route": "/ai/voiceover"
+            "route": "/voice"
           },
           {
             "label": "Générateur de Sous-titres IA",
-            "route": "/ai/subtitles"
+            "route": "/subtitles"
           },
           {
             "label": "Générateur de Memes IA",
-            "route": "/ai/memes"
+            "route": "/memes"
           }
         ]
       },
@@ -109,7 +109,7 @@
         "items": [
           {
             "label": "Programme d'affiliation",
-            "route": "/affiliate"
+            "route": "/affiliation"
           },
           {
             "label": "Tarifs",
@@ -126,11 +126,11 @@
       "legalLinks": [
         {
           "label": "Politique de confidentialité",
-          "route": "/legal/privacy"
+          "route": "/privacy"
         },
         {
           "label": "Conditions d'utilisation",
-          "route": "/legal/terms"
+          "route": "/terms"
         }
       ],
       "social": [
@@ -168,55 +168,125 @@
     }
   },
   "pricing": {
-    "plans": [
-      {
-        "id": "basic",
-        "name": "Gratuit",
-        "price": 0,
-        "currency": "EUR",
-        "billingCycle": "mois",
-        "features": [
-          "5 vidéos/mois",
-          "Accès basique IA",
-          "Exports en 720p",
-          "Support email"
-        ],
-        "cta": "Commencer",
-        "popular": false
-      },
-      {
-        "id": "pro",
-        "name": "Pro",
-        "price": 29,
-        "currency": "EUR",
-        "billingCycle": "mois",
-        "features": [
-          "Vidéos illimitées",
-          "Toutes les fonctionnalités IA",
-          "Exports en 4K",
-          "Support prioritaire 24/7"
-        ],
-        "cta": "Commencer",
-        "popular": true
-      },
-      {
-        "id": "business",
-        "name": "Entreprise",
-        "price": 59,
-        "currency": "EUR",
-        "billingCycle": "mois",
-        "priceDisplay": "Sur mesure",
-        "features": [
-          "Tout de Pro +",
-          "Multi-utilisateurs",
-          "API dédiée",
-          "Formation personnalisée",
-          "Account manager dédié"
-        ],
-        "cta": "Nous contacter",
-        "popular": false
-      }
-    ]
+    "plans": {
+      "monthly": [
+        {
+          "id": "creator",
+          "name": "Créateur",
+          "price": 19,
+          "currency": "USD",
+          "period": "mois",
+          "videosPerMonth": 50,
+          "features": [
+            "40 minutes d'export",
+            "30 minutes de voix off",
+            "100 images IA",
+            "Analytics de base",
+            "Support email"
+          ],
+          "cta": "Commencer",
+          "popular": false
+        },
+        {
+          "id": "viral",
+          "name": "Viral",
+          "price": 39,
+          "currency": "USD",
+          "period": "mois",
+          "videosPerMonth": 150,
+          "features": [
+            "2 heures d'export",
+            "120 minutes de voix off",
+            "300 images IA",
+            "Analytics avancées",
+            "Support prioritaire",
+            "Templates premium"
+          ],
+          "cta": "Commencer",
+          "popular": true,
+          "highlighted": true
+        },
+        {
+          "id": "pro",
+          "name": "Pro",
+          "price": 79,
+          "currency": "USD",
+          "period": "mois",
+          "videosPerMonth": 250,
+          "features": [
+            "3 heures d'export",
+            "180 minutes de voix off",
+            "500 images IA",
+            "Analytics complètes",
+            "Support 24/7",
+            "Templates illimités",
+            "API access"
+          ],
+          "cta": "Commencer",
+          "popular": false
+        }
+      ],
+      "yearly": [
+        {
+          "id": "creator",
+          "name": "Créateur",
+          "price": 13,
+          "currency": "USD",
+          "period": "mois",
+          "billedYearly": 160,
+          "videosPerMonth": 50,
+          "features": [
+            "40 minutes d'export",
+            "30 minutes de voix off",
+            "100 images IA",
+            "Analytics de base",
+            "Support email"
+          ],
+          "cta": "Commencer",
+          "popular": false
+        },
+        {
+          "id": "viral",
+          "name": "Viral",
+          "price": 27,
+          "currency": "USD",
+          "period": "mois",
+          "billedYearly": 327,
+          "videosPerMonth": 150,
+          "features": [
+            "2 heures d'export",
+            "120 minutes de voix off",
+            "300 images IA",
+            "Analytics avancées",
+            "Support prioritaire",
+            "Templates premium"
+          ],
+          "cta": "Commencer",
+          "popular": true,
+          "highlighted": true
+        },
+        {
+          "id": "pro",
+          "name": "Pro",
+          "price": 55,
+          "currency": "USD",
+          "period": "mois",
+          "billedYearly": 664,
+          "videosPerMonth": 250,
+          "features": [
+            "3 heures d'export",
+            "180 minutes de voix off",
+            "500 images IA",
+            "Analytics complètes",
+            "Support 24/7",
+            "Templates illimités",
+            "API access"
+          ],
+          "cta": "Commencer",
+          "popular": false
+        }
+      ]
+    }
   }
 }
 
