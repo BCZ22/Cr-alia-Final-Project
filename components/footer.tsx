@@ -57,32 +57,32 @@ export function Footer({ onAboutClick, onPrivacyClick, onTermsClick }: FooterPro
               <h3 className="font-bold text-foreground mb-4">Créalia AI</h3>
               <ul className="space-y-2 text-sm">
                 <li>
-                  <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+                  <a href="/ai/reels" className="text-muted-foreground hover:text-primary transition-colors">
                     Générateur de Reels IA
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+                  <a href="/ai/avatar" className="text-muted-foreground hover:text-primary transition-colors">
                     Créateur d'Avatar IA
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+                  <a href="/ai/images" className="text-muted-foreground hover:text-primary transition-colors">
                     Générateur d'Images IA
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+                  <a href="/ai/voiceover" className="text-muted-foreground hover:text-primary transition-colors">
                     Générateur de Voix Off IA
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+                  <a href="/ai/subtitles" className="text-muted-foreground hover:text-primary transition-colors">
                     Générateur de Sous-titres IA
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+                  <a href="/ai/memes" className="text-muted-foreground hover:text-primary transition-colors">
                     Générateur de Memes IA
                   </a>
                 </li>
@@ -94,12 +94,12 @@ export function Footer({ onAboutClick, onPrivacyClick, onTermsClick }: FooterPro
               <h3 className="font-bold text-foreground mb-4">Applications mobiles</h3>
               <ul className="space-y-2 text-sm">
                 <li>
-                  <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+                  <a href="/apps/ios" className="text-muted-foreground hover:text-primary transition-colors">
                     iOS
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+                  <a href="/apps/android" className="text-muted-foreground hover:text-primary transition-colors">
                     Android
                   </a>
                 </li>
@@ -108,32 +108,32 @@ export function Footer({ onAboutClick, onPrivacyClick, onTermsClick }: FooterPro
               <h3 className="font-bold text-foreground mb-4 mt-8">Créalia Studio</h3>
               <ul className="space-y-2 text-sm">
                 <li>
-                  <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+                  <a href="/studio/video-editor" className="text-muted-foreground hover:text-primary transition-colors">
                     Éditeur Vidéo en Ligne
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+                  <a href="/studio/collage" className="text-muted-foreground hover:text-primary transition-colors">
                     Créateur de Collages
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+                  <a href="/studio/instagram" className="text-muted-foreground hover:text-primary transition-colors">
                     Éditeur Instagram
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+                  <a href="/studio/facebook" className="text-muted-foreground hover:text-primary transition-colors">
                     Éditeur Facebook
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+                  <a href="/studio/add-music" className="text-muted-foreground hover:text-primary transition-colors">
                     Ajouter Musique
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+                  <a href="/studio/add-text" className="text-muted-foreground hover:text-primary transition-colors">
                     Ajouter Texte
                   </a>
                 </li>
@@ -145,17 +145,17 @@ export function Footer({ onAboutClick, onPrivacyClick, onTermsClick }: FooterPro
               <h3 className="font-bold text-foreground mb-4">Aide</h3>
               <ul className="space-y-2 text-sm">
                 <li>
-                  <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+                  <a href="/support/chat" className="text-muted-foreground hover:text-primary transition-colors">
                     Chat en direct 24/7
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+                  <a href="/support/contact" className="text-muted-foreground hover:text-primary transition-colors">
                     Nous contacter
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+                  <a href="/community" className="text-muted-foreground hover:text-primary transition-colors">
                     Communauté
                   </a>
                 </li>
@@ -167,12 +167,12 @@ export function Footer({ onAboutClick, onPrivacyClick, onTermsClick }: FooterPro
               <h3 className="font-bold text-foreground mb-4">Entreprise</h3>
               <ul className="space-y-2 text-sm">
                 <li>
-                  <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+                  <a href="/affiliate" className="text-muted-foreground hover:text-primary transition-colors">
                     Programme d'affiliation
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+                  <a href="/pricing" className="text-muted-foreground hover:text-primary transition-colors">
                     Tarifs
                   </a>
                 </li>
