@@ -1,0 +1,222 @@
+{
+  "site": {
+    "name": "Créalia",
+    "year": 2024,
+    "tagline": "Créez du contenu viral avec l'intelligence artificielle",
+    "legal": {
+      "privacy": {
+        "title": "Politique de confidentialité",
+        "route": "/legal/privacy"
+      },
+      "terms": {
+        "title": "Conditions d'utilisation",
+        "route": "/legal/terms"
+      }
+    }
+  },
+  "footer": {
+    "columns": {
+      "crealia_ai": {
+        "title": "Créalia AI",
+        "items": [
+          {
+            "label": "Générateur de Reels IA",
+            "route": "/ai/reels"
+          },
+          {
+            "label": "Créateur d'Avatar IA",
+            "route": "/ai/avatar"
+          },
+          {
+            "label": "Générateur d'Images IA",
+            "route": "/ai/images"
+          },
+          {
+            "label": "Générateur de Voix Off IA",
+            "route": "/ai/voiceover"
+          },
+          {
+            "label": "Générateur de Sous-titres IA",
+            "route": "/ai/subtitles"
+          },
+          {
+            "label": "Générateur de Memes IA",
+            "route": "/ai/memes"
+          }
+        ]
+      },
+      "apps": {
+        "title": "Applications mobiles",
+        "items": [
+          {
+            "label": "iOS",
+            "route": "/apps/ios"
+          },
+          {
+            "label": "Android",
+            "route": "/apps/android"
+          }
+        ]
+      },
+      "studio": {
+        "title": "Créalia Studio",
+        "items": [
+          {
+            "label": "Éditeur Vidéo en Ligne",
+            "route": "/studio/video-editor"
+          },
+          {
+            "label": "Créateur de Collages",
+            "route": "/studio/collage"
+          },
+          {
+            "label": "Éditeur Instagram",
+            "route": "/studio/instagram"
+          },
+          {
+            "label": "Éditeur Facebook",
+            "route": "/studio/facebook"
+          },
+          {
+            "label": "Ajouter Musique",
+            "route": "/studio/add-music"
+          },
+          {
+            "label": "Ajouter Texte",
+            "route": "/studio/add-text"
+          }
+        ]
+      },
+      "support": {
+        "title": "Aide",
+        "items": [
+          {
+            "label": "Chat en direct 24/7",
+            "route": "/support/chat"
+          },
+          {
+            "label": "Nous contacter",
+            "route": "/support/contact"
+          },
+          {
+            "label": "Communauté",
+            "route": "/community"
+          }
+        ]
+      },
+      "company": {
+        "title": "Entreprise",
+        "items": [
+          {
+            "label": "Programme d'affiliation",
+            "route": "/affiliate"
+          },
+          {
+            "label": "Tarifs",
+            "route": "/pricing"
+          },
+          {
+            "label": "À propos",
+            "route": "/about"
+          }
+        ]
+      }
+    },
+    "bottom": {
+      "legalLinks": [
+        {
+          "label": "Politique de confidentialité",
+          "route": "/legal/privacy"
+        },
+        {
+          "label": "Conditions d'utilisation",
+          "route": "/legal/terms"
+        }
+      ],
+      "social": [
+        {
+          "id": "x",
+          "label": "X (Twitter)",
+          "href": "https://x.com/crealia"
+        },
+        {
+          "id": "facebook",
+          "label": "Facebook",
+          "href": "https://facebook.com/crealia"
+        },
+        {
+          "id": "instagram",
+          "label": "Instagram",
+          "href": "https://instagram.com/crealia"
+        },
+        {
+          "id": "youtube",
+          "label": "YouTube",
+          "href": "https://youtube.com/crealia"
+        },
+        {
+          "id": "linkedin",
+          "label": "LinkedIn",
+          "href": "https://linkedin.com/company/crealia"
+        },
+        {
+          "id": "pinterest",
+          "label": "Pinterest",
+          "href": "https://pinterest.com/crealia"
+        }
+      ]
+    }
+  },
+  "pricing": {
+    "plans": [
+      {
+        "id": "basic",
+        "name": "Gratuit",
+        "price": 0,
+        "currency": "EUR",
+        "billingCycle": "mois",
+        "features": [
+          "5 vidéos/mois",
+          "Accès basique IA",
+          "Exports en 720p",
+          "Support email"
+        ],
+        "cta": "Commencer",
+        "popular": false
+      },
+      {
+        "id": "pro",
+        "name": "Pro",
+        "price": 29,
+        "currency": "EUR",
+        "billingCycle": "mois",
+        "features": [
+          "Vidéos illimitées",
+          "Toutes les fonctionnalités IA",
+          "Exports en 4K",
+          "Support prioritaire 24/7"
+        ],
+        "cta": "Commencer",
+        "popular": true
+      },
+      {
+        "id": "business",
+        "name": "Entreprise",
+        "price": 59,
+        "currency": "EUR",
+        "billingCycle": "mois",
+        "priceDisplay": "Sur mesure",
+        "features": [
+          "Tout de Pro +",
+          "Multi-utilisateurs",
+          "API dédiée",
+          "Formation personnalisée",
+          "Account manager dédié"
+        ],
+        "cta": "Nous contacter",
+        "popular": false
+      }
+    ]
+  }
+}
+

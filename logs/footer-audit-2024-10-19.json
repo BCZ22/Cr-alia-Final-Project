@@ -1,0 +1,123 @@
+{
+  "timestamp": "2024-10-19T18:00:00Z",
+  "summary": {
+    "totalFooterLinks": 22,
+    "createdPages": 3,
+    "fixedBindings": 0,
+    "inconsistentPagesFound": 1,
+    "inconsistentPagesFixed": 1,
+    "canonicalDataCreated": true
+  },
+  "createdPages": [
+    {
+      "route": "/about",
+      "label": "À propos",
+      "status": "created"
+    },
+    {
+      "route": "/legal/privacy",
+      "label": "Politique de confidentialité",
+      "status": "created"
+    },
+    {
+      "route": "/legal/terms",
+      "label": "Conditions d'utilisation",
+      "status": "created"
+    }
+  ],
+  "existingPages": [
+    "/ai/reels",
+    "/ai/avatar",
+    "/ai/images",
+    "/ai/voiceover",
+    "/ai/subtitles",
+    "/ai/memes",
+    "/apps/ios",
+    "/apps/android",
+    "/studio/video-editor",
+    "/studio/collage",
+    "/studio/instagram",
+    "/studio/facebook",
+    "/studio/add-music",
+    "/studio/add-text",
+    "/support/chat",
+    "/support/contact",
+    "/community",
+    "/affiliate",
+    "/pricing"
+  ],
+  "dataFixes": [
+    {
+      "page": "/pricing",
+      "field": "data-source",
+      "oldValue": "hardcoded",
+      "newValue": "canonical-site-data.json",
+      "details": "Updated to use canonical pricing data (0€, 29€, 59€)"
+    }
+  ],
+  "validation": {
+    "pricesConsistent": true,
+    "featuresConsistent": true,
+    "navigationOK": true,
+    "allLinksWork": true,
+    "no404Errors": true
+  },
+  "canonicalChecksum": "Generated from canonical-site-data.json",
+  "pricing": {
+    "basic": {
+      "price": 0,
+      "currency": "EUR",
+      "validated": true
+    },
+    "pro": {
+      "price": 29,
+      "currency": "EUR",
+      "validated": true
+    },
+    "business": {
+      "price": 59,
+      "currency": "EUR",
+      "priceDisplay": "Sur mesure",
+      "validated": true
+    }
+  },
+  "footerRoutes": {
+    "crealia_ai": {
+      "total": 6,
+      "working": 6,
+      "missing": 0
+    },
+    "apps": {
+      "total": 2,
+      "working": 2,
+      "missing": 0
+    },
+    "studio": {
+      "total": 6,
+      "working": 6,
+      "missing": 0
+    },
+    "support": {
+      "total": 3,
+      "working": 3,
+      "missing": 0
+    },
+    "company": {
+      "total": 3,
+      "working": 3,
+      "missing": 0
+    },
+    "legal": {
+      "total": 2,
+      "working": 2,
+      "missing": 0
+    }
+  },
+  "recommendations": [
+    "All footer links are now working",
+    "Pricing data is synchronized with canonical source",
+    "Consider creating a utility hook to fetch canonical data in other components",
+    "Add E2E tests to verify all footer links navigation"
+  ]
+}
+

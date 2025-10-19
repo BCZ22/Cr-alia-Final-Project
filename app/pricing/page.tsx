@@ -1,4 +1,5 @@
 import { Metadata } from 'next'
+import canonicalData from '@/data/canonical-site-data.json'
 
 export const metadata: Metadata = {
   title: 'Tarifs | Créalia - Plans et Prix',
@@ -6,6 +7,9 @@ export const metadata: Metadata = {
 }
 
 export default function PricingPage() {
+  // Utiliser les données canoniques
+  const plans = canonicalData.pricing.plans
+
   return (
     <section className="min-h-screen flex flex-col items-center justify-center p-10 text-center bg-gradient-to-b from-background to-secondary/20">
       <div className="max-w-6xl mx-auto space-y-8">
@@ -28,27 +32,7 @@ export default function PricingPage() {
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 pt-8">
-          {[
-            {
-              name: 'Gratuit',
-              price: '0€',
-              period: '/mois',
-              features: ['5 vidéos/mois', 'Accès basique IA', 'Exports en 720p', 'Support email'],
-            },
-            {
-              name: 'Pro',
-              price: '29€',
-              period: '/mois',
-              popular: true,
-              features: ['Vidéos illimitées', 'Toutes les fonctionnalités IA', 'Exports en 4K', 'Support prioritaire 24/7'],
-            },
-            {
-              name: 'Entreprise',
-              price: 'Sur mesure',
-              period: '',
-              features: ['Tout de Pro +', 'API dédiée', 'Formation personnalisée', 'Account manager dédié'],
-            },
-          ].map((plan, i) => (
+          {plans.map((plan, i) => (
             <div
               key={i}
               className={`glass-card p-8 rounded-3xl ${plan.popular ? 'border-2 border-primary shadow-2xl scale-105' : ''}`}
@@ -60,8 +44,12 @@ export default function PricingPage() {
               )}
               <h3 className="text-2xl font-bold mb-2">{plan.name}</h3>
               <div className="mb-6">
-                <span className="text-5xl font-bold">{plan.price}</span>
-                <span className="text-muted-foreground">{plan.period}</span>
+                <span className="text-5xl font-bold">
+                  {plan.priceDisplay || (plan.price === 0 ? 'Gratuit' : `${plan.price}€`)}
+                </span>
+                <span className="text-muted-foreground">
+                  {plan.priceDisplay ? '' : `/${plan.billingCycle}`}
+                </span>
               </div>
               <ul className="space-y-3 mb-8 text-left">
                 {plan.features.map((feature, j) => (
@@ -80,7 +68,7 @@ export default function PricingPage() {
                     : 'border-2 border-border hover:border-primary/40'
                 }`}
               >
-                {plan.price === 'Sur mesure' ? 'Nous contacter' : 'Commencer'}
+                {plan.cta}
               </button>
             </div>
           ))}
