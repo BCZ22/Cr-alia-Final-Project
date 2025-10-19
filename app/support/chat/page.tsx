@@ -1,57 +1,265 @@
-import { Metadata } from 'next'
+/**
+ * Chat Support Page
+ * 24/7 AI-powered chat support
+ */
 
-export const metadata: Metadata = {
-  title: 'Chat en direct 24/7 | Support Créalia',
-  description: 'Besoin d\'aide ? Notre équipe support est disponible 24h/24 et 7j/7 pour répondre à toutes vos questions.',
+'use client'
+
+import { useState, useEffect, useRef } from 'react'
+import { useSession } from 'next-auth/react'
+import { Card } from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
+
+interface Message {
+  id: string
+  role: 'USER' | 'ASSISTANT'
+  content: string
+  createdAt?: Date
 }
 
-export default function LiveChatPage() {
+export default function ChatSupportPage() {
+  const { data: session } = useSession()
+  const [sessionId, setSessionId] = useState<string | null>(null)
+  const [messages, setMessages] = useState<Message[]>([])
+  const [input, setInput] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [initializing, setInitializing] = useState(true)
+  const messagesEndRef = useRef<HTMLDivElement>(null)
+
+  // Auto-scroll to bottom
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+  }
+
+  useEffect(() => {
+    scrollToBottom()
+  }, [messages])
+
+  // Initialize chat session
+  useEffect(() => {
+    const initChat = async () => {
+      try {
+        const response = await fetch('/api/chat/create-session', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({}),
+        })
+
+        const data = await response.json()
+
+        if (data.sessionId) {
+          setSessionId(data.sessionId)
+          if (data.message) {
+            setMessages([
+              {
+                id: data.message.id,
+                role: data.message.role,
+                content: data.message.content,
+              },
+            ])
+          }
+        }
+      } catch (error) {
+        console.error('Failed to initialize chat:', error)
+      } finally {
+        setInitializing(false)
+      }
+    }
+
+    initChat()
+  }, [])
+
+  // Send message
+  const handleSend = async () => {
+    if (!input.trim() || !sessionId || loading) return
+
+    const userMessage: Message = {
+      id: `temp-${Date.now()}`,
+      role: 'USER',
+      content: input.trim(),
+    }
+
+    setMessages((prev) => [...prev, userMessage])
+    setInput('')
+    setLoading(true)
+
+    try {
+      const response = await fetch('/api/chat/message', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          sessionId,
+          message: userMessage.content,
+        }),
+      })
+
+      const data = await response.json()
+
+      if (data.message) {
+        setMessages((prev) => [
+          ...prev,
+          {
+            id: data.message.id,
+            role: data.message.role,
+            content: data.message.content,
+          },
+        ])
+      }
+    } catch (error) {
+      console.error('Failed to send message:', error)
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: `error-${Date.now()}`,
+          role: 'ASSISTANT',
+          content:
+            "Désolé, une erreur s'est produite. Veuillez réessayer.",
+        },
+      ])
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  // Handle Enter key
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault()
+      handleSend()
+    }
+  }
+
+  if (initializing) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-background to-secondary/20">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+          <p className="text-muted-foreground">Initialisation du chat...</p>
+        </div>
+      </div>
+    )
+  }
+
   return (
-    <section className="min-h-screen flex flex-col items-center justify-center p-10 text-center bg-gradient-to-b from-background to-secondary/20">
-      <div className="max-w-4xl mx-auto space-y-8">
-        <div className="inline-flex items-center gap-2 px-6 py-3 bg-primary/10 border border-primary/20 rounded-full mb-8">
-          <svg className="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-          </svg>
-          <span className="text-sm font-medium text-primary">Chat en direct 24/7</span>
+    <div className="min-h-screen bg-gradient-to-b from-background to-secondary/20 p-4">
+      <div className="max-w-4xl mx-auto py-8">
+        {/* Header */}
+        <div className="mb-6 text-center">
+          <div className="inline-flex items-center gap-2 px-6 py-3 bg-primary/10 border border-primary/20 rounded-full mb-4">
+            <svg className="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+            </svg>
+            <span className="text-sm font-medium text-primary">Chat en direct 24/7</span>
+          </div>
+
+          <h1 className="text-4xl md:text-5xl font-bold mb-4">
+            Comment pouvons-nous <br />
+            <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+              vous aider ?
+            </span>
+          </h1>
+
+          <p className="text-xl text-muted-foreground">
+            Notre assistant IA est là pour répondre à toutes vos questions
+          </p>
         </div>
 
-        <h1 className="text-5xl md:text-7xl font-bold text-foreground mb-6">
-          Support disponible <br />
-          <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-            24h/24 et 7j/7
-          </span>
-        </h1>
+        {/* Chat Container */}
+        <Card className="glass-card overflow-hidden">
+          {/* Messages */}
+          <div className="h-[500px] overflow-y-auto p-6 space-y-4">
+            {messages.map((message) => (
+              <div
+                key={message.id}
+                className={`flex ${
+                  message.role === 'USER' ? 'justify-end' : 'justify-start'
+                }`}
+              >
+                <div
+                  className={`max-w-[80%] rounded-2xl px-4 py-3 ${
+                    message.role === 'USER'
+                      ? 'bg-primary text-primary-foreground ml-auto'
+                      : 'bg-secondary text-secondary-foreground'
+                  }`}
+                >
+                  <p className="text-sm whitespace-pre-wrap">{message.content}</p>
+                </div>
+              </div>
+            ))}
 
-        <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-          Notre équipe d'experts est toujours là pour vous aider. 
-          Posez vos questions et obtenez des réponses instantanées par chat en direct.
-        </p>
+            {loading && (
+              <div className="flex justify-start">
+                <div className="bg-secondary text-secondary-foreground rounded-2xl px-4 py-3">
+                  <div className="flex items-center gap-2">
+                    <div className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
+                    <div className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
+                    <div className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+                  </div>
+                </div>
+              </div>
+            )}
 
-        <div className="flex flex-col sm:flex-row gap-4 justify-center pt-8">
-          <button className="btn-gradient text-white font-semibold px-8 py-4 rounded-full text-lg">
-            Démarrer une conversation
-          </button>
-          <button className="border-2 border-border hover:border-primary/40 px-8 py-4 rounded-full text-lg transition-all">
-            Consulter la FAQ
-          </button>
-        </div>
+            <div ref={messagesEndRef} />
+          </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-16">
-          {[
-            { icon: '⚡', title: 'Réponses rapides', desc: 'Temps de réponse < 2 minutes' },
-            { icon: '👥', title: 'Équipe experte', desc: 'Support qualifié et sympathique' },
-            { icon: '🌍', title: 'Multilingue', desc: 'Support en français et anglais' },
-          ].map((feature, i) => (
-            <div key={i} className="glass-card p-6 rounded-2xl">
-              <div className="text-4xl mb-4">{feature.icon}</div>
-              <h3 className="text-lg font-bold mb-2">{feature.title}</h3>
-              <p className="text-sm text-muted-foreground">{feature.desc}</p>
+          {/* Input */}
+          <div className="border-t border-border p-4">
+            <div className="flex gap-2">
+              <textarea
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                onKeyDown={handleKeyDown}
+                placeholder="Posez votre question..."
+                className="flex-1 resize-none rounded-lg border border-border bg-background px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                rows={1}
+                disabled={loading}
+              />
+              <Button
+                onClick={handleSend}
+                disabled={!input.trim() || loading}
+                className="btn-gradient px-6"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                </svg>
+              </Button>
             </div>
+            <p className="text-xs text-muted-foreground mt-2">
+              Appuyez sur Entrée pour envoyer, Shift+Entrée pour nouvelle ligne
+            </p>
+          </div>
+        </Card>
+
+        {/* Quick Actions */}
+        <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+          {[
+            {
+              title: 'Consulter la FAQ',
+              description: 'Trouvez rapidement des réponses',
+              href: '#',
+              icon: '📚',
+            },
+            {
+              title: 'Tutoriels vidéo',
+              description: 'Apprenez à utiliser Créalia',
+              href: '#',
+              icon: '🎬',
+            },
+            {
+              title: 'Communauté',
+              description: 'Échangez avec d\'autres créateurs',
+              href: '/community',
+              icon: '👥',
+            },
+          ].map((action, index) => (
+            <Card key={index} className="glass-card p-4 hover:border-primary/40 transition-colors cursor-pointer">
+              <div className="text-3xl mb-2">{action.icon}</div>
+              <h3 className="font-bold mb-1">{action.title}</h3>
+              <p className="text-sm text-muted-foreground">{action.description}</p>
+            </Card>
           ))}
         </div>
       </div>
-    </section>
+    </div>
   )
 }
-
