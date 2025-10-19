@@ -1,14 +1,58 @@
 'use client'
 
 import { useState } from 'react'
+import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 import { Metadata } from 'next'
 import canonicalData from '@/data/canonical-site-data.json'
 
 export default function PricingPage() {
+  const router = useRouter()
+  const { data: session } = useSession()
   const [billingCycle, setBillingCycle] = useState<'monthly' | 'yearly'>('monthly')
+  const [loading, setLoading] = useState<string | null>(null)
   
   // Utiliser les données canoniques
   const plans = canonicalData.pricing.plans[billingCycle]
+
+  // Handle subscription click
+  const handleSubscribe = async (planId: string) => {
+    // Check if user is authenticated
+    if (!session?.user) {
+      // Redirect to sign in
+      router.push('/auth/signin?callbackUrl=/pricing')
+      return
+    }
+
+    setLoading(planId)
+
+    try {
+      // Call checkout API
+      const response = await fetch('/api/checkout/create-session', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          planId,
+          billingCycle,
+        }),
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to create checkout session')
+      }
+
+      // Redirect to Stripe checkout
+      window.location.href = data.url
+    } catch (error) {
+      console.error('Subscription error:', error)
+      alert('Erreur lors de la création de la session de paiement. Veuillez réessayer.')
+      setLoading(null)
+    }
+  }
 
   return (
     <section className="min-h-screen flex flex-col items-center justify-center p-10 text-center bg-gradient-to-b from-background to-secondary/20">
@@ -104,9 +148,21 @@ export default function PricingPage() {
                   plan.highlighted
                     ? 'btn-gradient text-white'
                     : 'border-2 border-border hover:border-primary/40'
-                }`}
+                } disabled:opacity-50 disabled:cursor-not-allowed`}
+                onClick={() => handleSubscribe(plan.id)}
+                disabled={loading === plan.id}
               >
-                {plan.cta}
+                {loading === plan.id ? (
+                  <span className="flex items-center justify-center">
+                    <svg className="animate-spin h-5 w-5 mr-2" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                    </svg>
+                    Chargement...
+                  </span>
+                ) : (
+                  plan.cta
+                )}
               </button>
             </div>
           ))}
