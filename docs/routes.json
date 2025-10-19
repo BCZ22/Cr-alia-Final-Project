@@ -1,0 +1,254 @@
+{
+  "version": "1.0.0",
+  "lastUpdated": "2024-10-19T20:00:00Z",
+  "routes": [
+    {
+      "path": "/",
+      "component": "HomePage",
+      "public": true,
+      "guards": [],
+      "buttons": ["btn-home-start-free", "btn-home-demo"]
+    },
+    {
+      "path": "/pricing",
+      "component": "PricingPage",
+      "public": true,
+      "guards": [],
+      "buttons": ["btn-pricing-creator-start", "btn-pricing-viral-start", "btn-pricing-pro-start"],
+      "targetEndpoints": ["/api/create-checkout-session"]
+    },
+    {
+      "path": "/pricing/success",
+      "component": "CheckoutSuccessPage",
+      "public": false,
+      "guards": ["session"],
+      "targetEndpoints": ["/api/checkout/session-info"]
+    },
+    {
+      "path": "/pricing/cancel",
+      "component": "CheckoutCancelPage",
+      "public": true,
+      "guards": []
+    },
+    {
+      "path": "/affiliate",
+      "component": "AffiliatePage",
+      "public": true,
+      "guards": ["auth_optional"],
+      "buttons": ["btn-become-affiliate"],
+      "targetEndpoints": ["/api/affiliate/register"]
+    },
+    {
+      "path": "/support/chat",
+      "component": "ChatHubPage",
+      "public": true,
+      "guards": ["auth_optional"],
+      "buttons": ["btn-start-conversation", "btn-view-faq"],
+      "targetEndpoints": ["/api/chat/create-session", "/api/chat/message", "/api/faq"]
+    },
+    {
+      "path": "/community",
+      "component": "CommunityPage",
+      "public": true,
+      "guards": [],
+      "buttons": ["btn-join-discord", "btn-view-forum"]
+    },
+    {
+      "path": "/community/discord",
+      "component": "DiscordRedirect",
+      "public": true,
+      "guards": [],
+      "redirectTo": "DISCORD_INVITE_URL"
+    },
+    {
+      "path": "/community/forum",
+      "component": "ForumPage",
+      "public": true,
+      "guards": ["auth_optional"],
+      "targetEndpoints": ["/api/forum/topics", "/api/forum/comments"]
+    },
+    {
+      "path": "/studio/video-editor",
+      "component": "VideoEditorPage",
+      "public": false,
+      "guards": ["auth", "subscription"],
+      "buttons": ["btn-start-editing", "btn-view-tutorial"],
+      "targetEndpoints": ["/api/studio/upload", "/api/studio/video/compose", "/api/studio/jobs/:id"]
+    },
+    {
+      "path": "/studio/collage",
+      "component": "CollageCreatorPage",
+      "public": false,
+      "guards": ["auth", "subscription"],
+      "targetEndpoints": ["/api/studio/collage/create"]
+    },
+    {
+      "path": "/studio/instagram",
+      "component": "InstagramEditorPage",
+      "public": false,
+      "guards": ["auth", "subscription"],
+      "targetEndpoints": ["/api/studio/instagram/optimize"]
+    },
+    {
+      "path": "/studio/facebook",
+      "component": "FacebookEditorPage",
+      "public": false,
+      "guards": ["auth", "subscription"],
+      "targetEndpoints": ["/api/studio/facebook/optimize"]
+    },
+    {
+      "path": "/studio/add-music",
+      "component": "AddMusicPage",
+      "public": false,
+      "guards": ["auth", "subscription"],
+      "targetEndpoints": ["/api/studio/music/library", "/api/studio/music/upload"]
+    },
+    {
+      "path": "/studio/add-text",
+      "component": "AddTextPage",
+      "public": false,
+      "guards": ["auth", "subscription"],
+      "targetEndpoints": ["/api/studio/text/render"]
+    },
+    {
+      "path": "/ai/reels",
+      "component": "ReelsGeneratorPage",
+      "public": false,
+      "guards": ["auth", "subscription"],
+      "buttons": ["btn-generate-reel", "btn-view-examples"],
+      "targetEndpoints": ["/api/ai/reels/generate", "/api/ai/jobs/:id"]
+    },
+    {
+      "path": "/ai/avatar",
+      "component": "AvatarCreatorPage",
+      "public": false,
+      "guards": ["auth", "subscription"],
+      "targetEndpoints": ["/api/ai/avatar/generate"]
+    },
+    {
+      "path": "/ai/images",
+      "component": "ImageGeneratorPage",
+      "public": false,
+      "guards": ["auth", "subscription"],
+      "targetEndpoints": ["/api/ai/images/generate"]
+    },
+    {
+      "path": "/ai/voiceover",
+      "component": "VoiceoverGeneratorPage",
+      "public": false,
+      "guards": ["auth", "subscription"],
+      "targetEndpoints": ["/api/ai/voiceover/generate"]
+    },
+    {
+      "path": "/ai/subtitles",
+      "component": "SubtitlesGeneratorPage",
+      "public": false,
+      "guards": ["auth", "subscription"],
+      "targetEndpoints": ["/api/ai/subtitles/generate"]
+    },
+    {
+      "path": "/ai/memes",
+      "component": "MemesGeneratorPage",
+      "public": false,
+      "guards": ["auth", "subscription"],
+      "targetEndpoints": ["/api/ai/memes/generate"]
+    },
+    {
+      "path": "/dashboard",
+      "component": "DashboardPage",
+      "public": false,
+      "guards": ["auth"],
+      "targetEndpoints": ["/api/user/profile", "/api/user/usage"]
+    },
+    {
+      "path": "/account",
+      "component": "AccountPage",
+      "public": false,
+      "guards": ["auth"],
+      "targetEndpoints": ["/api/user/update", "/api/user/delete"]
+    }
+  ],
+  "apiEndpoints": [
+    {
+      "path": "/api/health",
+      "method": "GET",
+      "auth": false,
+      "description": "Health check endpoint"
+    },
+    {
+      "path": "/api/create-checkout-session",
+      "method": "POST",
+      "auth": true,
+      "description": "Create Stripe checkout session",
+      "body": {
+        "user_id": "string",
+        "plan_id": "string",
+        "billing_cycle": "monthly|yearly",
+        "success_url": "string",
+        "cancel_url": "string"
+      }
+    },
+    {
+      "path": "/api/stripe-webhook",
+      "method": "POST",
+      "auth": false,
+      "description": "Stripe webhook handler",
+      "events": ["checkout.session.completed", "invoice.payment_succeeded", "customer.subscription.updated"]
+    },
+    {
+      "path": "/api/chat/create-session",
+      "method": "POST",
+      "auth": false,
+      "description": "Create chat session"
+    },
+    {
+      "path": "/api/chat/message",
+      "method": "POST",
+      "auth": false,
+      "description": "Send chat message",
+      "body": {
+        "chat_session_id": "string",
+        "user_id": "string|null",
+        "message": "string"
+      }
+    },
+    {
+      "path": "/api/chat/history",
+      "method": "GET",
+      "auth": false,
+      "description": "Get chat history",
+      "query": {
+        "session_id": "string"
+      }
+    },
+    {
+      "path": "/api/faq",
+      "method": "GET",
+      "auth": false,
+      "description": "Get FAQ list"
+    },
+    {
+      "path": "/api/ai/:tool/generate",
+      "method": "POST",
+      "auth": true,
+      "description": "Generate AI content (reels, avatar, images, voiceover, subtitles, memes)",
+      "body": {
+        "prompt": "string",
+        "options": "object"
+      }
+    },
+    {
+      "path": "/api/studio/:tool/job",
+      "method": "POST",
+      "auth": true,
+      "description": "Create studio job"
+    },
+    {
+      "path": "/api/jobs/:id",
+      "method": "GET",
+      "auth": true,
+      "description": "Get job status"
+    }
+  ]
+}
+
