@@ -1,0 +1,355 @@
+// =====================================================
+// PHASE 3: Additional Models for Payments, Chat, Jobs
+// To be added to the main schema.prisma
+// =====================================================
+
+// =====================================================
+// ENUMS
+// =====================================================
+
+enum PaymentStatus {
+  PENDING
+  PROCESSING
+  PAID
+  FAILED
+  REFUNDED
+  CANCELLED
+}
+
+enum JobStatus {
+  PENDING
+  PROCESSING
+  COMPLETED
+  FAILED
+  CANCELLED
+}
+
+enum ChatMessageRole {
+  USER
+  ASSISTANT
+  SYSTEM
+}
+
+enum AffiliateStatus {
+  ACTIVE
+  SUSPENDED
+  TERMINATED
+}
+
+// =====================================================
+// PAYMENTS & STRIPE
+// =====================================================
+
+model Payment {
+  id                    String        @id @default(cuid())
+  userId                String
+  stripeCustomerId      String?
+  stripeSessionId       String?       @unique
+  stripeSubscriptionId  String?
+  stripePaymentIntentId String?
+  planId                String
+  planName              String
+  status                PaymentStatus @default(PENDING)
+  amount                Int
+  currency              String        @default("usd")
+  billingCycle          String        @default("monthly")
+  metadata              Json?
+  createdAt             DateTime      @default(now())
+  updatedAt             DateTime      @updatedAt
+
+  user                  User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  affiliateReferrals    AffiliateReferral[]
+
+  @@index([userId])
+  @@index([stripeCustomerId])
+  @@index([stripeSessionId])
+  @@index([status])
+  @@map("payments")
+}
+
+// =====================================================
+// CHAT SYSTEM
+// =====================================================
+
+model ChatSession {
+  id            String        @id @default(cuid())
+  userId        String?
+  sessionToken  String?       @unique
+  context       Json?
+  metadata      Json?
+  isActive      Boolean       @default(true)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  endedAt       DateTime?
+
+  user          User?         @relation(fields: [userId], references: [id], onDelete: SetNull)
+  messages      ChatMessage[]
+
+  @@index([userId])
+  @@index([sessionToken])
+  @@index([isActive])
+  @@map("chat_sessions")
+}
+
+model ChatMessage {
+  id            String          @id @default(cuid())
+  chatSessionId String
+  role          ChatMessageRole
+  content       String          @db.Text
+  metadata      Json?
+  createdAt     DateTime        @default(now())
+
+  chatSession   ChatSession     @relation(fields: [chatSessionId], references: [id], onDelete: Cascade)
+
+  @@index([chatSessionId])
+  @@index([createdAt])
+  @@map("chat_messages")
+}
+
+// =====================================================
+// AI JOBS
+// =====================================================
+
+model AIJob {
+  id              String     @id @default(cuid())
+  userId          String
+  tool            String
+  prompt          String?    @db.Text
+  options         Json?
+  status          JobStatus  @default(PENDING)
+  resultUrl       String?
+  resultData      Json?
+  errorMessage    String?    @db.Text
+  progress        Int?       @default(0)
+  estimatedTime   Int?
+  startedAt       DateTime?
+  completedAt     DateTime?
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @updatedAt
+
+  user            User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([status])
+  @@index([tool])
+  @@index([createdAt])
+  @@map("ai_jobs")
+}
+
+// =====================================================
+// STUDIO JOBS
+// =====================================================
+
+model StudioJob {
+  id            String     @id @default(cuid())
+  userId        String
+  tool          String
+  inputFiles    String[]
+  options       Json?
+  status        JobStatus  @default(PENDING)
+  resultUrl     String?
+  resultData    Json?
+  errorMessage  String?    @db.Text
+  progress      Int?       @default(0)
+  startedAt     DateTime?
+  completedAt   DateTime?
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+
+  user          User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([status])
+  @@index([tool])
+  @@map("studio_jobs")
+}
+
+// =====================================================
+// FAQ
+// =====================================================
+
+model FAQItem {
+  id            String   @id @default(cuid())
+  question      String   @db.Text
+  answer        String   @db.Text
+  category      String?
+  orderIndex    Int?     @default(0)
+  isPublished   Boolean  @default(true)
+  views         Int?     @default(0)
+  helpfulCount  Int?     @default(0)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([category])
+  @@index([orderIndex])
+  @@index([isPublished])
+  @@map("faq_items")
+}
+
+// =====================================================
+// FORUM
+// =====================================================
+
+model ForumTopic {
+  id          String          @id @default(cuid())
+  userId      String
+  title       String
+  content     String          @db.Text
+  category    String?
+  isPinned    Boolean         @default(false)
+  isLocked    Boolean         @default(false)
+  views       Int?            @default(0)
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+
+  user        User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  comments    ForumComment[]
+
+  @@index([userId])
+  @@index([category])
+  @@index([createdAt])
+  @@map("forum_topics")
+}
+
+model ForumComment {
+  id          String      @id @default(cuid())
+  topicId     String
+  userId      String
+  content     String      @db.Text
+  isSolution  Boolean     @default(false)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  topic       ForumTopic  @relation(fields: [topicId], references: [id], onDelete: Cascade)
+  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([topicId])
+  @@index([userId])
+  @@map("forum_comments")
+}
+
+// =====================================================
+// AFFILIATE SYSTEM
+// =====================================================
+
+model Affiliate {
+  id              String              @id @default(cuid())
+  userId          String              @unique
+  affiliateCode   String              @unique
+  commissionRate  Decimal             @default(20.00) @db.Decimal(5, 2)
+  totalEarnings   Int                 @default(0)
+  totalReferrals  Int                 @default(0)
+  status          AffiliateStatus     @default(ACTIVE)
+  payoutInfo      Json?
+  createdAt       DateTime            @default(now())
+  updatedAt       DateTime            @updatedAt
+
+  user            User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  referrals       AffiliateReferral[]
+
+  @@index([userId])
+  @@index([affiliateCode])
+  @@map("affiliates")
+}
+
+model AffiliateReferral {
+  id              String   @id @default(cuid())
+  affiliateId     String
+  referredUserId  String
+  paymentId       String?
+  commissionAmount Int
+  status          String   @default("pending")
+  createdAt       DateTime @default(now())
+
+  affiliate       Affiliate @relation(fields: [affiliateId], references: [id], onDelete: Cascade)
+  referredUser    User      @relation("AffiliateReferredUser", fields: [referredUserId], references: [id], onDelete: Cascade)
+  payment         Payment?  @relation(fields: [paymentId], references: [id], onDelete: SetNull)
+
+  @@index([affiliateId])
+  @@index([referredUserId])
+  @@map("affiliate_referrals")
+}
+
+// =====================================================
+// USER SESSIONS (Custom)
+// =====================================================
+
+model UserSession {
+  id          String   @id @default(cuid())
+  userId      String
+  token       String   @unique
+  ipAddress   String?
+  userAgent   String?  @db.Text
+  expiresAt   DateTime
+  createdAt   DateTime @default(now())
+
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([token])
+  @@index([expiresAt])
+  @@map("user_sessions")
+}
+
+// =====================================================
+// USER USAGE TRACKING
+// =====================================================
+
+model UserUsageStats {
+  id                    String   @id @default(cuid())
+  userId                String   @unique
+  aiGenerationsCount    Int      @default(0)
+  studioJobsCount       Int      @default(0)
+  chatMessagesCount     Int      @default(0)
+  storageUsedBytes      BigInt   @default(0)
+  exportMinutesUsed     Int      @default(0)
+  voiceoverMinutesUsed  Int      @default(0)
+  imagesGenerated       Int      @default(0)
+  lastResetAt           DateTime @default(now())
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+
+  user                  User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("user_usage_stats")
+}
+
+// =====================================================
+// WEBHOOKS LOG
+// =====================================================
+
+model WebhookEvent {
+  id            String    @id @default(cuid())
+  eventType     String
+  eventId       String?   @unique
+  payload       Json
+  status        String    @default("received")
+  errorMessage  String?   @db.Text
+  processedAt   DateTime?
+  createdAt     DateTime  @default(now())
+
+  @@index([eventType])
+  @@index([status])
+  @@index([createdAt])
+  @@map("webhook_events")
+}
+
+// =====================================================
+// ADD THESE RELATIONS TO EXISTING USER MODEL
+// =====================================================
+/*
+Add to User model:
+
+  payments              Payment[]
+  chatSessions          ChatSession[]
+  aiJobs                AIJob[]
+  studioJobs            StudioJob[]
+  forumTopics           ForumTopic[]
+  forumComments         ForumComment[]
+  affiliate             Affiliate?
+  affiliateReferrals    AffiliateReferral[] @relation("AffiliateReferredUser")
+  userSessions          UserSession[]
+  usageStats            UserUsageStats?
+*/
+
