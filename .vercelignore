@@ -1,0 +1,44 @@
+# Dependencies
+node_modules
+.pnp
+.pnp.js
+
+# Testing
+coverage
+playwright-report
+test-results
+
+# Production
+dist
+.next
+
+# Misc
+.DS_Store
+*.pem
+.env*.local
+.vercel
+
+# Debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Logs
+logs
+*.log
+
+# IDE
+.vscode
+.idea
+
+# Temporary
+*.tmp
+*.temp
+build-verification.log
+SECRETS_GENERES*.txt
+
+# Documentation (not needed for deployment)
+docs/*.md
+*.md
+!README.md
+
