@@ -1,0 +1,28 @@
+🚀 PIPELINE DE DÉPLOIEMENT VERCEL - DÉMARRAGE
+==============================================
+[0;32m📋 Configuration:[0m
+  Branch: main
+  Commit: 66e9e39
+  Timestamp: 20251020T180659Z
+
+[0;32m1️⃣  Vérification Vercel CLI[0m
+✅ Vercel CLI installé
+
+[0;32m2️⃣  Installation des dépendances[0m
+Utilisation de pnpm...
+Lockfile is up to date, resolution step is skipped
+Already up to date
+
+╭ Warning ─────────────────────────────────────────────────────────────────────╮
+│                                                                              │
+│   Ignored build scripts: @prisma/client, @prisma/engines, @sentry/cli,       │
+│   @tailwindcss/oxide, prisma, protobufjs, sharp.                             │
+│   Run "pnpm approve-builds" to pick which dependencies should be allowed     │
+│   to run scripts.                                                            │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+
+Done in 1.4s using pnpm v10.18.0
+✅ Dépendances installées avec pnpm
+
+[0;32m3️⃣  Vérifications statiques[0m
