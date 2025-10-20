@@ -49,19 +49,6 @@
       "destination": "/",
       "permanent": true
     }
-  ],
-  "functions": {
-    "api/**/*.ts": {
-      "memory": 1024,
-      "maxDuration": 10
-    },
-    "api/ai/**/*.ts": {
-      "memory": 1024,
-      "maxDuration": 10
-    },
-    "api/stripe-webhook/route.ts": {
-      "maxDuration": 10
-    }
-  }
+  ]
 }
 
