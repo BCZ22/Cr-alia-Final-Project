@@ -25,6 +25,8 @@ export default function ChatSupportPage() {
   const [loading, setLoading] = useState(false)
   const [initializing, setInitializing] = useState(true)
   const messagesEndRef = useRef<HTMLDivElement>(null)
+  const pollingIntervalRef = useRef<NodeJS.Timeout | null>(null)
+  const lastMessageIdRef = useRef<string>('')
 
   // Auto-scroll to bottom
   const scrollToBottom = () => {
@@ -34,6 +36,52 @@ export default function ChatSupportPage() {
   useEffect(() => {
     scrollToBottom()
   }, [messages])
+
+  // Polling function to fetch new messages
+  const pollMessages = async (currentSessionId: string) => {
+    try {
+      const response = await fetch(`/api/chat/history?session_id=${currentSessionId}&limit=50`)
+      if (!response.ok) return
+
+      const data = await response.json()
+      
+      if (data.messages && data.messages.length > 0) {
+        const newMessages = data.messages.map((msg: any) => ({
+          id: msg.id,
+          role: msg.role,
+          content: msg.content,
+          createdAt: msg.createdAt ? new Date(msg.createdAt) : undefined,
+        }))
+
+        // Only update if there are new messages
+        const latestMessageId = newMessages[newMessages.length - 1]?.id
+        if (latestMessageId !== lastMessageIdRef.current) {
+          setMessages(newMessages)
+          lastMessageIdRef.current = latestMessageId
+        }
+      }
+    } catch (error) {
+      console.error('Failed to poll messages:', error)
+    }
+  }
+
+  // Start polling when session is created
+  useEffect(() => {
+    if (!sessionId) return
+
+    // Start polling every 2 seconds
+    pollingIntervalRef.current = setInterval(() => {
+      if (!loading) {
+        pollMessages(sessionId)
+      }
+    }, 2000)
+
+    return () => {
+      if (pollingIntervalRef.current) {
+        clearInterval(pollingIntervalRef.current)
+      }
+    }
+  }, [sessionId, loading])
 
   // Initialize chat session
   useEffect(() => {
@@ -96,14 +144,18 @@ export default function ChatSupportPage() {
       const data = await response.json()
 
       if (data.message) {
-        setMessages((prev) => [
-          ...prev,
-          {
-            id: data.message.id,
-            role: data.message.role,
-            content: data.message.content,
-          },
-        ])
+        const newMessage = {
+          id: data.message.id,
+          role: data.message.role,
+          content: data.message.content,
+        }
+        setMessages((prev) => [...prev, newMessage])
+        lastMessageIdRef.current = data.message.id
+        
+        // Force an immediate poll to get the assistant's response faster
+        if (sessionId) {
+          setTimeout(() => pollMessages(sessionId), 500)
+        }
       }
     } catch (error) {
       console.error('Failed to send message:', error)

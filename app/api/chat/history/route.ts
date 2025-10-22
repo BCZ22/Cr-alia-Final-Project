@@ -5,9 +5,21 @@
 
 import { NextRequest, NextResponse } from 'next/server'
 import { getChatHistory } from '@/lib/ai'
+import { rateLimiter, RateLimitConfigs } from '@/lib/security/rate-limiter'
 
 export async function GET(req: NextRequest) {
   try {
+    // Rate limiting
+    const ip = req.headers.get('x-forwarded-for') || req.headers.get('x-real-ip') || 'unknown'
+    const rateLimitKey = `chat-history:ip:${ip}`
+    
+    if (!rateLimiter.check(rateLimitKey, RateLimitConfigs.API_GENERAL)) {
+      return NextResponse.json(
+        { error: 'Rate limit exceeded. Please try again later.' },
+        { status: 429 }
+      )
+    }
+
     // Get session ID from query params
     const searchParams = req.nextUrl.searchParams
     const sessionId = searchParams.get('session_id')
@@ -20,7 +32,7 @@ export async function GET(req: NextRequest) {
       )
     }
 
-    const limit = limitParam ? parseInt(limitParam, 10) : 50
+    const limit = limitParam ? Math.min(parseInt(limitParam, 10), 100) : 50
 
     // Get chat history
     const messages = await getChatHistory(sessionId, limit)

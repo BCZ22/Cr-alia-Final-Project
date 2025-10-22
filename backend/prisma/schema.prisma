@@ -73,6 +73,8 @@ model User {
   accounts            Account[]
   sessions            Session[]
   affiliateReferrals  AffiliateReferral[] @relation("UserAffiliates")
+  chatSessions        ChatSession[]
+  usageStats          UserUsageStats?
 
   @@index([email])
   @@index([apiKey])
@@ -1316,6 +1318,70 @@ model SubscriptionPayment {
   @@index([userId])
   @@index([stripeChargeId])
   @@map("subscription_payments")
+}
+
+// =============================================================================
+// MODÈLES CHAT SUPPORT - Support client en temps réel
+// =============================================================================
+
+model ChatSession {
+  id              String   @id @default(cuid())
+  sessionToken    String   @unique @default(cuid())
+  userId          String?
+  user            User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  isActive        Boolean  @default(true)
+  context         Json?
+  metadata        Json?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  endedAt         DateTime?
+  
+  messages        ChatMessage[]
+
+  @@index([userId])
+  @@index([sessionToken])
+  @@index([isActive])
+  @@index([createdAt])
+  @@map("chat_sessions")
+}
+
+model ChatMessage {
+  id              String   @id @default(cuid())
+  chatSessionId   String
+  chatSession     ChatSession @relation(fields: [chatSessionId], references: [id], onDelete: Cascade)
+  role            ChatMessageRole
+  content         String   @db.Text
+  metadata        Json?
+  createdAt       DateTime @default(now())
+
+  @@index([chatSessionId])
+  @@index([role])
+  @@index([createdAt])
+  @@map("chat_messages")
+}
+
+enum ChatMessageRole {
+  SYSTEM
+  USER
+  ASSISTANT
+}
+
+model UserUsageStats {
+  id                      String   @id @default(cuid())
+  userId                  String   @unique
+  user                    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  aiGenerationsCount      Int      @default(0)
+  studioJobsCount         Int      @default(0)
+  chatMessagesCount       Int      @default(0)
+  exportMinutesUsed       Float    @default(0)
+  voiceoverMinutesUsed    Float    @default(0)
+  imagesGenerated         Int      @default(0)
+  lastResetAt             DateTime @default(now())
+  createdAt               DateTime @default(now())
+  updatedAt               DateTime @updatedAt
+
+  @@index([userId])
+  @@map("user_usage_stats")
 }
 
 // =============================================================================
