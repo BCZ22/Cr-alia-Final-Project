@@ -55,32 +55,32 @@ export function Footer() {
               <h3 className="font-bold text-foreground mb-4">Créalia AI</h3>
               <ul className="space-y-2 text-sm">
                 <li>
-                  <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+                  <a href="/ai/reels" className="text-muted-foreground hover:text-primary transition-colors">
                     Générateur de Reels IA
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+                  <a href="/ai/avatar" className="text-muted-foreground hover:text-primary transition-colors">
                     Créateur d'Avatar IA
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+                  <a href="/ai/images" className="text-muted-foreground hover:text-primary transition-colors">
                     Générateur d'Images IA
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+                  <a href="/ai/voiceover" className="text-muted-foreground hover:text-primary transition-colors">
                     Générateur de Voix Off IA
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+                  <a href="/ai/subtitles" className="text-muted-foreground hover:text-primary transition-colors">
                     Générateur de Sous-titres IA
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+                  <a href="/ai/memes" className="text-muted-foreground hover:text-primary transition-colors">
                     Générateur de Memes IA
                   </a>
                 </li>
@@ -92,12 +92,12 @@ export function Footer() {
               <h3 className="font-bold text-foreground mb-4">Applications mobiles</h3>
               <ul className="space-y-2 text-sm">
                 <li>
-                  <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+                  <a href="/apps/ios" className="text-muted-foreground hover:text-primary transition-colors">
                     iOS
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+                  <a href="/apps/android" className="text-muted-foreground hover:text-primary transition-colors">
                     Android
                   </a>
                 </li>
@@ -106,32 +106,32 @@ export function Footer() {
               <h3 className="font-bold text-foreground mb-4 mt-8">Créalia Studio</h3>
               <ul className="space-y-2 text-sm">
                 <li>
-                  <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+                  <a href="/studio/video-editor" className="text-muted-foreground hover:text-primary transition-colors">
                     Éditeur Vidéo en Ligne
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+                  <a href="/studio/collage" className="text-muted-foreground hover:text-primary transition-colors">
                     Créateur de Collages
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+                  <a href="/studio/instagram" className="text-muted-foreground hover:text-primary transition-colors">
                     Éditeur Instagram
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+                  <a href="/studio/facebook" className="text-muted-foreground hover:text-primary transition-colors">
                     Éditeur Facebook
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+                  <a href="/studio/add-music" className="text-muted-foreground hover:text-primary transition-colors">
                     Ajouter Musique
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+                  <a href="/studio/add-text" className="text-muted-foreground hover:text-primary transition-colors">
                     Ajouter Texte
                   </a>
                 </li>
@@ -143,17 +143,17 @@ export function Footer() {
               <h3 className="font-bold text-foreground mb-4">Aide</h3>
               <ul className="space-y-2 text-sm">
                 <li>
-                  <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+                  <a href="/support/chat" className="text-muted-foreground hover:text-primary transition-colors">
                     Chat en direct 24/7
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+                  <a href="/support/contact" className="text-muted-foreground hover:text-primary transition-colors">
                     Nous contacter
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+                  <a href="/help/community" className="text-muted-foreground hover:text-primary transition-colors">
                     Communauté
                   </a>
                 </li>
@@ -165,22 +165,24 @@ export function Footer() {
               <h3 className="font-bold text-foreground mb-4">Entreprise</h3>
               <ul className="space-y-2 text-sm">
                 <li>
-                  <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+                  <a href="/affiliate" className="text-muted-foreground hover:text-primary transition-colors">
                     Programme d'affiliation
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+                  <a href="/affiliate/dashboard" className="text-muted-foreground hover:text-primary transition-colors">
+                    Dashboard affilié
+                  </a>
+                </li>
+                <li>
+                  <a href="/pricing" className="text-muted-foreground hover:text-primary transition-colors">
                     Tarifs
                   </a>
                 </li>
                 <li>
-                  <button
-                    onClick={() => setShowAboutModal(true)}
-                    className="text-muted-foreground hover:text-primary transition-colors text-left"
-                  >
+                  <a href="/about" className="text-muted-foreground hover:text-primary transition-colors">
                     À propos
-                  </button>
+                  </a>
                 </li>
               </ul>
             </div>
@@ -189,34 +191,34 @@ export function Footer() {
           {/* Réseaux sociaux et liens légaux */}
           <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-border">
             <div className="flex items-center space-x-4 mb-4 md:mb-0">
-              <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+              <a href="https://twitter.com/crealia" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors" aria-label="Twitter">
                 <TwitterIcon className="w-5 h-5" />
               </a>
-              <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+              <a href="https://facebook.com/crealia" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors" aria-label="Facebook">
                 <FacebookIcon className="w-5 h-5" />
               </a>
-              <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+              <a href="https://instagram.com/crealia" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors" aria-label="Instagram">
                 <InstagramIcon className="w-5 h-5" />
               </a>
-              <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+              <a href="https://youtube.com/@crealia" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors" aria-label="YouTube">
                 <YoutubeIcon className="w-5 h-5" />
               </a>
-              <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+              <a href="https://linkedin.com/company/crealia" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors" aria-label="LinkedIn">
                 <LinkedinIcon className="w-5 h-5" />
               </a>
-              <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+              <a href="https://pinterest.com/crealia" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors" aria-label="Pinterest">
                 <PinterestIcon className="w-5 h-5" />
               </a>
             </div>
 
             <div className="flex items-center space-x-6 text-sm text-muted-foreground">
-              <button onClick={() => setShowPrivacyModal(true)} className="hover:text-primary transition-colors">
+              <a href="/legal/privacy" className="hover:text-primary transition-colors">
                 Politique de confidentialité
-              </button>
+              </a>
               <span>•</span>
-              <button onClick={() => setShowTermsModal(true)} className="hover:text-primary transition-colors">
+              <a href="/legal/terms" className="hover:text-primary transition-colors">
                 Conditions d'utilisation
-              </button>
+              </a>
             </div>
           </div>
 

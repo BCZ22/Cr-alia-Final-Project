@@ -1,0 +1,32 @@
+name: 💸 Affiliate Payout Automation
+
+on:
+  schedule:
+    - cron: "0 3 * * *" # Tous les jours à 03:00 UTC
+  workflow_dispatch: # Lancement manuel possible depuis GitHub
+
+jobs:
+  payouts:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate Prisma Client
+        run: npx prisma generate --schema=./backend/prisma/schema.prisma
+
+      - name: Run affiliate payout script
+        run: npx ts-node scripts/batchPayout.ts
+        env:
+          STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          MOCK_STRIPE: ${{ secrets.MOCK_STRIPE || 'false' }}
+

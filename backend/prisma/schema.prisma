@@ -33,6 +33,13 @@ model User {
   apiKey            String?  @unique
   apiKeyExpiresAt   DateTime?
   lastLoginAt       DateTime?
+  
+  // Affiliation fields
+  affiliateCode     String?  @unique
+  referredByCode    String?
+  stripeAccountId   String?  @unique
+  subscriptionId    String?
+  
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
 
@@ -65,10 +72,13 @@ model User {
   history             History[]
   accounts            Account[]
   sessions            Session[]
+  affiliateReferrals  AffiliateReferral[] @relation("UserAffiliates")
 
   @@index([email])
   @@index([apiKey])
   @@index([createdAt])
+  @@index([affiliateCode])
+  @@index([stripeAccountId])
   @@map("users")
 }
 
@@ -1249,6 +1259,63 @@ enum ScheduledTaskType {
   GENERATE_THUMBNAILS
   PROCESS_QUEUE
   SEND_NOTIFICATIONS
+}
+
+// =============================================================================
+// MODÈLES AFFILIATION - Programme d'affiliation Créalia
+// =============================================================================
+
+model AffiliateReferral {
+  id              String   @id @default(cuid())
+  affiliateId     String
+  referredEmail   String
+  referredUserId  String?
+  commission      Float    @default(0)
+  status          AffiliateStatus @default(pending_payout)
+  paidAt          DateTime?
+  metadata        Json?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  affiliate       User     @relation("UserAffiliates", fields: [affiliateId], references: [id], onDelete: Cascade)
+
+  @@index([affiliateId])
+  @@index([referredEmail])
+  @@index([status])
+  @@map("affiliate_referrals")
+}
+
+enum AffiliateStatus {
+  pending_payout
+  paid
+  cancelled
+}
+
+model AffiliateEarning {
+  id               String   @id @default(cuid())
+  affiliateId      String
+  referredUserId   String
+  amount           Float
+  payoutStatus     String   @default("pending")
+  stripeTransferId String?
+  createdAt        DateTime @default(now())
+
+  @@index([affiliateId])
+  @@index([payoutStatus])
+  @@map("affiliate_earnings")
+}
+
+model SubscriptionPayment {
+  id             String   @id @default(cuid())
+  userId         String
+  stripeChargeId String?
+  amount         Float
+  affiliateCode  String?
+  createdAt      DateTime @default(now())
+
+  @@index([userId])
+  @@index([stripeChargeId])
+  @@map("subscription_payments")
 }
 
 // =============================================================================
