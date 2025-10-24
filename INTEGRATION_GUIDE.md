@@ -1,391 +1,400 @@
-# 🚀 Guide d'Intégration - Fonctionnalités Avancées d'Automatisation
+# 🔌 Guide d'intégration - Créalia Studio V2
 
-## 📋 Vue d'ensemble
+## 📋 Étapes d'intégration dans votre app existante
 
-Ce guide vous accompagne dans l'intégration et l'utilisation des nouvelles fonctionnalités avancées d'automatisation de création de contenu. Toutes les fonctionnalités demandées ont été implémentées et sont prêtes à l'emploi.
+### Étape 1 : Remplacer l'ancien composant
 
-## 🎯 Fonctionnalités Implémentées
+Vous avez actuellement `components/crealia-studio-interface.tsx` (l'ancien).  
+Le nouveau est `components/crealia-studio-interface-v2.tsx`.
 
-✅ **Génération automatique de script** à partir de prompts ou sujets tendance  
-✅ **Réécriture et amélioration** de contenu en plusieurs formats  
-✅ **Création d'images via IA** (DALL-E, Midjourney, Stable Diffusion)  
-✅ **Génération de légendes optimisées** pour l'algorithme  
-✅ **Création automatique de hooks percutants** avec analyse des tendances  
-✅ **Hashtags generator** basé sur la niche et les tendances  
-✅ **Workflows automatisés** (ex: 1 vidéo → 10 micro-contenus)  
-✅ **Calendrier éditorial auto-généré** avec plan de publication organisé  
-✅ **Auto-posting** sur toutes les plateformes avec direction artistique cohérente  
-
----
-
-## 🚀 Démarrage Rapide
-
-### 1. Accès aux Fonctionnalités
-
-Naviguez vers `/automation` dans votre application pour accéder à toutes les fonctionnalités via l'interface utilisateur intuitive.
-
-### 2. Structure des Onlets
-
-L'interface est organisée en 6 onglets principaux :
-
-- **📊 Tendances** : Analyse des tendances et génération de scripts
-- **📝 Reformater** : Conversion de contenu en différents formats
-- **🖼️ Images** : Génération d'images IA
-- **✨ Légendes** : Optimisation des légendes pour les algorithmes
-- **🎣 Hooks** : Génération de hooks percutants
-- **🏷️ Hashtags** : Création de hashtags intelligents
-- **⚙️ Workflows Avancés** : Automatisation complexe
-- **📅 Calendrier** : Planification éditoriale
-- **🚀 Auto-posting** : Publication multi-plateformes
-
----
-
-## 🎨 Utilisation des Nouvelles Fonctionnalités
-
-### 1. Optimisation des Légendes
-
-**Onglet : Légendes**
-
-```typescript
-// Exemple d'utilisation programmatique
-const captionOptimizer = new CaptionOptimizerService();
-const optimizedCaption = await captionOptimizer.optimizeCaption({
-  content: "Comment booster votre business en 2024",
-  platform: "instagram",
-  contentType: "post",
-  targetAudience: "entrepreneurs",
-  objective: "engagement",
-  tone: "professional",
-  language: "fr",
-  hashtagStrategy: "mixed"
-});
-```
-
-**Interface Utilisateur :**
-1. Saisissez votre contenu dans le champ "Contenu"
-2. Sélectionnez la plateforme cible
-3. Choisissez le type de contenu et l'audience
-4. Cliquez sur "Optimiser les légendes"
-5. Consultez les résultats optimisés avec scores et recommandations
-
----
-
-### 2. Génération de Hooks Percutants
-
-**Onglet : Hooks**
-
-```typescript
-// Exemple d'utilisation programmatique
-const hookGenerator = new HookGeneratorService();
-const hooks = await hookGenerator.generateMultipleHooks({
-  topic: "marketing digital",
-  platform: "instagram",
-  contentType: "post",
-  targetAudience: "entrepreneurs",
-  objective: "engagement",
-  tone: "shocking",
-  language: "fr",
-  hookType: "question"
-}, 5);
-```
-
-**Interface Utilisateur :**
-1. Définissez votre sujet principal
-2. Sélectionnez la plateforme et le type de contenu
-3. Choisissez le ton et l'objectif
-4. Sélectionnez le type de hook (question, affirmation, histoire, etc.)
-5. Cliquez sur "Générer des hooks"
-6. Explorez les variations générées avec scores de viralité
-
----
-
-### 3. Génération de Hashtags Intelligents
-
-**Onglet : Hashtags**
-
-```typescript
-// Exemple d'utilisation programmatique
-const hashtagGenerator = new HashtagGeneratorService();
-const hashtags = await hashtagGenerator.generateHashtags({
-  topic: "marketing digital",
-  platform: "instagram",
-  niche: "marketing digital",
-  contentType: "post",
-  targetAudience: "entrepreneurs",
-  hashtagStrategy: "mixed",
-  language: "fr"
-});
-```
-
-**Interface Utilisateur :**
-1. Saisissez votre sujet et niche
-2. Sélectionnez la plateforme et l'audience
-3. Choisissez la stratégie de hashtags
-4. Cliquez sur "Générer des hashtags"
-5. Consultez les hashtags catégorisés avec métriques
-
----
-
-### 4. Workflows Avancés
-
-**Onglet : Workflows Avancés**
-
-```typescript
-// Exemple d'utilisation programmatique
-const advancedWorkflow = new AdvancedWorkflowService();
-
-// Créer un workflow vidéo → micro-contenus
-const workflow = await advancedWorkflow.createVideoToMicroWorkflow(
-  "Tutoriel complet sur le marketing digital",
-  ["instagram", "tiktok", "linkedin", "youtube"],
-  "marketing digital"
-);
-
-// Exécuter le workflow
-const executedWorkflow = await advancedWorkflow.executeAdvancedWorkflow(workflow);
-```
-
-**Interface Utilisateur :**
-1. Sélectionnez le type de workflow
-2. Configurez les paramètres (contenu source, plateformes, niche)
-3. Cliquez sur "Créer le workflow"
-4. Suivez l'exécution en temps réel
-5. Consultez les résultats détaillés par étape
-
----
-
-### 5. Calendrier Éditorial
-
-**Onglet : Calendrier**
-
-```typescript
-// Exemple d'utilisation programmatique
-const editorialCalendar = new EditorialCalendarService();
-const calendar = await editorialCalendar.generateEditorialCalendar({
-  niche: "marketing digital",
-  platforms: ["instagram", "linkedin", "tiktok"],
-  targetAudience: "entrepreneurs",
-  objective: "engagement",
-  duration: "1_month",
-  postingFrequency: "medium",
-  contentMix: {
-    educational: 30,
-    entertaining: 40,
-    promotional: 10,
-    userGenerated: 15,
-    trending: 5
-  }
-});
-```
-
-**Interface Utilisateur :**
-1. Définissez votre niche et plateformes
-2. Configurez l'audience et les objectifs
-3. Ajustez la fréquence et la durée
-4. Personnalisez le mix de contenu
-5. Cliquez sur "Générer le calendrier"
-6. Explorez le plan de publication organisé
-
----
-
-### 6. Auto-posting Multi-plateformes
-
-**Onglet : Auto-posting**
-
-```typescript
-// Exemple d'utilisation programmatique
-const autoPosting = new AutoPostingService();
-const result = await autoPosting.autoPostContent({
-  content: "Votre contenu principal",
-  platforms: ["instagram", "tiktok", "linkedin"],
-  niche: "marketing digital",
-  targetAudience: "entrepreneurs",
-  objective: "engagement",
-  artisticDirection: "modern",
-  contentType: "post",
-  language: "fr",
-  imageGeneration: true,
-  hashtagOptimization: true,
-  captionOptimization: true
-});
-```
-
-**Interface Utilisateur :**
-1. Saisissez votre contenu principal
-2. Sélectionnez les plateformes cibles
-3. Choisissez la direction artistique
-4. Activez les optimisations souhaitées
-5. Cliquez sur "Publier automatiquement"
-6. Suivez le processus de publication
-
----
-
-## 🔧 Configuration et Personnalisation
-
-### Variables d'Environnement Requises
+**Option A : Remplacement complet**
 
 ```bash
-# .env.local
-OPENAI_API_KEY=your_openai_api_key
-OPENAI_MODEL=gpt-4o-mini
-TWITTER_BEARER_TOKEN=your_twitter_token
-MIDJOURNEY_API_KEY=your_midjourney_key
-STABLE_DIFFUSION_API_KEY=your_stable_diffusion_key
+# Renommer l'ancien (backup)
+mv components/crealia-studio-interface.tsx components/crealia-studio-interface.old.tsx
+
+# Renommer le nouveau
+mv components/crealia-studio-interface-v2.tsx components/crealia-studio-interface.tsx
 ```
 
-### Personnalisation des Services
+Ensuite, mettez à jour les imports dans votre app.
 
-Chaque service peut être personnalisé en modifiant les fichiers correspondants dans `lib/ai/` :
+**Option B : Coexistence temporaire**
 
-- **Direction artistique** : Ajoutez de nouveaux styles dans `auto-posting-service.ts`
-- **Types de workflows** : Créez de nouveaux templates dans `advanced-workflow-service.ts`
-- **Stratégies de hashtags** : Personnalisez les catégories dans `hashtag-generator.ts`
+Gardez les deux versions et utilisez le nouveau :
+
+```tsx
+// Au lieu de
+import { CrealiaStudioInterface } from '@/components/crealia-studio-interface'
+
+// Utilisez
+import { CrealiaStudioInterfaceV2 } from '@/components/crealia-studio-interface-v2'
+```
 
 ---
 
-## 📊 Exemples d'Utilisation Complète
+### Étape 2 : Créer les répertoires nécessaires
 
-### Scénario 1 : Création d'une Campagne Complète
+```bash
+# Répertoires pour uploads
+mkdir -p public/uploads/crealia
+mkdir -p public/uploads/brand
 
-```typescript
-// 1. Analyser les tendances
-const trends = await trendAnalyzer.analyzeTrends("marketing digital");
-
-// 2. Générer des hooks basés sur les tendances
-const hooks = await hookGenerator.generateTrendBasedHooks(trends, ["instagram", "tiktok"]);
-
-// 3. Créer un calendrier éditorial
-const calendar = await editorialCalendar.generateEditorialCalendar({
-  niche: "marketing digital",
-  platforms: ["instagram", "tiktok", "linkedin"],
-  targetAudience: "entrepreneurs",
-  objective: "engagement",
-  duration: "1_month"
-});
-
-// 4. Exécuter un workflow de création
-const workflow = await advancedWorkflow.createTrendBasedCampaign(
-  trends,
-  ["instagram", "tiktok", "linkedin"],
-  "marketing digital"
-);
-
-// 5. Publier automatiquement
-const result = await autoPosting.autoPostContent({
-  content: "Contenu de la campagne",
-  platforms: ["instagram", "tiktok", "linkedin"],
-  niche: "marketing digital",
-  artisticDirection: "modern"
-});
+# Permissions (si nécessaire)
+chmod 755 public/uploads/crealia
+chmod 755 public/uploads/brand
 ```
 
-### Scénario 2 : Transformation Vidéo → Micro-contenus
+---
 
-```typescript
-// 1. Créer le workflow de transformation
-const workflow = await advancedWorkflow.createVideoToMicroWorkflow(
-  "Tutoriel marketing digital complet",
-  ["instagram", "tiktok", "linkedin", "youtube"],
-  "marketing digital"
-);
+### Étape 3 : Configuration environnement
 
-// 2. Exécuter le workflow
-const executedWorkflow = await advancedWorkflow.executeAdvancedWorkflow(workflow);
+Ajoutez dans votre `.env.local` :
 
-// 3. Optimiser chaque micro-contenu
-for (const content of executedWorkflow.results.generatedContent) {
-  // Optimiser la légende
-  const optimizedCaption = await captionOptimizer.optimizeCaption({
-    content: content.text,
-    platform: content.platform,
-    contentType: "post"
-  });
+```bash
+# Créalia Studio
+CREALIA_MOCK=true
+UPLOAD_MAX_SIZE_MB=2048
+STORAGE_PROVIDER=local
+ANALYTICS_ENABLED=true
+```
 
-  // Générer des hashtags
-  const hashtags = await hashtagGenerator.generateHashtags({
-    topic: content.topic,
-    platform: content.platform,
-    niche: "marketing digital"
-  });
+---
 
-  // Publier automatiquement
-  await autoPosting.autoPostContent({
-    content: content.text,
-    platforms: [content.platform],
-    artisticDirection: "modern"
-  });
+### Étape 4 : Intégration dans la navigation
+
+#### Si vous avez un Header/Navigation component
+
+Exemple dans `components/navigation.tsx` ou `components/header.tsx` :
+
+```tsx
+import { CrealiaStudioInterfaceV2 } from '@/components/crealia-studio-interface-v2'
+import { useState } from 'react'
+
+export function Navigation() {
+  const [isStudioOpen, setIsStudioOpen] = useState(false)
+
+  return (
+    <>
+      <nav>
+        {/* Vos autres liens */}
+        <button 
+          onClick={() => setIsStudioOpen(true)}
+          className="nav-link"
+        >
+          🎬 Créalia Studio
+        </button>
+      </nav>
+
+      {/* Interface Studio */}
+      <CrealiaStudioInterfaceV2
+        isOpen={isStudioOpen}
+        onClose={() => setIsStudioOpen(false)}
+      />
+    </>
+  )
+}
+```
+
+#### Si vous avez une page dédiée
+
+Créez ou modifiez `app/studio/page.tsx` :
+
+```tsx
+'use client'
+
+import { CrealiaStudioInterfaceV2 } from '@/components/crealia-studio-interface-v2'
+import { useRouter } from 'next/navigation'
+
+export default function StudioPage() {
+  const router = useRouter()
+
+  return (
+    <CrealiaStudioInterfaceV2
+      isOpen={true}
+      onClose={() => router.push('/')}
+    />
+  )
 }
 ```
 
 ---
 
-## 🚨 Dépannage et Support
+### Étape 5 : Vérification des dépendances
 
-### Problèmes Courants
+Assurez-vous que vous avez toutes les dépendances shadcn/ui nécessaires :
 
-1. **Erreur d'API OpenAI**
-   - Vérifiez votre clé API dans `.env.local`
-   - Vérifiez vos quotas OpenAI
-   - Testez avec un modèle différent
+```bash
+# Si manquantes, installez :
+npx shadcn-ui@latest add button
+npx shadcn-ui@latest add card
+npx shadcn-ui@latest add input
+npx shadcn-ui@latest add label
+npx shadcn-ui@latest add select
+npx shadcn-ui@latest add textarea
+npx shadcn-ui@latest add switch
+npx shadcn-ui@latest add slider
+npx shadcn-ui@latest add progress
+npx shadcn-ui@latest add alert
+npx shadcn-ui@latest add scroll-area
+npx shadcn-ui@latest add separator
+npx shadcn-ui@latest add tabs
+npx shadcn-ui@latest add badge
+```
 
-2. **Workflow bloqué**
-   - Vérifiez les logs dans la console
-   - Redémarrez le workflow
-   - Vérifiez les dépendances entre étapes
+Ou vérifiez dans `components/ui/`.
 
-3. **Calendrier non généré**
-   - Vérifiez que tous les paramètres sont remplis
-   - Assurez-vous que la niche est valide
-   - Vérifiez les plateformes sélectionnées
+---
 
-### Logs et Debugging
+### Étape 6 : Import des icônes Lucide
 
-```typescript
-// Activer les logs détaillés
-console.log("Workflow status:", workflow.status);
-console.log("Current step:", workflow.steps.find(s => s.status === "running"));
-console.log("Step results:", workflow.steps.map(s => ({ name: s.name, result: s.result })));
+Si pas déjà installé :
+
+```bash
+npm install lucide-react
+```
+
+Les icônes utilisées :
+- `Upload`, `X`, `HelpCircle`, `Settings`, `Play`, `Download`
+- `AlertCircle`, `CheckCircle`, `Loader2`
+
+---
+
+### Étape 7 : Vérification des types
+
+Assurez-vous que `tsconfig.json` inclut :
+
+```json
+{
+  "compilerOptions": {
+    "paths": {
+      "@/*": ["./*"]
+    }
+  }
+}
 ```
 
 ---
 
-## 🔮 Évolutions Futures
+### Étape 8 : Test initial
 
-### Phase 2 (Prochaines Saisons)
-- [ ] Intégration avec des APIs de publication réelles
-- [ ] Analyse prédictive des tendances
-- [ ] Optimisation automatique des workflows
-- [ ] Support multilingue avancé
+```bash
+# Démarrer le dev server
+npm run dev
 
-### Phase 3 (Long terme)
-- [ ] IA conversationnelle pour la création de contenu
-- [ ] Génération de vidéos courtes
-- [ ] Analyse de sentiment en temps réel
-- [ ] Marketplace de templates et workflows
+# Ouvrir http://localhost:3000
+# Cliquer sur "Créalia Studio"
+```
 
----
-
-## 📚 Ressources Additionnelles
-
-- [Documentation des Fonctionnalités Avancées](README_ADVANCED_FEATURES.md)
-- [Guide de Configuration](README_AUTOMATION_SETUP.md)
-- [Documentation Générale](README_AUTOMATION.md)
-- [Documentation OpenAI API](https://platform.openai.com/docs)
+**Vérifications :**
+- ✅ Interface s'affiche
+- ✅ Sidebar visible avec catégories
+- ✅ Outils affichés en grille
+- ✅ Clic sur un outil ouvre le panneau droit
+- ✅ Zone d'upload visible
+- ✅ Formulaire de paramètres visible
 
 ---
 
-## 🎉 Félicitations !
+### Étape 9 : Test complet du flow
 
-Vous avez maintenant accès à un système d'automatisation de création de contenu complet et avancé. Toutes les fonctionnalités demandées sont implémentées et fonctionnelles.
+1. **Sélectionner "Générateur de Reels IA"**
+2. **Uploader un fichier test** (MP4 ou JPG)
+3. **Attendre message "Fichier uploadé ✅"**
+4. **Vérifier analyse automatique** (si vidéo)
+5. **Cliquer preset "Viral & Fun"**
+6. **Cliquer "Générer"**
+7. **Attendre progression** (~5 sec en MOCK)
+8. **Vérifier résultats affichés**
+9. **Cliquer "Télécharger"**
 
-**Prochaines étapes recommandées :**
-1. Testez chaque fonctionnalité avec des contenus simples
-2. Personnalisez les services selon vos besoins
-3. Créez vos premiers workflows automatisés
-4. Planifiez votre calendrier éditorial
-5. Lancez votre première campagne auto-posting
+Si tout fonctionne → ✅ Intégration réussie !
 
 ---
 
-*Guide créé pour l'intégration des fonctionnalités avancées d'automatisation - Décembre 2024*
+## 🔧 Troubleshooting
 
+### Erreur : "Module not found @/components/ui/..."
+
+**Solution :**
+```bash
+# Installer les composants shadcn manquants
+npx shadcn-ui@latest add [component-name]
+```
+
+### Erreur : "Cannot find module 'lucide-react'"
+
+**Solution :**
+```bash
+npm install lucide-react
+```
+
+### L'interface ne s'affiche pas
+
+**Vérifications :**
+1. `isOpen={true}` ou state géré correctement ?
+2. z-index conflits ? (interface utilise `z-[100]`)
+3. Console browser : erreurs JavaScript ?
+
+### Upload échoue
+
+**Vérifications :**
+1. Répertoire `public/uploads/crealia` existe ?
+2. Permissions correctes ?
+3. Fichier < 2GB ?
+4. Format valide (mp4, mov, webm, jpg, png, webp) ?
+
+### Jobs bloqués sur "queued"
+
+**En mode MOCK :** Normal, simule 5 secondes de processing.
+
+**Si > 10 secondes :**
+1. Console browser : erreurs ?
+2. Network tab : `/api/crealia/jobs/[id]` appelé ?
+3. Vérifier `CREALIA_MOCK=true` dans `.env.local`
+
+### Analyse ne retourne pas de scènes
+
+**Vérifier :**
+```bash
+# Dans .env.local
+CREALIA_MOCK=true
+```
+
+Si `false`, le mode production est activé (nécessite FFmpeg).
+
+---
+
+## 🎨 Customisation rapide
+
+### Changer les couleurs
+
+Dans `crealia-studio-interface-v2.tsx`, cherchez :
+
+```tsx
+// Primary color
+className="bg-primary/10 text-primary"
+
+// Hover states
+className="hover:bg-secondary/50"
+```
+
+Modifiez selon votre design system.
+
+### Ajouter votre logo
+
+Dans le header :
+
+```tsx
+<h2 className="text-2xl font-bold flex items-center gap-2">
+  <img src="/your-logo.png" alt="Logo" className="w-8 h-8" />
+  Créalia Studio
+</h2>
+```
+
+### Personnaliser les messages
+
+Tous les textes sont en dur dans le composant. Cherchez et remplacez :
+
+```tsx
+// Exemples
+"Bienvenue dans Créalia Studio 👋"
+"Fichier reçu ✅"
+"Génération lancée"
+```
+
+Pour i18n futur, utilisez `next-intl` ou `react-i18next`.
+
+---
+
+## 📊 Monitoring
+
+### Analytics
+
+Les events sont envoyés à `/api/analytics/event`. Vérifiez que cet endpoint existe.
+
+Si pas encore créé :
+
+```typescript
+// app/api/analytics/event/route.ts
+import { NextRequest, NextResponse } from 'next/server'
+
+export async function POST(req: NextRequest) {
+  const body = await req.json()
+  console.log('[Analytics]', body.type, body.metadata)
+  
+  // Stockez dans DB ou service analytics
+  
+  return NextResponse.json({ success: true })
+}
+```
+
+### Logs serveur
+
+Tous les logs Créalia Studio sont préfixés :
+
+```bash
+[Créalia Studio] File uploaded: media_xyz by user 123
+[Créalia Studio] Job created: job_abc for tool reels-generator
+```
+
+Filtrez avec :
+
+```bash
+npm run dev | grep "\[Créalia Studio\]"
+```
+
+---
+
+## 🚀 Déploiement
+
+### Vercel
+
+1. Push sur GitHub
+2. Vercel auto-deploy
+3. Configurer variables env dans Vercel dashboard
+4. Vérifier build logs
+
+### Variables essentielles en production
+
+```bash
+CREALIA_MOCK=true  # Pour commencer
+DATABASE_URL=...
+NEXTAUTH_SECRET=...
+NEXTAUTH_URL=https://your-domain.com
+```
+
+---
+
+## ✅ Checklist finale
+
+- [ ] Ancien composant sauvegardé/remplacé
+- [ ] Répertoires uploads créés
+- [ ] Variables env configurées
+- [ ] Dépendances installées
+- [ ] Intégré dans navigation/page
+- [ ] Test : interface s'ouvre
+- [ ] Test : upload fonctionne
+- [ ] Test : génération produit résultats
+- [ ] Test : téléchargement fonctionne
+- [ ] Analytics trackent les events
+- [ ] Logs serveur visibles
+- [ ] Déployé (si applicable)
+
+---
+
+## 📞 Support
+
+**Problème technique ?**
+1. Consultez `docs/FEATURE-CREALIA-STUDIO.md`
+2. Vérifiez `CREALIA_STUDIO_QUICKSTART.md`
+3. Tests E2E : `e2e/crealia-studio.spec.ts` (exemples)
+4. Créez une issue avec :
+   - Erreur exacte
+   - Steps to reproduce
+   - Console logs
+   - Browser/OS
+
+---
+
+**Bonne intégration ! 🎬✨**
