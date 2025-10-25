@@ -5,6 +5,8 @@ import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { prisma } from "@/lib/prisma";
 import bcrypt from "bcryptjs";
 
+const isProduction = process.env.NODE_ENV === 'production';
+
 export const authOptions = {
   adapter: PrismaAdapter(prisma),
   providers: [
@@ -49,6 +51,18 @@ export const authOptions = {
         session.user.id = user.id;
       }
       return session;
+    },
+  },
+  cookies: {
+    sessionToken: {
+      name: `${isProduction ? '__Host-' : ''}next-auth.session-token`,
+      options: {
+        httpOnly: true,
+        sameSite: 'lax',
+        path: '/',
+        secure: isProduction,
+        domain: isProduction ? '.crealia.ia' : 'localhost' // TODO: Update with actual domain
+      },
     },
   },
   pages: {

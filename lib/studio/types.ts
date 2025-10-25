@@ -83,19 +83,21 @@ export interface AnalysisResult {
 }
 
 // Job status
-export type JobStatus = 'queued' | 'running' | 'success' | 'failed'
+export type JobStatus = 'pending' | 'queued' | 'processing' | 'completed' | 'failed'
 
 // Generation job
 export interface GenerationJob {
-  job_id: string
-  status: JobStatus
-  progress?: number
-  estimated_time_sec?: number
-  logs?: string[]
-  outputs?: JobOutput[]
-  error?: string
-  created_at: string
-  updated_at: string
+  job_id: string;
+  id?: string; // For compatibility with mock API response
+  status: JobStatus;
+  progress?: number;
+  estimated_time_sec?: number;
+  logs?: string[];
+  outputs?: JobOutput[];
+  error?: string;
+  created_at?: string;
+  updated_at?: string;
+  resultUrl?: string; // For mock response
 }
 
 // Job output

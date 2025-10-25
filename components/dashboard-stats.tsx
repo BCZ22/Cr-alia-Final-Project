@@ -1,4 +1,8 @@
-import { Card } from "@/components/ui/card"
+"use client";
+
+import { useEffect, useState } from "react";
+import { Card } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const VideoIcon = () => (
   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -34,38 +38,70 @@ const ZapIcon = () => (
   </svg>
 )
 
-const stats = [
-  {
-    name: "Reels créés",
-    value: "2,847",
-    change: "+12%",
-    changeType: "positive",
-    icon: VideoIcon,
-  },
-  {
-    name: "Vues totales",
-    value: "1.2M",
-    change: "+18%",
-    changeType: "positive",
-    icon: TrendingUpIcon,
-  },
-  {
-    name: "Abonnés gagnés",
-    value: "12,847",
-    change: "+8%",
-    changeType: "positive",
-    icon: UsersIcon,
-  },
-  {
-    name: "Score IA",
-    value: "94/100",
-    change: "+5%",
-    changeType: "positive",
-    icon: ZapIcon,
-  },
-]
+interface AnalyticsData {
+  usersActive: number;
+  creations: number;
+  revenue: number;
+}
 
 export function DashboardStats() {
+  const [data, setData] = useState<AnalyticsData | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('/api/analytics/summary');
+        if (!response.ok) {
+          throw new Error('Failed to fetch analytics data');
+        }
+        const result = await response.json();
+        setData(result);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'An unknown error occurred');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
+
+  if (isLoading) {
+    return (
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {[...Array(4)].map((_, i) => (
+          <Card key={i} className="p-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <Skeleton className="h-4 w-24" />
+                <Skeleton className="h-8 w-16 mt-1" />
+              </div>
+              <Skeleton className="h-12 w-12 rounded-xl" />
+            </div>
+          </Card>
+        ))}
+      </div>
+    );
+  }
+
+  if (error) {
+    return <div className="text-destructive">Error: {error}</div>;
+  }
+  
+  const stats = [
+    {
+        name: "Créations",
+        value: data?.creations.toLocaleString() || '0',
+        icon: VideoIcon,
+    },
+    {
+        name: "Utilisateurs Actifs",
+        value: data?.usersActive.toLocaleString() || '0',
+        icon: UsersIcon,
+    }
+  ];
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
       {stats.map((stat) => (
@@ -77,7 +113,6 @@ export function DashboardStats() {
             <div>
               <p className="text-sm font-medium text-muted-foreground">{stat.name}</p>
               <p className="text-2xl font-bold text-foreground mt-1">{stat.value}</p>
-              <p className="text-sm text-accent font-medium mt-1">{stat.change}</p>
             </div>
             <div className="p-3 bg-primary/10 rounded-xl">
               <stat.icon />
@@ -85,6 +120,20 @@ export function DashboardStats() {
           </div>
         </Card>
       ))}
+       {/* Placeholder cards to fill the 4-column grid */}
+       {[...Array(2)].map((_, i) => (
+          <Card key={i} className="p-6 glass border-border/50">
+             <div className="flex items-center justify-between opacity-50">
+               <div>
+                 <p className="text-sm font-medium text-muted-foreground">Bientôt disponible</p>
+                 <p className="text-2xl font-bold text-foreground mt-1">-</p>
+               </div>
+               <div className="p-3 bg-secondary rounded-xl">
+                 <div className="w-6 h-6"></div>
+               </div>
+             </div>
+          </Card>
+        ))}
     </div>
   )
 }

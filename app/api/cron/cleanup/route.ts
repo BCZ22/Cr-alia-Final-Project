@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 /**
  * GET /api/cron/cleanup
  * Daily cleanup cron job

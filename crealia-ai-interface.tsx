@@ -181,18 +181,41 @@ export function CrealiaAIInterface({ isOpen, onClose }: CrealiaAIInterfaceProps)
     setInputValue("")
     setIsTyping(true)
 
-    // Simulate AI response
-    setTimeout(() => {
+    try {
+      // Remplacer la simulation par un appel réel à l'API
+      const response = await fetch('/api/ai/generate', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ prompt: inputValue }),
+      });
+
+      if (!response.ok) {
+        throw new Error('La réponse du serveur n\'est pas OK');
+      }
+
+      const data = await response.json();
+
       const aiResponse: Message = {
         id: (Date.now() + 1).toString(),
-        content:
-          "Excellente idée ! Je vais vous aider à créer du contenu viral. Pouvez-vous me donner plus de détails sur votre projet ?",
+        content: data.result || "Désolé, je n'ai pas pu générer de réponse.",
         isUser: false,
         timestamp: new Date(),
-      }
-      setMessages((prev) => [...prev, aiResponse])
-      setIsTyping(false)
-    }, 1500)
+      };
+      setMessages((prev) => [...prev, aiResponse]);
+    } catch (error) {
+      console.error("Erreur lors de l'appel à l'API IA:", error);
+      const errorResponse: Message = {
+        id: (Date.now() + 1).toString(),
+        content: "Oups ! Une erreur est survenue. Veuillez réessayer plus tard.",
+        isUser: false,
+        timestamp: new Date(),
+      };
+      setMessages((prev) => [...prev, errorResponse]);
+    } finally {
+      setIsTyping(false);
+    }
   }
 
   const handleSuggestionClick = (suggestion: string) => {

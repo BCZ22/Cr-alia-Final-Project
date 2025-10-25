@@ -1,47 +1,53 @@
 import { NextRequest, NextResponse } from 'next/server';
 import AIService from "@/backend/services/ai/ai.service";
 import { z } from 'zod';
-import OpenAI from 'openai';
 import { getServerSession } from "next-auth/next";
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
-import UserService from "@/backend/services/user.service";
 
 const aiService = new AIService();
 
 const generateSchema = z.object({
-  prompt: z.string().min(1, { message: "Prompt is required." }),
-  type: z.enum(['script', 'description', 'hashtags', 'caption']).default('caption'),
-  length: z.enum(['short', 'medium', 'long']).default('medium'),
-  tone: z.enum(['professional', 'casual', 'creative']).default('casual'),
+  prompt: z.string().min(1, { message: "Le prompt est requis." }),
+  // Les options supplémentaires sont maintenant facultatives
+  options: z.object({
+    model: z.string().optional(),
+    maxTokens: z.number().optional(),
+    temperature: z.number().optional(),
+  }).optional(),
 });
 
 export async function POST(req: NextRequest) {
+  const session = await getServerSession(authOptions);
+  if (!session?.user) {
+    return NextResponse.json({ error: 'Non authentifié' }, { status: 401 });
+  }
+
   try {
     const body = await req.json();
     const validation = generateSchema.safeParse(body);
 
     if (!validation.success) {
-      return NextResponse.json({ error: 'Invalid request body', details: validation.error.formErrors }, { status: 400 });
+      return NextResponse.json({ error: 'Corps de la requête invalide', details: validation.error.formErrors }, { status: 400 });
     }
 
-    const { prompt, type, length, tone } = validation.data;
-
-    // Here we would normally save the request to the database
-    // using Prisma, tied to the authenticated user.
-    // For now, we call the mocked service directly.
-
+    const { prompt } = validation.data;
+    
+    // Pour la démo, nous allons utiliser une version simplifiée du service AI.
+    // L'implémentation complète utiliserait les options supplémentaires.
     const content = await aiService.generateContent({
-      prompt,
-      type,
-      length,
-      tone,
+      prompt: prompt,
+      type: 'caption',
+      length: 'medium',
+      tone: 'casual',
     });
 
-    return NextResponse.json({ ok: true, result: content });
+    // TODO: Enregistrer la requête dans l'historique de l'utilisateur avec Prisma.
+
+    return NextResponse.json({ ok: true, result: content, meta: { model: 'mock-model-v1' } });
   } catch (error) {
-    console.error('Error in AI content generation:', error);
-    const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';
-    return NextResponse.json({ error: 'Failed to generate content', details: errorMessage }, { status: 500 });
+    console.error('Erreur dans la génération de contenu IA:', error);
+    const errorMessage = error instanceof Error ? error.message : 'Une erreur inconnue est survenue';
+    return NextResponse.json({ error: 'Échec de la génération de contenu', details: errorMessage }, { status: 500 });
   }
 }
 

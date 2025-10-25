@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 /**
  * GET /api/chat/sessions
  * Get user's chat sessions

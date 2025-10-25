@@ -35,15 +35,26 @@ import {
   JobStatus,
   StudioEventType,
 } from "@/lib/studio/types"
-import { Upload, X, HelpCircle, Settings, Play, Download, AlertCircle, CheckCircle, Loader2 } from "lucide-react"
+import { Upload, X, HelpCircle, Settings, Play, Download, AlertCircle, CheckCircle, Loader2, Folder, Plus } from "lucide-react"
 
 interface CrealiaStudioInterfaceV2Props {
   isOpen: boolean
   onClose: () => void
 }
 
+interface Project {
+  id: string;
+  name: string;
+  description?: string | null;
+}
+
 export function CrealiaStudioInterfaceV2({ isOpen, onClose }: CrealiaStudioInterfaceV2Props) {
   // State management
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [isProjectView, setIsProjectView] = useState(true); // Start with project view
+  const [newProjectName, setNewProjectName] = useState("");
+
   const [selectedCategory, setSelectedCategory] = useState("Recommandé")
   const [selectedTool, setSelectedTool] = useState<Tool | null>(null)
   const [uploadedMedia, setUploadedMedia] = useState<MediaUpload | null>(null)
@@ -56,6 +67,13 @@ export function CrealiaStudioInterfaceV2({ isOpen, onClose }: CrealiaStudioInter
   const [error, setError] = useState<string | null>(null)
   const [autoRun, setAutoRun] = useState(false)
   const [showHelp, setShowHelp] = useState(false)
+
+  // Fetch projects on mount
+  useEffect(() => {
+    if (isOpen) {
+      fetchProjects();
+    }
+  }, [isOpen]);
 
   // Initialize form params when tool changes
   useEffect(() => {
@@ -76,7 +94,7 @@ export function CrealiaStudioInterfaceV2({ isOpen, onClose }: CrealiaStudioInter
     if (autoRun && uploadedMedia && selectedTool && validateForm()) {
       handleGenerate()
     }
-  }, [autoRun, uploadedMedia, selectedTool])
+  }, [autoRun, uploadedMedia, selectedTool, formParams]) // Added formParams dependency
 
   if (!isOpen) return null
 
@@ -122,8 +140,11 @@ export function CrealiaStudioInterfaceV2({ isOpen, onClose }: CrealiaStudioInter
       // Upload file
       const formData = new FormData()
       formData.append("file", file)
+      if (selectedProject) {
+        formData.append("projectId", selectedProject.id);
+      }
 
-      const response = await fetch("/api/crealia/upload", {
+      const response = await fetch("/api/studio/upload", {
         method: "POST",
         body: formData,
       })
@@ -205,33 +226,45 @@ export function CrealiaStudioInterfaceV2({ isOpen, onClose }: CrealiaStudioInter
    * Handle generation
    */
   const handleGenerate = async () => {
-    if (!selectedTool || !uploadedMedia) return
+    if (!selectedTool || !selectedProject) return
 
     setIsGenerating(true)
     setError(null)
+    setCurrentJob(null);
     trackEvent("generate_started", { tool_id: selectedTool.id })
 
     try {
-      const response = await fetch("/api/crealia/generate", {
+      const response = await fetch(`/api/studio/generate/${selectedTool.id}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          media_id: uploadedMedia.media_id,
-          tool: selectedTool.id,
-          params: formParams,
-          auto_branding: formParams.brand_overlay || false,
+          projectId: selectedProject.id,
+          params: {
+            ...formParams,
+            // Pass media URL if available and required by tool
+            ...(uploadedMedia && { mediaUrl: uploadedMedia.media_url }),
+          }
         }),
       })
 
       if (!response.ok) {
-        throw new Error("Erreur lors de la génération")
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Erreur lors de la génération")
       }
 
-      const job: GenerationJob = await response.json()
-      setCurrentJob(job)
+      const { generationId, status } = await response.json()
+      
+      const initialJob: GenerationJob = {
+        job_id: generationId,
+        status: status,
+        progress: 5, // Initial progress
+        outputs: [],
+      };
+      setCurrentJob(initialJob);
+
 
       // Poll job status
-      pollJobStatus(job.job_id)
+      pollGenerationStatus(generationId)
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : "Erreur lors de la génération"
       setError(errorMessage)
@@ -243,27 +276,46 @@ export function CrealiaStudioInterfaceV2({ isOpen, onClose }: CrealiaStudioInter
   /**
    * Poll job status
    */
-  const pollJobStatus = async (jobId: string) => {
+  const pollGenerationStatus = async (generationId: string) => {
     const poll = async () => {
       try {
-        const response = await fetch(`/api/crealia/jobs/${jobId}`)
-        const job: GenerationJob = await response.json()
-        setCurrentJob(job)
+        const response = await fetch(`/api/studio/generate/${generationId}`)
+        
+        if (!response.ok) {
+            // Stop polling on 404 or other fatal errors
+            setIsGenerating(false);
+            setError("Impossible de récupérer le statut de la génération.");
+            return;
+        }
 
-        if (job.status === "success") {
+        const job: GenerationJob = await response.json();
+        
+        // Map the backend response to the frontend's GenerationJob type
+        const updatedJob: GenerationJob = {
+          job_id: job.id,
+          status: job.status,
+          progress: job.progress,
+          error: job.error,
+          outputs: job.resultUrl ? [{ id: 'output_1', url: job.resultUrl, thumbnail: job.resultUrl }] : [],
+          estimated_time_sec: job.estimated_time_sec,
+        };
+        
+        setCurrentJob(updatedJob);
+
+        if (updatedJob.status === "completed") {
           setIsGenerating(false)
-          trackEvent("generate_completed", { job_id: jobId })
-        } else if (job.status === "failed") {
+          trackEvent("generate_completed", { job_id: generationId })
+        } else if (updatedJob.status === "failed") {
           setIsGenerating(false)
-          setError(job.error || "La génération a échoué")
-          trackEvent("generate_failed", { job_id: jobId, error: job.error })
+          setError(updatedJob.error || "La génération a échoué")
+          trackEvent("generate_failed", { job_id: generationId, error: updatedJob.error })
         } else {
           // Continue polling
           setTimeout(poll, 2000)
         }
       } catch (err) {
         setIsGenerating(false)
-        setError("Erreur lors de la vérification du statut")
+        setError("Erreur lors de la vérification du statut de la génération")
       }
     }
 
@@ -285,6 +337,52 @@ export function CrealiaStudioInterfaceV2({ isOpen, onClose }: CrealiaStudioInter
     trackEvent("download_clicked", { output_id: outputId })
     window.open(outputUrl, "_blank")
   }
+
+  /**
+   * Fetch projects from API
+   */
+  const fetchProjects = async () => {
+    try {
+      const response = await fetch("/api/studio/projects");
+      if (response.ok) {
+        const data = await response.json();
+        setProjects(data);
+      }
+    } catch (err) {
+      console.error("Failed to fetch projects:", err);
+    }
+  };
+
+  const handleCreateProject = async () => {
+    if (!newProjectName.trim()) return;
+    try {
+      const response = await fetch("/api/studio/projects", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: newProjectName }),
+      });
+      if (response.ok) {
+        const newProject = await response.json();
+        setProjects([newProject, ...projects]);
+        setNewProjectName("");
+        setSelectedProject(newProject);
+        setIsProjectView(false); // Move to tool view after creating a project
+      }
+    } catch (err) {
+      console.error("Failed to create project:", err);
+    }
+  };
+
+  const handleSelectProject = (project: Project) => {
+    setSelectedProject(project);
+    setIsProjectView(false); // Switch to the tool view for the selected project
+    // Reset tool-specific state
+    setSelectedTool(null);
+    setUploadedMedia(null);
+    setAnalysisResult(null);
+    setCurrentJob(null);
+  };
+
 
   /**
    * Render form field based on param type
@@ -449,54 +547,93 @@ export function CrealiaStudioInterfaceV2({ isOpen, onClose }: CrealiaStudioInter
               </div>
             </div>
 
-            {/* PANNEAU CENTRAL - GRILLE D'OUTILS */}
+            {/* PANNEAU CENTRAL - GRILLE D'OUTILS OU PROJETS */}
             <div className="flex-1 p-6 overflow-y-auto">
-              <div className="mb-6">
-                <h3 className="text-xl font-semibold mb-2">{selectedCategory}</h3>
-                <p className="text-muted-foreground text-sm">
-                  {selectedCategory === "Recommandé" && "Nos outils les plus populaires et récents"}
-                  {selectedCategory === "Vidéo" && "Créez des vidéos IA professionnelles"}
-                  {selectedCategory === "Image" && "Générez des images IA créatives"}
-                  {selectedCategory === "Contenu Audio" && "Créez du contenu audio avec l'IA"}
-                </p>
-              </div>
+              {isProjectView ? (
+                <div>
+                  <h3 className="text-xl font-semibold mb-4">Mes Projets</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {/* Create new project card */}
+                    <Card className="p-4 flex flex-col items-center justify-center border-2 border-dashed hover:border-primary transition-colors">
+                      <Input 
+                        placeholder="Nom du nouveau projet..."
+                        value={newProjectName}
+                        onChange={(e) => setNewProjectName(e.target.value)}
+                        className="mb-2"
+                      />
+                      <Button onClick={handleCreateProject} className="w-full">
+                        <Plus className="w-4 h-4 mr-2" /> Créer un projet
+                      </Button>
+                    </Card>
+                    {/* Existing project cards */}
+                    {projects.map((project) => (
+                      <Card key={project.id} className="cursor-pointer hover:shadow-lg transition-shadow" onClick={() => handleSelectProject(project)}>
+                        <CardHeader>
+                          <CardTitle className="flex items-center gap-2">
+                            <Folder className="w-5 h-5 text-primary" />
+                            {project.name}
+                          </CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                          <p className="text-sm text-muted-foreground line-clamp-2">
+                            {project.description || "Aucune description"}
+                          </p>
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <div>
+                  <div className="flex items-center justify-between mb-6">
+                    <div className="flex items-center gap-3">
+                      <Folder className="w-6 h-6 text-primary" />
+                      <div>
+                        <h3 className="text-xl font-semibold">{selectedProject?.name}</h3>
+                        <button onClick={() => { setIsProjectView(true); setSelectedProject(null); }} className="text-xs text-muted-foreground hover:text-primary">Retour aux projets</button>
+                      </div>
+                    </div>
+                    <h3 className="text-xl font-semibold">{selectedCategory}</h3>
+                  </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {toolsInCategory.map((tool) => (
-                  <Card
-                    key={tool.id}
-                    className={`relative group cursor-pointer transition-all hover:shadow-lg hover:scale-[1.02] ${
-                      selectedTool?.id === tool.id
-                        ? "border-primary/50 shadow-md ring-2 ring-primary/20"
-                        : "border-border/50 hover:border-primary/30"
-                    }`}
-                    onClick={() => setSelectedTool(tool)}
-                  >
-                    <CardContent className="p-4">
-                      <div className="flex items-start justify-between mb-2">
-                        <span className="text-2xl">{tool.icon}</span>
-                        {tool.tag && (
-                          <Badge variant="secondary" className="text-xs">
-                            {tool.tag}
-                          </Badge>
-                        )}
-                      </div>
-                      <h4 className="font-semibold text-sm mb-1 group-hover:text-primary transition-colors">
-                        {tool.name}
-                      </h4>
-                      <p className="text-xs text-muted-foreground line-clamp-2">{tool.shortDescription}</p>
-                      <div className="mt-3 flex gap-2">
-                        <Button size="sm" className="flex-1" onClick={(e) => {
-                          e.stopPropagation()
-                          setSelectedTool(tool)
-                        }}>
-                          Ouvrir
-                        </Button>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {toolsInCategory.map((tool) => (
+                      <Card
+                        key={tool.id}
+                        className={`relative group cursor-pointer transition-all hover:shadow-lg hover:scale-[1.02] ${
+                          selectedTool?.id === tool.id
+                            ? "border-primary/50 shadow-md ring-2 ring-primary/20"
+                            : "border-border/50 hover:border-primary/30"
+                        }`}
+                        onClick={() => setSelectedTool(tool)}
+                      >
+                        <CardContent className="p-4">
+                          <div className="flex items-start justify-between mb-2">
+                            <span className="text-2xl">{tool.icon}</span>
+                            {tool.tag && (
+                              <Badge variant="secondary" className="text-xs">
+                                {tool.tag}
+                              </Badge>
+                            )}
+                          </div>
+                          <h4 className="font-semibold text-sm mb-1 group-hover:text-primary transition-colors">
+                            {tool.name}
+                          </h4>
+                          <p className="text-xs text-muted-foreground line-clamp-2">{tool.shortDescription}</p>
+                          <div className="mt-3 flex gap-2">
+                            <Button size="sm" className="flex-1" onClick={(e) => {
+                              e.stopPropagation()
+                              setSelectedTool(tool)
+                            }}>
+                              Ouvrir
+                            </Button>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* PANNEAU DROIT - DÉTAILS OUTIL */}
@@ -659,7 +796,7 @@ export function CrealiaStudioInterfaceV2({ isOpen, onClose }: CrealiaStudioInter
                   <Button
                     size="lg"
                     className="w-full"
-                    disabled={!validateForm() || !uploadedMedia || isGenerating}
+                    disabled={!validateForm() || isGenerating || (selectedTool.requiresMedia && !uploadedMedia)}
                     onClick={handleGenerate}
                   >
                     {isGenerating ? (
@@ -684,7 +821,7 @@ export function CrealiaStudioInterfaceV2({ isOpen, onClose }: CrealiaStudioInter
                         </span>
                         <Badge
                           variant={
-                            currentJob.status === "success"
+                            currentJob.status === "completed"
                               ? "default"
                               : currentJob.status === "failed"
                                 ? "destructive"

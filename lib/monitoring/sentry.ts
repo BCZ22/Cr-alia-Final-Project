@@ -5,34 +5,42 @@
 
 import * as Sentry from '@sentry/nextjs'
 
+// This file is used to initialize Sentry on both the client and server.
+// It is imported in `_app.tsx` and `_error.tsx`.
+
 /**
  * Initialize Sentry
  */
 export function initSentry() {
-  if (process.env.NEXT_PUBLIC_SENTRY_DSN) {
+  const sentryDsn = process.env.SENTRY_DSN || process.env.NEXT_PUBLIC_SENTRY_DSN;
+
+  if (sentryDsn) {
     Sentry.init({
-      dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
+      dsn: sentryDsn,
       environment: process.env.NEXT_PUBLIC_APP_ENV || process.env.NODE_ENV,
-      tracesSampleRate: process.env.NODE_ENV === 'production' ? 0.1 : 1.0,
+      // Adjust this value in production, or use tracesSampler for greater control
+      tracesSampleRate: process.env.NODE_ENV === 'production' ? 0.2 : 1.0,
+
+      //
+      // Note: if you want to override the automatic release value, do this:
+      //
+      // release: "my-project-name@2.3.12",
+      //
       
-      // Performance monitoring
       integrations: [
-        new Sentry.BrowserTracing({
-          tracePropagationTargets: ['localhost', /^https:\/\/crealia\.com/],
-        }),
+        // Add any integrations you need here.
+        // The Next.js SDK automatically includes many of the default integrations.
       ],
       
       // Error filtering
       beforeSend(event, hint) {
-        // Don't send certain errors
+        // Don't send certain errors that are often just noise
         const error = hint.originalException as Error
         
-        if (error?.message?.includes('ResizeObserver')) {
-          return null // Ignore ResizeObserver errors
-        }
-        
-        if (error?.message?.includes('Non-Error promise rejection')) {
-          return null // Ignore non-error rejections
+        if (error?.message) {
+            if (error.message.includes('ResizeObserver') || error.message.includes('Non-Error promise rejection')) {
+                return null;
+            }
         }
         
         return event
@@ -42,12 +50,13 @@ export function initSentry() {
 }
 
 /**
- * Capture exception
+ * Capture exception in a Sentry-safe way
  */
 export function captureException(error: Error, context?: Record<string, any>) {
-  console.error('Error captured:', error)
+  console.error('Error captured:', error, context);
   
-  if (process.env.NEXT_PUBLIC_SENTRY_DSN) {
+  const sentryDsn = process.env.SENTRY_DSN || process.env.NEXT_PUBLIC_SENTRY_DSN;
+  if (sentryDsn) {
     Sentry.captureException(error, {
       extra: context,
     })
@@ -55,10 +64,11 @@ export function captureException(error: Error, context?: Record<string, any>) {
 }
 
 /**
- * Capture message
+ * Capture a message in a Sentry-safe way
  */
 export function captureMessage(message: string, level: Sentry.SeverityLevel = 'info', context?: Record<string, any>) {
-  if (process.env.NEXT_PUBLIC_SENTRY_DSN) {
+  const sentryDsn = process.env.SENTRY_DSN || process.env.NEXT_PUBLIC_SENTRY_DSN;
+  if (sentryDsn) {
     Sentry.captureMessage(message, {
       level,
       extra: context,
@@ -67,28 +77,21 @@ export function captureMessage(message: string, level: Sentry.SeverityLevel = 'i
 }
 
 /**
- * Set user context
+ * Set user context for Sentry
  */
-export function setUser(user: { id: string; email?: string; username?: string }) {
-  if (process.env.NEXT_PUBLIC_SENTRY_DSN) {
-    Sentry.setUser(user)
+export function setUser(user: { id: string; email?: string; username?: string } | null) {
+  const sentryDsn = process.env.SENTRY_DSN || process.env.NEXT_PUBLIC_SENTRY_DSN;
+  if (sentryDsn) {
+    Sentry.setUser(user);
   }
 }
 
 /**
- * Clear user context
- */
-export function clearUser() {
-  if (process.env.NEXT_PUBLIC_SENTRY_DSN) {
-    Sentry.setUser(null)
-  }
-}
-
-/**
- * Add breadcrumb
+ * Add a breadcrumb for Sentry
  */
 export function addBreadcrumb(message: string, category: string, data?: Record<string, any>) {
-  if (process.env.NEXT_PUBLIC_SENTRY_DSN) {
+  const sentryDsn = process.env.SENTRY_DSN || process.env.NEXT_PUBLIC_SENTRY_DSN;
+  if (sentryDsn) {
     Sentry.addBreadcrumb({
       message,
       category,
@@ -96,18 +99,5 @@ export function addBreadcrumb(message: string, category: string, data?: Record<s
       level: 'info',
     })
   }
-}
-
-/**
- * Start transaction
- */
-export function startTransaction(name: string, op: string) {
-  if (process.env.NEXT_PUBLIC_SENTRY_DSN) {
-    return Sentry.startTransaction({
-      name,
-      op,
-    })
-  }
-  return null
 }
 

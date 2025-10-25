@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import {
   X,
   BarChart3,
@@ -50,6 +50,15 @@ import {
 interface CrealiaAnalyticsInterfaceProps {
   isOpen: boolean
   onClose: () => void
+}
+
+// Data types based on the new API
+interface AnalyticsData {
+  usersActive: number;
+  creations: number;
+  revenue: number;
+  timeseries: { date: string; value: number }[];
+  topTools: { tool: string; count: number }[];
 }
 
 const platforms = [
@@ -888,353 +897,36 @@ const contentTypeData = {
 
 export function CrealiaAnalyticsInterface({ isOpen, onClose }: CrealiaAnalyticsInterfaceProps) {
   const [activeTab, setActiveTab] = useState("dashboard")
-  const [selectedPlatform, setSelectedPlatform] = useState("all")
-  const [realTimeEnabled, setRealTimeEnabled] = useState(true)
-  const [showConnectionInterface, setShowConnectionInterface] = useState(false)
-  const [selectedPlatformForConnection, setSelectedPlatformForConnection] = useState<(typeof platforms)[0] | null>(null)
-  const [connectionStep, setConnectionStep] = useState(1)
-  const [selectedAccountType, setSelectedAccountType] = useState("")
+  const [timeRange, setTimeRange] = useState("30d")
+  const [analyticsData, setAnalyticsData] = useState<AnalyticsData | null>(null)
+  const [isLoading, setIsLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
 
-  const [searchQuery, setSearchQuery] = useState("")
-  const [showSuggestions, setShowSuggestions] = useState(false)
-  const [filteredHashtags, setFilteredHashtags] = useState(trendingHashtags)
-
-  const [activeContentType, setActiveContentType] = useState("stories")
-  const [selectedTimeRange, setSelectedTimeRange] = useState("7days")
-  const [selectedContentPlatform, setSelectedContentPlatform] = useState("all")
-
-  const handleSearch = (query: string) => {
-    setSearchQuery(query)
-    if (query.trim() === "") {
-      setFilteredHashtags(trendingHashtags)
-    } else {
-      const filtered = trendingHashtags.filter(
-        (hashtag) =>
-          hashtag.niche.toLowerCase().includes(query.toLowerCase()) ||
-          hashtag.tag.toLowerCase().includes(query.toLowerCase()),
-      )
-      setFilteredHashtags(filtered)
-    }
-  }
-
-  const handleSuggestionClick = (suggestion: string) => {
-    setSearchQuery(suggestion)
-    setShowSuggestions(false)
-    handleSearch(suggestion)
-  }
-
-  if (!isOpen) return null
-
-  const handlePlatformConnection = (platform: (typeof platforms)[0]) => {
-    setSelectedPlatformForConnection(platform)
-    setShowConnectionInterface(true)
-    setConnectionStep(1)
-    setSelectedAccountType("")
-  }
-
-  const getOAuthUrl = (platformName: string, accountType: string) => {
-    const baseUrls = {
-      Instagram: "https://api.instagram.com/oauth/authorize",
-      Facebook: "https://www.facebook.com/v18.0/dialog/oauth",
-      "X/Twitter": "https://twitter.com/i/oauth2/authorize",
-      LinkedIn: "https://www.linkedin.com/oauth/v2/authorization",
-      YouTube: "https://accounts.google.com/oauth2/auth",
-      TikTok: "https://www.tiktok.com/auth/authorize/",
-      Pinterest: "https://www.pinterest.com/oauth/",
-      Snapchat: "https://accounts.snapchat.com/login/oauth2/authorize",
-    }
-
-    const clientIds = {
-      Instagram: "your_instagram_client_id",
-      Facebook: "your_facebook_app_id",
-      "X/Twitter": "your_twitter_client_id",
-      LinkedIn: "your_linkedin_client_id",
-      YouTube: "your_google_client_id",
-      TikTok: "your_tiktok_client_key",
-      Pinterest: "your_pinterest_app_id",
-      Snapchat: "your_snapchat_client_id",
-    }
-
-    const redirectUri = encodeURIComponent(`${window.location.origin}/auth/callback`)
-    const baseUrl = baseUrls[platformName as keyof typeof baseUrls]
-    const clientId = clientIds[platformName as keyof typeof clientIds]
-
-    // Platform-specific OAuth parameters
-    switch (platformName) {
-      case "Instagram":
-        return `${baseUrl}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=user_profile,user_media&response_type=code`
-      case "Facebook":
-        return `${baseUrl}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=pages_show_list,pages_read_engagement,instagram_basic,instagram_manage_insights&response_type=code`
-      case "X/Twitter":
-        return `${baseUrl}?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}&scope=tweet.read%20users.read%20follows.read%20like.read&state=state&code_challenge=challenge&code_challenge_method=plain`
-      case "LinkedIn":
-        return `${baseUrl}?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}&scope=r_liteprofile%20r_emailaddress%20w_member_social%20r_organization_social`
-      case "YouTube":
-        return `${baseUrl}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=https://www.googleapis.com/auth/youtube.readonly&response_type=code&access_type=offline`
-      case "TikTok":
-        return `${baseUrl}?client_key=${clientId}&scope=user.info.basic,video.list&response_type=code&redirect_uri=${redirectUri}&state=state`
-      case "Pinterest":
-        return `${baseUrl}?response_type=code&redirect_uri=${redirectUri}&client_id=${clientId}&scope=read_public,write_public`
-      case "Snapchat":
-        return `${baseUrl}?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code&scope=snapchat-marketing-api`
-      default:
-        return baseUrl
-    }
-  }
-
-  const handleDirectConnection = (platform: (typeof platforms)[0], accountType: string) => {
-    const oauthUrl = getOAuthUrl(platform.name, accountType)
-
-    // Open OAuth URL in a popup window
-    const popup = window.open(oauthUrl, `${platform.name}_oauth`, "width=600,height=700,scrollbars=yes,resizable=yes")
-
-    // Listen for the popup to close (user completed or cancelled auth)
-    const checkClosed = setInterval(() => {
-      if (popup?.closed) {
-        clearInterval(checkClosed)
-        // Simulate successful connection and move to step 3
-        setConnectionStep(3)
-        // Update platform connection status
-        const updatedPlatforms = platforms.map((p) => (p.name === platform.name ? { ...p, connected: true } : p))
-        // You could also refresh the platform data here
+  useEffect(() => {
+    if (isOpen) {
+      const fetchAnalyticsData = async () => {
+        setIsLoading(true)
+        setError(null)
+        try {
+          const response = await fetch(`/api/analytics/summary?range=${timeRange}`)
+          if (!response.ok) {
+            throw new Error("Failed to fetch analytics data")
+          }
+          const data: AnalyticsData = await response.json()
+          setAnalyticsData(data)
+        } catch (err) {
+          setError(err instanceof Error ? err.message : "An unknown error occurred")
+        } finally {
+          setIsLoading(false)
+        }
       }
-    }, 1000)
-  }
 
-  const renderConnectionInterface = () => {
-    if (!selectedPlatformForConnection) return null
+      fetchAnalyticsData()
+    }
+  }, [isOpen, timeRange])
 
-    return (
-      <div className="fixed inset-0 z-60 flex items-center justify-center bg-black/60 backdrop-blur-sm">
-        <div className="w-full max-w-2xl mx-4 bg-background border border-border rounded-2xl shadow-2xl">
-          <div className="p-6 border-b border-border">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-4">
-                <div
-                  className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl"
-                  style={{ backgroundColor: `${selectedPlatformForConnection.color}20` }}
-                >
-                  {selectedPlatformForConnection.icon}
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold">Connexion {selectedPlatformForConnection.name}</h3>
-                  <p className="text-sm text-muted-foreground">{selectedPlatformForConnection.description}</p>
-                </div>
-              </div>
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => setShowConnectionInterface(false)}
-                className="rounded-full"
-              >
-                <X className="w-5 h-5" />
-              </Button>
-            </div>
-          </div>
-
-          <div className="p-6">
-            {connectionStep === 1 && (
-              <div className="space-y-6">
-                <div>
-                  <h4 className="text-lg font-semibold mb-2">Étape 1: Type de Compte</h4>
-                  <p className="text-sm text-muted-foreground mb-4">
-                    Sélectionnez le type de compte que vous souhaitez connecter
-                  </p>
-                </div>
-
-                <div className="grid gap-3">
-                  {selectedPlatformForConnection.accountTypes.map((type) => (
-                    <Card
-                      key={type}
-                      className={`cursor-pointer transition-all hover:shadow-md ${
-                        selectedAccountType === type ? "ring-2 ring-primary bg-primary/5" : ""
-                      }`}
-                      onClick={() => setSelectedAccountType(type)}
-                    >
-                      <CardContent className="p-4">
-                        <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 rounded-lg bg-muted flex items-center justify-center">
-                            {type === "Personal" && <Users className="w-5 h-5" />}
-                            {type === "Business" && <Building className="w-5 h-5" />}
-                            {type === "Creator" && <Star className="w-5 h-5" />}
-                            {type === "Géré" && <UserCheck className="w-5 h-5" />}
-                          </div>
-                          <div className="flex-1">
-                            <div className="font-medium">{type}</div>
-                            <div className="text-sm text-muted-foreground">
-                              {type === "Personal" && "Compte personnel pour usage privé"}
-                              {type === "Business" && "Compte professionnel avec analytics avancés"}
-                              {type === "Creator" && "Compte créateur avec outils de monétisation"}
-                              {type === "Géré" && "Compte géré par une agence ou équipe"}
-                            </div>
-                          </div>
-                          {selectedAccountType === type && <CheckCircle className="w-5 h-5 text-primary" />}
-                        </div>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-
-                <div className="flex justify-end gap-3 pt-4">
-                  <Button variant="outline" onClick={() => setShowConnectionInterface(false)}>
-                    Annuler
-                  </Button>
-                  <Button onClick={() => setConnectionStep(2)} disabled={!selectedAccountType}>
-                    Continuer
-                  </Button>
-                </div>
-              </div>
-            )}
-
-            {connectionStep === 2 && (
-              <div className="space-y-6">
-                <div>
-                  <h4 className="text-lg font-semibold mb-2">Étape 2: Méthode de Connexion</h4>
-                  <p className="text-sm text-muted-foreground mb-4">
-                    Choisissez la méthode de connexion pour votre compte {selectedAccountType}
-                  </p>
-                </div>
-
-                <div className="grid gap-3">
-                  {selectedPlatformForConnection.connectionMethods.map((method, index) => (
-                    <Card
-                      key={method}
-                      className="cursor-pointer hover:shadow-md transition-all"
-                      onClick={() => handleDirectConnection(selectedPlatformForConnection, selectedAccountType)}
-                    >
-                      <CardContent className="p-4">
-                        <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                            <Link className="w-5 h-5 text-primary" />
-                          </div>
-                          <div className="flex-1">
-                            <div className="font-medium">{method}</div>
-                            <div className="text-sm text-muted-foreground">
-                              Connexion directe sécurisée via {selectedPlatformForConnection.name}
-                            </div>
-                          </div>
-                          <Badge variant="outline">Connexion Directe</Badge>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-
-                <Card className="bg-muted/30">
-                  <CardContent className="p-4">
-                    <div className="flex items-start gap-3">
-                      <Shield className="w-5 h-5 text-primary mt-0.5" />
-                      <div>
-                        <div className="font-medium text-sm">Connexion Sécurisée OAuth</div>
-                        <div className="text-xs text-muted-foreground mt-1">
-                          Vous serez redirigé vers {selectedPlatformForConnection.name} pour vous connecter en toute
-                          sécurité. Nous ne stockons jamais vos identifiants.
-                        </div>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-
-                <div className="flex justify-between pt-4">
-                  <Button variant="outline" onClick={() => setConnectionStep(1)}>
-                    Retour
-                  </Button>
-                  <Button
-                    onClick={() => handleDirectConnection(selectedPlatformForConnection, selectedAccountType)}
-                    className="bg-primary hover:bg-primary/90"
-                  >
-                    Se Connecter à {selectedPlatformForConnection.name}
-                  </Button>
-                </div>
-              </div>
-            )}
-
-            {/* Enhanced connection handler with better OAuth flow and success feedback */}
-            {connectionStep === 3 && (
-              <div className="space-y-6">
-                <div>
-                  <h4 className="text-lg font-semibold mb-2">Étape 3: Connexion Réussie</h4>
-                  <p className="text-sm text-muted-foreground mb-4">
-                    Votre compte {selectedPlatformForConnection.name} ({selectedAccountType}) est maintenant connecté
-                  </p>
-                </div>
-
-                <div className="space-y-3">
-                  {selectedPlatformForConnection.permissions.map((permission) => (
-                    <div
-                      key={permission}
-                      className="flex items-center justify-between p-3 rounded-lg border border-green-200 bg-green-50/50"
-                    >
-                      <div className="flex items-center gap-3">
-                        <CheckCircle className="w-5 h-5 text-green-500" />
-                        <div>
-                          <div className="font-medium text-sm">{permission}</div>
-                          <div className="text-xs text-muted-foreground">Permission accordée avec succès</div>
-                        </div>
-                      </div>
-                      <Badge variant="outline" className="bg-green-100 text-green-700 border-green-300">
-                        Activé
-                      </Badge>
-                    </div>
-                  ))}
-                </div>
-
-                <Card className="bg-gradient-to-r from-green-50 to-emerald-50 border-green-200">
-                  <CardContent className="p-4">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center">
-                        <CheckCircle className="w-6 h-6 text-green-600" />
-                      </div>
-                      <div>
-                        <div className="font-semibold text-sm text-green-800">Connexion Établie!</div>
-                        <div className="text-xs text-green-600 mt-1">
-                          Votre compte {selectedPlatformForConnection.name} est maintenant synchronisé avec Créalia
-                          Analytics. Les données seront mises à jour automatiquement.
-                        </div>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-
-                <div className="grid grid-cols-2 gap-4">
-                  <Card className="p-4 text-center">
-                    <div className="text-2xl font-bold text-primary">{selectedPlatformForConnection.followers}</div>
-                    <div className="text-xs text-muted-foreground">Followers Synchronisés</div>
-                  </Card>
-                  <Card className="p-4 text-center">
-                    <div className="text-2xl font-bold text-primary">{selectedPlatformForConnection.posts}</div>
-                    <div className="text-xs text-muted-foreground">Posts Analysés</div>
-                  </Card>
-                </div>
-
-                <div className="flex justify-between pt-4">
-                  <Button variant="outline" onClick={() => setConnectionStep(2)}>
-                    Retour
-                  </Button>
-                  <div className="flex gap-2">
-                    <Button
-                      variant="outline"
-                      onClick={() => {
-                        setShowConnectionInterface(false)
-                        // Optionally switch to analytics tab to show new data
-                      }}
-                    >
-                      Voir les Analytics
-                    </Button>
-                    <Button
-                      onClick={() => setShowConnectionInterface(false)}
-                      className="bg-primary hover:bg-primary/90"
-                    >
-                      Terminer
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
-    )
+  if (!isOpen) {
+    return null
   }
 
   return (

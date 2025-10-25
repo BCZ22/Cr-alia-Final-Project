@@ -1,17 +1,13 @@
 import { PrismaClient, AnalyticsMetric } from '@prisma/client';
 import { PrismaService } from './prisma/prisma.service';
 
-// Define the structure for the analytics summary
+// Define the structure for the analytics summary, as requested
 export interface AnalyticsSummary {
-  users: {
-    total: number;
-    newLast24h: number;
-  };
-  activeProjects: number;
-  aiRequests: {
-    total: number;
-    last24h: number;
-  };
+  usersActive: number;
+  creations: number;
+  revenue: number;
+  timeseries: { date: string; value: number }[];
+  topTools: { tool: string; count: number }[];
 }
 
 // Define the structure for a generic event
@@ -32,24 +28,42 @@ export class AnalyticsService {
 
   /**
    * Fetches a summary of key metrics.
-   * This is a MOCK implementation.
+   * This is a MOCK implementation that simulates filtering by range.
+   * @param {number} range - The date range in days.
+   * @param {string} [projectId] - Optional project ID to filter by.
    */
-  async getSummary(): Promise<AnalyticsSummary> {
-    // In a real implementation, you would query the database and aggregate data.
-    // For example:
-    // const totalUsers = await this.prisma.user.count();
-    // const newUsers = await this.prisma.user.count({ where: { createdAt: { gte: new Date(Date.now() - 24 * 60 * 60 * 1000) } } });
-    
+  async getSummary(range: number = 30, projectId?: string): Promise<AnalyticsSummary> {
+    // MOCK DATA SIMULATION
+    console.log(`[AnalyticsService] Fetching summary for range: ${range}d, projectId: ${projectId || 'all'}`);
+
+    const generateTimeSeries = (days: number) => {
+      const series = [];
+      for (let i = days - 1; i >= 0; i--) {
+        const date = new Date();
+        date.setDate(date.getDate() - i);
+        series.push({
+          date: date.toISOString().split('T')[0],
+          // Simulate some daily activity, scaled by range
+          value: Math.floor(Math.random() * (1000 / (days / 10))) + 20,
+        });
+      }
+      return series;
+    };
+
+    const timeSeriesData = generateTimeSeries(range);
+    const totalCreations = timeSeriesData.reduce((sum, item) => sum + item.value, 0);
+
     return {
-      users: {
-        total: 1250,
-        newLast24h: 15,
-      },
-      activeProjects: 340,
-      aiRequests: {
-        total: 25000,
-        last24h: 320,
-      },
+      usersActive: Math.floor(Math.random() * 500) + (range * 10),
+      creations: totalCreations,
+      revenue: Math.floor(Math.random() * 2000) + (range * 50),
+      timeseries: timeSeriesData,
+      topTools: [
+        { tool: 'text-to-image', count: Math.floor(totalCreations * 0.4) },
+        { tool: 'image-enhance', count: Math.floor(totalCreations * 0.3) },
+        { tool: 'magic-reels', count: Math.floor(totalCreations * 0.2) },
+        { tool: 'auto-captions', count: Math.floor(totalCreations * 0.1) },
+      ],
     };
   }
 

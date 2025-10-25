@@ -1,57 +1,58 @@
 import { NextRequest, NextResponse } from 'next/server';
-import StudioService from '@/backend/services/studio.service';
-import { z } from 'zod';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { prisma } from '@/lib/prisma';
 
-const studioService = new StudioService();
-// Mock user ID - in a real app, this would come from the session
-const MOCK_USER_ID = 'mock-user-id';
-
-const createProjectSchema = z.object({
-  name: z.string().min(1, { message: "Project name is required." }),
-  description: z.string().optional(),
-});
-
-/**
- * GET /api/studio/projects
- * Fetches all projects for the user.
- */
+// GET /api/studio/projects
 export async function GET(req: NextRequest) {
+  const session = await getServerSession(authOptions);
+  if (!session?.user?.id) {
+    return NextResponse.json({ error: 'Non authentifié' }, { status: 401 });
+  }
+
   try {
-    const projects = await studioService.getProjects(MOCK_USER_ID);
+    const projects = await prisma.project.findMany({
+      where: {
+        userId: session.user.id,
+      },
+      orderBy: {
+        updatedAt: 'desc',
+      },
+    });
     return NextResponse.json(projects);
   } catch (error) {
-    console.error('Error fetching projects:', error);
-    const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';
-    return NextResponse.json({ error: 'Failed to fetch projects', details: errorMessage }, { status: 500 });
+    console.error('Erreur lors de la récupération des projets:', error);
+    return NextResponse.json({ error: 'Erreur interne du serveur' }, { status: 500 });
   }
 }
 
-/**
- * POST /api/studio/projects
- * Creates a new project.
- */
+// POST /api/studio/projects
 export async function POST(req: NextRequest) {
+  const session = await getServerSession(authOptions);
+  if (!session?.user?.id) {
+    return NextResponse.json({ error: 'Non authentifié' }, { status: 401 });
+  }
+
   try {
     const body = await req.json();
-    const validation = createProjectSchema.safeParse(body);
+    const { name, description } = body;
 
-    if (!validation.success) {
-      return NextResponse.json({ error: 'Invalid request body', details: validation.error.formErrors }, { status: 400 });
+    if (!name) {
+      return NextResponse.json({ error: 'Le nom du projet est requis' }, { status: 400 });
     }
 
-    const { name, description } = validation.data;
-
-    const newProject = await studioService.createProject({
-      name,
-      description,
-      userId: MOCK_USER_ID,
+    const newProject = await prisma.project.create({
+      data: {
+        name,
+        description,
+        userId: session.user.id,
+      },
     });
 
     return NextResponse.json(newProject, { status: 201 });
   } catch (error) {
-    console.error('Error creating project:', error);
-    const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';
-    return NextResponse.json({ error: 'Failed to create project', details: errorMessage }, { status: 500 });
+    console.error('Erreur lors de la création du projet:', error);
+    return NextResponse.json({ error: 'Erreur interne du serveur' }, { status: 500 });
   }
 }
 

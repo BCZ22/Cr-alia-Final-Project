@@ -40,6 +40,10 @@ model User {
   stripeAccountId   String?  @unique
   subscriptionId    String?
   
+  // Password Reset
+  passwordResetToken          String?   @unique
+  passwordResetTokenExpiry    DateTime?
+
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
 
@@ -58,7 +62,7 @@ model User {
 
   // Nouvelles relations
   faceProcessingJobs FaceProcessingJob[]
-  aiArtGenerations   AIArtGeneration[]
+  aiArtGenerations   Generation[]
   videoProjects      VideoProject[]
   projectCollaborations ProjectCollaborator[]
   projectComments     ProjectComment[]
@@ -75,6 +79,7 @@ model User {
   affiliateReferrals  AffiliateReferral[] @relation("UserAffiliates")
   chatSessions        ChatSession[]
   usageStats          UserUsageStats?
+  payments            Payment[]
 
   @@index([email])
   @@index([apiKey])
@@ -82,6 +87,26 @@ model User {
   @@index([affiliateCode])
   @@index([stripeAccountId])
   @@map("users")
+}
+
+model Payment {
+  id                String   @id @default(cuid())
+  userId            String
+  planId            String
+  billingCycle      String // "monthly" or "yearly"
+  status            String // PENDING, PAID, FAILED
+  amount            Float?
+  currency          String?
+  stripeSessionId   String?  @unique
+  stripeCustomerId  String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([stripeSessionId])
+  @@map("payments")
 }
 
 model History {
@@ -165,7 +190,7 @@ model Project {
   jobs        Job[]
 
   // Nouvelles relations
-  aiArtGenerations AIArtGeneration[]
+  aiArtGenerations Generation[]
   collaborators    ProjectCollaborator[]
   comments         ProjectComment[]
   activities       ProjectActivity[]
@@ -750,9 +775,10 @@ enum FaceProcessingType {
   FACE_RELIGHTING
 }
 
-model AIArtGeneration {
+model Generation {
   id              String   @id @default(cuid())
-  type            AIArtType
+  type            AIArtType @map("type") // Mapped for compatibility
+  tool            String   @default("unknown")
   prompt          String
   negativePrompt  String?
   model           String
@@ -1382,6 +1408,21 @@ model UserUsageStats {
 
   @@index([userId])
   @@map("user_usage_stats")
+}
+
+model WebhookEvent {
+  id           String   @id @default(cuid())
+  eventType    String
+  eventId      String   @unique
+  payload      Json
+  status       String   // e.g., received, processed, failed
+  errorMessage String?
+  processedAt  DateTime?
+  createdAt    DateTime @default(now())
+
+  @@index([eventType])
+  @@index([status])
+  @@map("webhook_events")
 }
 
 // =============================================================================

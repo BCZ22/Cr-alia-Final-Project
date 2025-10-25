@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 /**
  * GET /api/checkout/session-info?session_id=xxx
  * Get checkout session details after successful payment

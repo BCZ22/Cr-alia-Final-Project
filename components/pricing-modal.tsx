@@ -1,6 +1,8 @@
 "use client"
 
 import { useState } from "react"
+import { useRouter } from "next/navigation"
+import { useSession } from "next-auth/react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
@@ -187,6 +189,43 @@ interface PricingModalProps {
 export function PricingModal({ isOpen, onClose }: PricingModalProps) {
   const [isYearly, setIsYearly] = useState(false)
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null)
+  const router = useRouter()
+  const { data: session } = useSession()
+  const [loading, setLoading] = useState<string | null>(null)
+
+  const handleSubscribe = async (planName: string) => {
+    if (!session?.user) {
+      router.push('/auth/signin?callbackUrl=/pricing')
+      return
+    }
+
+    // Associer le nom du plan à un planId simplifié
+    const planId = `pro_${isYearly ? 'yearly' : 'monthly'}`
+    setLoading(planName)
+
+    try {
+      const response = await fetch('/api/checkout/create-session', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          planId: 'pro', // Simplifié pour la démo, car nous n'avons qu'un type de plan "pro"
+          billingCycle: isYearly ? 'yearly' : 'monthly',
+        }),
+      })
+
+      const data = await response.json()
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to create checkout session')
+      }
+      window.location.href = data.url
+    } catch (error) {
+      console.error('Subscription error:', error)
+      alert('Erreur lors de la création de la session de paiement.')
+      setLoading(null)
+    }
+  }
 
   if (!isOpen) return null
 
@@ -285,6 +324,8 @@ export function PricingModal({ isOpen, onClose }: PricingModalProps) {
                 </div>
 
                 <Button
+                  onClick={() => handleSubscribe(plan.name)}
+                  disabled={!!loading}
                   className={cn(
                     "w-full rounded-full py-3 font-medium transition-all",
                     plan.popular
@@ -292,7 +333,7 @@ export function PricingModal({ isOpen, onClose }: PricingModalProps) {
                       : "bg-secondary hover:bg-secondary/80 text-foreground",
                   )}
                 >
-                  {plan.buttonText} →
+                  {loading === plan.name ? "Chargement..." : `${plan.buttonText} →`}
                 </Button>
               </div>
             ))}

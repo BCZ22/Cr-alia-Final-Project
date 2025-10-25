@@ -2,10 +2,132 @@ import Stripe from "stripe";
 import { prisma } from "./prisma";
 import { recordAffiliateEarning } from "./affiliate";
 
+// Définition des plans et de leurs identifiants de prix Stripe
+const plans = {
+  pro_monthly: process.env.STRIPE_PRICE_ID_PRO_MONTHLY,
+  pro_yearly: process.env.STRIPE_PRICE_ID_PRO_YEARLY,
+};
+
 export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "", {
   apiVersion: "2024-12-18.acacia",
   typescript: true,
 });
+
+/**
+ * Vérifie si un planId est valide
+ */
+export function isValidPlanId(planId: string): planId is keyof typeof plans {
+  return planId in plans;
+}
+
+/**
+ * Récupère les informations d'une session de paiement
+ */
+export async function getCheckoutSession(sessionId: string) {
+  return stripe.checkout.sessions.retrieve(sessionId, {
+    expand: ["subscription", "customer"],
+  });
+}
+
+/**
+ * Crée une session de portail client Stripe
+ */
+export async function createCustomerPortalSession(
+  customerId: string,
+  returnUrl: string
+) {
+  return stripe.billingPortal.sessions.create({
+    customer: customerId,
+    return_url: returnUrl,
+  });
+}
+
+/**
+ * Crée une session de paiement Stripe
+ */
+export async function createCheckoutSession({
+  user,
+  planId,
+  billingCycle,
+  successUrl,
+  cancelUrl,
+  trialDays,
+  affiliateCode,
+}: {
+  user: { id: string; email: string; stripeCustomerId?: string | null };
+  planId: keyof typeof plans;
+  billingCycle: "monthly" | "yearly";
+  successUrl: string;
+  cancelUrl: string;
+  trialDays?: number;
+  affiliateCode?: string | null;
+}) {
+  const priceId = plans[planId];
+  if (!priceId) {
+    throw new Error(`Price ID for plan ${planId} not found`);
+  }
+
+  let customerId = user.stripeCustomerId;
+  if (!customerId) {
+    const customer = await stripe.customers.create({
+      email: user.email,
+      metadata: { userId: user.id },
+    });
+    customerId = customer.id;
+
+    await prisma.user.update({
+      where: { id: user.id },
+      data: { stripeCustomerId: customerId },
+    });
+  }
+
+  const sessionParams: Stripe.Checkout.SessionCreateParams = {
+    customer: customerId,
+    payment_method_types: ["card"],
+    line_items: [{ price: priceId, quantity: 1 }],
+    mode: "subscription",
+    success_url: `${successUrl}?session_id={CHECKOUT_SESSION_ID}`,
+    cancel_url: cancelUrl,
+    metadata: {},
+  };
+
+  if (affiliateCode) {
+    sessionParams.metadata!.affiliateCode = affiliateCode;
+  }
+
+  if (trialDays && trialDays > 0) {
+    sessionParams.subscription_data = {
+      trial_period_days: trialDays,
+    };
+  }
+  
+  const payment = await prisma.payment.create({
+    data: {
+      userId: user.id,
+      planId,
+      billingCycle,
+      status: "PENDING",
+      stripeCustomerId: customerId,
+    },
+  });
+  
+  sessionParams.metadata!.paymentId = payment.id;
+  
+  const session = await stripe.checkout.sessions.create(sessionParams);
+
+  if (session.id) {
+    await prisma.payment.update({
+      where: { id: payment.id },
+      data: { stripeSessionId: session.id },
+    });
+  }
+
+  return {
+    sessionId: session.id,
+    url: session.url,
+    paymentId: payment.id,
+  };
+}
 
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET || "";
 

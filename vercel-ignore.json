@@ -1,0 +1,14 @@
+{
+  "github": {
+    "deploymentProtectionRule": true,
+    "enabled": true,
+    "autoJobCancelation": true
+  },
+  "git": {
+    "deploymentEnabled": {
+      "main": false,
+      "staging": true,
+      "dev": true
+    }
+  }
+}
