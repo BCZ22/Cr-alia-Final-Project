@@ -279,7 +279,7 @@ export function CrealiaStudioInterfaceV2({ isOpen, onClose }: CrealiaStudioInter
   const pollGenerationStatus = async (generationId: string) => {
     const poll = async () => {
       try {
-        const response = await fetch(`/api/studio/generate/${generationId}`)
+        const response = await fetch(`/api/studio/jobs/${generationId}`);
         
         if (!response.ok) {
             // Stop polling on 404 or other fatal errors
@@ -288,16 +288,16 @@ export function CrealiaStudioInterfaceV2({ isOpen, onClose }: CrealiaStudioInter
             return;
         }
 
-        const job: GenerationJob = await response.json();
+        const { job } = await response.json();
         
         // Map the backend response to the frontend's GenerationJob type
         const updatedJob: GenerationJob = {
           job_id: job.id,
-          status: job.status,
-          progress: job.progress,
+          status: job.status.toLowerCase(), // Ensure enum compatibility
+          progress: job.progress, // Assuming the job object has progress
           error: job.error,
-          outputs: job.resultUrl ? [{ id: 'output_1', url: job.resultUrl, thumbnail: job.resultUrl }] : [],
-          estimated_time_sec: job.estimated_time_sec,
+          outputs: job.outputData?.url ? [{ id: 'output_1', url: job.outputData.url, thumbnail: job.outputData.url }] : [],
+          estimated_time_sec: job.estimated_time_sec, // Assuming this exists
         };
         
         setCurrentJob(updatedJob);
