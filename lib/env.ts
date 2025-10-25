@@ -4,8 +4,7 @@ const envSchema = z.object({
   DATABASE_URL: z.string().url(),
   STRIPE_SECRET_KEY: z.string().startsWith("sk_"),
   OPENAI_API_KEY: z.string().startsWith("sk-"),
-  NEXTAUTH_URL: z.string().url().optional(),
-  BASE_URL: z.string().url(),
+  NEXTAUTH_URL: z.string().url("NEXTAUTH_URL is required and must be a valid URL."),
 });
 
 const parsedEnv = envSchema.safeParse(process.env);
