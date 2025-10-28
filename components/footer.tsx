@@ -41,18 +41,17 @@ const PinterestIcon = ({ className }: { className?: string }) => (
 )
 
 interface FooterProps {
-  onAboutClick?: () => void
-  onPrivacyClick?: () => void
-  onTermsClick?: () => void
+  onAboutClick: () => void
+  onPrivacyClick: () => void
+  onTermsClick: () => void
 }
 
 export function Footer({ onAboutClick, onPrivacyClick, onTermsClick }: FooterProps) {
   return (
-    <>
-      <footer className="bg-background border-t border-border">
-        <div className="container-modern py-16">
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mb-12">
-            {/* Créalia AI */}
+    <footer className="bg-background border-t border-border/50 text-muted-foreground">
+      <div className="container mx-auto px-4 py-16">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
+          {/* Crealia AI */}
             <div className="pt-6">
               <h3 className="font-bold text-foreground mb-4">Créalia AI</h3>
               <ul className="space-y-2 text-sm">
@@ -178,9 +177,8 @@ export function Footer({ onAboutClick, onPrivacyClick, onTermsClick }: FooterPro
                 </li>
                 <li>
                   <button
+                    className="hover:text-primary transition-colors duration-300"
                     onClick={onAboutClick}
-                    className="text-muted-foreground hover:text-primary transition-colors text-left"
-                    aria-label="À propos"
                   >
                     À propos
                   </button>
@@ -190,7 +188,7 @@ export function Footer({ onAboutClick, onPrivacyClick, onTermsClick }: FooterPro
           </div>
 
           {/* Réseaux sociaux et liens légaux */}
-          <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-border">
+          <div className="mt-16 pt-8 border-t border-border/50 flex flex-col md:flex-row justify-between items-center">
             <div className="flex items-center space-x-4 mb-4 md:mb-0">
               <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
                 <TwitterIcon className="w-5 h-5" />
@@ -213,25 +211,29 @@ export function Footer({ onAboutClick, onPrivacyClick, onTermsClick }: FooterPro
             </div>
 
             <div className="flex items-center space-x-6 text-sm text-muted-foreground">
-              <a href="/privacy" className="hover:text-primary transition-colors" aria-label="Politique de confidentialité">
+              <button
+                className="hover:text-primary transition-colors duration-300"
+                onClick={onPrivacyClick}
+              >
                 Politique de confidentialité
-              </a>
+              </button>
               <span>•</span>
-              <a href="/terms" className="hover:text-primary transition-colors" aria-label="Conditions d'utilisation">
+              <button
+                className="hover:text-primary transition-colors duration-300"
+                onClick={onTermsClick}
+              >
                 Conditions d'utilisation
-              </a>
+              </button>
             </div>
           </div>
 
           {/* Copyright */}
           <div className="text-center mt-8 pt-8 border-t border-border">
             <p className="text-sm text-muted-foreground">
-              © 2024 Créalia. Tous droits réservés. Créez du contenu viral avec l'intelligence artificielle.
+              © 2024 Créalia. Tous droits réservés. L'intelligence artificielle au service de la créativité.
             </p>
           </div>
         </div>
       </footer>
-
-    </>
   )
 }
