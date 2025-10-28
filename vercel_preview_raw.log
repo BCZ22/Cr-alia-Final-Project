@@ -1,0 +1,19 @@
+Vercel CLI 48.6.0
+Retrieving project…
+Deploying anthbcz-9354s-projects/cr-alia-final-project
+Uploading [--------------------] (0.0B/5.3MB)
+Uploading [=====---------------] (1.3MB/5.3MB)
+Uploading [==========----------] (2.7MB/5.3MB)
+Uploading [===============-----] (4.0MB/5.3MB)
+Uploading [====================] (5.3MB/5.3MB)
+Inspect: https://vercel.com/anthbcz-9354s-projects/cr-alia-final-project/46yMyNPDbTTECxM7UGgiLbcpvPuR [30s]
+Preview: https://cr-alia-final-project-7h63bejft-anthbcz-9354s-projects.vercel.app [30s]
+https://cr-alia-final-project-7h63bejft-anthbcz-9354s-projects.vercel.appQueued
+Building
+Completing
+To deploy to production (xn--craliaai-c1a.com +1), run `vercel --prod`
+
+Common next commands:
+- `vercel inspect cr-alia-final-project-7h63bejft-anthbcz-9354s-projects.vercel.app --logs`
+- `vercel redeploy cr-alia-final-project-7h63bejft-anthbcz-9354s-projects.vercel.app`
+- `vercel deploy --prod`
