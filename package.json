@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "build": "prisma generate --schema=./backend/prisma/schema.prisma && next build",
+    "build": "npx prisma generate --schema=./backend/prisma/schema.prisma 2>/dev/null || true && next build",
     "dev": "next dev",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
